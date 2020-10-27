@@ -4,54 +4,43 @@ require 'password.php';
 
 class Account
 {
-	/* Class properties (variables) */
-
-	/* The ID of the logged in account (or NULL if there is no logged in account) */
 	private $id;
-
-	/* The name of the logged in account (or NULL if there is no logged in account) */
 	private $name;
-
-	/* TRUE if the user is authenticated, FALSE otherwise */
-	private $authenticated;
+	private $isAuthenticated;
 
 
-	/* Public class methods (functions) */
-
-	/* Constructor */
 	public function __construct()
 	{
-		/* Initialize the $id and $name variables to NULL */
 		$this->id = NULL;
 		$this->name = NULL;
-		$this->authenticated = FALSE;
+		$this->isAuthenticated = FALSE;
 	}
 
-	/* Destructor */
 	public function __destruct()
 	{
 
     }
 
-    /* Add a new account to the system and return its ID (the account_id column of the accounts table) */
-    public function addAccount(string $name, string $passwd): int
+    public function addAccount(string $name, string $password, string $email, string $cell, string $first_name, string $last_name): int
     {
         global $pdo;
 
         $name = trim($name);
+        $email = trim($email);
+        $cell = trim($cell);
+        $first_name = trim($first_name);
+        $last_name = trim($last_name);
 
-        if (!$this->isNameValid($name)) throw new Exception('Invalid user name');
-        if (!$this->isPasswdValid($passwd)) throw new Exception('Invalid password');
-        if (!is_null($this->getIdFromName($name))) throw new Exception('User name not available');
+        if (!$this->isNameValid($name)) throw new Exception('Invalid username');
+        if (!$this->isPasswordValid($password)) throw new Exception('Invalid password');
+        if (!is_null($this->getIdFromName($name))) throw new Exception('Username not available');
 
-        $query = 'INSERT INTO myschema.accounts (account_name, account_passwd) VALUES (:name, :passwd)';
+        $query = 'INSERT INTO User (username, pass, need_pwch, email, cell, fir_name, las_name) VALUES (:name, :password, 0, :email, :cell, :fname, :lname)';
 
-        // Password hash
-        $hash = password_hash($pwd, PASSWORD_BCRYPT, ["cost" => 10]);
+        $hash = password_hash($pwd, PASSWORD_BCRYPT, ['cost' => 10]);
 
-        $values = array(':name' => $name, ':passwd' => $hash);
+        $values = array(':name' => $name, ':password' => $hash, ':email' => $email, ':cell' => $cell, ':fname' => $first_name, ':lname' => $last_name);
 
-        /* Execute the query */
         try
         {
             $res = $pdo->prepare($query);
@@ -59,90 +48,93 @@ class Account
         }
         catch (PDOException $e)
         {
-            /* If there is a PDO exception, throw a standard exception */
             throw new Exception('Database query error');
         }
 
-        /* Return the new ID */
         return $pdo->lastInsertId();
     }
 
-    /* A sanitization check for the account username */
-public function isNameValid(string $name): bool
-{
-	/* Initialize the return variable */
-	$valid = TRUE;
+    public function editAccount(int $id, string $name, string $password, string $email, string $cell, string $first_name, string $last_name)
+    {
+        global $pdo;
 
-	/* Example check: the length must be between 8 and 16 chars */
-	$len = mb_strlen($name);
+        $name = trim($name);
+        $email = trim($email);
+        $cell = trim($cell);
+        $first_name = trim($first_name);
+        $last_name = trim($last_name);
 
-	if (($len < 8) || ($len > 16))
-	{
-		$valid = FALSE;
-	}
+        if (!$this->isIdValid($id)) throw new Exception('Invalid account ID');
+        if (!$this->isNameValid($name)) throw new Exception('Invalid username');
+        if (!$this->isPasswdValid($password)) throw new Exception('Invalid password');
 
-	/* You can add more checks here */
+        $idFromName = $this->getIdFromName($name);
+        if (!is_null($idFromName) && ($idFromName != $id)) throw new Exception('Username already used');
 
-	return $valid;
-}
 
-/* A sanitization check for the account password */
-public function isPasswdValid(string $passwd): bool
-{
-	/* Initialize the return variable */
-	$valid = TRUE;
+        $query = 'UPDATE myschema.accounts SET account_name = :name, account_password = :password, account_enabled = :enabled WHERE account_id = :id';
 
-	/* Example check: the length must be between 8 and 16 chars */
-	$len = mb_strlen($passwd);
+        $hash = password_hash($pwd, PASSWORD_BCRYPT, ['cost' => 10]);
 
-	if (($len < 8) || ($len > 16))
-	{
-		$valid = FALSE;
-	}
+        $values = array(':name' => $name, ':password' => $hash, ':enabled' => $intEnabled, ':id' => $id);
 
-	/* You can add more checks here */
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+    }
 
-	return $valid;
-}
+    public function isNameValid(string $name): bool
+    {
+        $valid = TRUE;
+        return $valid;
+    }
 
-/* Returns the account id having $name as name, or NULL if it's not found */
-public function getIdFromName(string $name): ?int
-{
-	/* Global $pdo object */
-	global $pdo;
+    public function isPasswordValid(string $password): bool
+    {
+        // Probably should be used on sign-in not account creation
+        $valid = TRUE;
+        return $valid;
+    }
 
-	/* Since this method is public, we check $name again here */
-	if (!$this->isNameValid($name))
-	{
-		throw new Exception('Invalid user name');
-	}
+    public function isIdValid(int $id): bool
+    {
+        // Not really a useful function...
+        $valid = TRUE;
+        return $valid;
+    }
 
-	/* Initialize the return value. If no account is found, return NULL */
-	$id = NULL;
+    public function getIdFromName(string $name): ?int
+    {
+        global $pdo;
 
-	/* Search the ID on the database */
-	$query = 'SELECT account_id FROM myschema.accounts WHERE (account_name = :name)';
-	$values = array(':name' => $name);
+        /* Since this method is public, we check $name again here */
+        if (!$this->isNameValid($name)) throw new Exception('Invalid user name');
 
-	try
-	{
-		$res = $pdo->prepare($query);
-		$res->execute($values);
-	}
-	catch (PDOException $e)
-	{
-	   /* If there is a PDO exception, throw a standard exception */
-	   throw new Exception('Database query error');
-	}
+        $id = NULL;
 
-	$row = $res->fetch(PDO::FETCH_ASSOC);
+        $query = 'SELECT user_id FROM User WHERE (username = :name)';
+        $values = array(':name' => $name);
 
-	/* There is a result: get it's ID */
-	if (is_array($row))
-	{
-		$id = intval($row['account_id'], 10);
-	}
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
 
-	return $id;
-}
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($row)) $id = intval($row['account_id'], 10);
+
+        return $id;
+    }
 }

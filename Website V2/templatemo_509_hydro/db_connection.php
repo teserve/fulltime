@@ -7,7 +7,7 @@ $host = "mydb.itap.purdue.edu";
 $user = "g1116887";
 
 /* MySQL account password */
-$passwd = "12Blueapples";
+$password = "12Blueapples";
 
 /* The PDO object */
 $pdo = NULL;
@@ -19,7 +19,7 @@ $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
 try
 {
    /* PDO object creation */
-   $pdo = new PDO($dsn, $user,  $passwd);
+   $pdo = new PDO($dsn, $user,  $password);
 
    /* Enable exceptions on errors */
    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
