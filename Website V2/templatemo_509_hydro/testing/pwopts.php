@@ -10,4 +10,3 @@ do {
 } while (($end - $start) < $timeTarget);
 
 echo "Appropriate Cost Found: " . $cost;
-?>

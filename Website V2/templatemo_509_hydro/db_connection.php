@@ -1,32 +1,23 @@
 <?php
 
-/* Host name of the MySQL server */
+error_reporting(-1);
+ini_set('display_errors', 'On');
+
+// Connection string, or "data source name"
 $host = "mydb.itap.purdue.edu";
-
-/* MySQL account username */
-$user = "g1116887";
-
-/* MySQL account password */
-$password = "12Blueapples";
-
-/* The PDO object */
-$pdo = NULL;
-
-/* Connection string, or "data source name" */
+$schema = "g1116887";
 $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
 
-/* Connection inside a try/catch block */
+$user = "g1116887";
+$password = "12Blueapples";
+
 try
 {
-   /* PDO object creation */
    $pdo = new PDO($dsn, $user,  $password);
-
-   /* Enable exceptions on errors */
    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch (PDOException $e)
 {
-   /* If there is an error an exception is thrown */
    echo 'Database connection failed.';
    die();
 }
