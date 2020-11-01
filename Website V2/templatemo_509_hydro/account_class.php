@@ -147,27 +147,21 @@ class Account
         }
     }
 
-    public function login(string $name, string $password): bool
+    public function login($email, $password)
     {
         global $pdo;
 
-        $name = trim($name);
+        $email = trim($email);
         $password = trim($password);
 
-        if (!$this->isNameValid($name)) return FALSE
+        if (!$this->isEmailValid($email)) return FALSE;
+        if (!$this->isPasswordValid($password)) return FALSE;
 
-        if (!$this->isPassworddValid($password))
-        {
-            return FALSE;
-        }
+        $query = 'SELECT * FROM g1116887.User WHERE (email = :email)';
+        // $query = 'SELECT * FROM g1116887.User WHERE (account_name = :name) AND (account_enabled = 1)';
 
-        /* Look for the account in the db. Note: the account must be enabled (account_enabled = 1) */
-        $query = 'SELECT * FROM myschema.accounts WHERE (account_name = :name) AND (account_enabled = 1)';
+        $values = array(':email' => $email);
 
-        /* Values array for PDO */
-        $values = array(':name' => $name);
-
-        /* Execute the query */
         try
         {
             $res = $pdo->prepare($query);
@@ -175,31 +169,26 @@ class Account
         }
         catch (PDOException $e)
         {
-        /* If there is a PDO exception, throw a standard exception */
-        throw new Exception('Database query error');
+            throw new Exception('Database query error');
         }
 
         $row = $res->fetch(PDO::FETCH_ASSOC);
 
-        /* If there is a result, we must check if the password matches using password_verify() */
         if (is_array($row))
         {
-            if (password_verify($password, $row['account_password']))
+            if (password_verify($password, $row['pass']))
             {
-                /* Authentication succeeded. Set the class properties (id and name) */
-                $this->id = intval($row['account_id'], 10);
-                $this->name = $name;
+                $this->id = intval($row['user_id'], 10);
+                $this->name = $row['username'];
                 $this->authenticated = TRUE;
 
                 /* Register the current Sessions on the database */
-                $this->registerLoginSession();
+                // $this->registerLoginSession();
 
-                /* Finally, Return TRUE */
                 return TRUE;
             }
         }
 
-        /* If we are here, it means the authentication failed: return FALSE */
         return FALSE;
     }
 
@@ -209,7 +198,7 @@ class Account
         return $valid;
     }
 
-    public function isPasswordValid($id, $password)
+    public function isPasswordValid($password)
     {
         // Probably should be used on sign-in not account creation
         $valid = TRUE;
@@ -223,18 +212,23 @@ class Account
         return $valid;
     }
 
+    public function isEmailValid($email)
+    {
+        if (preg_match('/.+@.+\..+/i', $email)) return TRUE;
+        else return FALSE;
+    }
+
     public function getIdFromName($name)
     {
         global $pdo;
 
         /* Since this method is public, we check $name again here */
-        if (!$this->isNameValid($name)) {
-            throw new Exception('Invalid user name');
-        }
+        if (!$this->isNameValid($name)) throw new Exception('Invalid user name');
 
         $id = NULL;
 
-        $query = 'SELECT user_id FROM User WHERE (username = :name)';
+        $query = 'SELECT user_id FROM g1116887.User WHERE (username = :name)';
+
         $values = array(':name' => $name);
 
         try
@@ -249,7 +243,7 @@ class Account
 
         $row = $res->fetch(PDO::FETCH_ASSOC);
 
-        if (is_array($row)) $id = intval($row['account_id'], 10);
+        if (is_array($row)) $id = intval($row['account_id']);
 
         return $id;
     }

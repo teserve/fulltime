@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 require 'db_connection.php';
@@ -8,13 +9,12 @@ $account = new Account();
 
 try
 {
-    $newId = $account->addAccount($_POST['username'], $_POST['password'], $_POST['email'], $_POST['telephone'], $_POST['name'], $_POST['name']);
-    echo 'Account creation successfull. <br>Account ID = ' . $newId;
-    header('location: ./Student%20Profile%20Documents/User%20Profile.html');
+    $res = $account->login($_POST['email'], $_POST['password']);
+    if ($res) header('location: ./Student%20Profile%20Documents/User%20Profile.html');
+    else header('location: index.html');
 }
 catch (Exception $e)
 {
-    echo 'Account creation failed.<br>';
     echo $e->getMessage();
 	die();
 }

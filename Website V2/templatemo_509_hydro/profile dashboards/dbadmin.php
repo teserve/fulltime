@@ -19,7 +19,6 @@
      <link rel="stylesheet" href="css/font-awesome.min.css">
      <link rel="stylesheet" href="css/websitev2.css">
 
-
 </head>
 
 <body id="top">
@@ -50,13 +49,13 @@
                     </button>
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="index.html" class="navbar-brand">FullTime</a>
+                    <a href="../index.html" class="navbar-brand">FullTime</a>
                </div>
 
                <!-- MENU LINKS -->
                <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a>Analytics</a></li>
+                         <li><a href ="../Analytics/starter/Admin%20Analytics.html">Analytics</a></li>
                          <li><a>Rating</a></li>
                          <li class="section-btn"><a>Log Out </a></li>
                     </ul>
@@ -75,9 +74,9 @@
                                    <div class="content-center">
                                         <div class="cc-profile-image"><a href="#"><img src="images/anthony.jpg"
                                                        alt="Image" /></a></div>
-                                        <div class="h2 title">Anthony Barnett</div>
+                                        <div class="h2 title">Randy Sullivan</div>
                                         <p class="category text-white">Academic Advisor, Industrial Engineering</p><a
-                                             class="btn btn-primary smooth-scroll mr-2" href="#contact"
+                                             class="btn btn-primary smooth-scroll mr-2" href="../Profile/AdminProfile.html"
                                              data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Edit Profile</a>
                                    </div>
                               </div>
@@ -142,17 +141,14 @@
                </div>
 
                <!-- FOOTER -->
-               <footer data-stellar-background-ratio="0.5" style="background-color:black;">
+               <footer data-stellar-background-ratio="0.5" style="background-color:black;" >
                     <div class="container">
                          <div class="row" style="color:white;">
 
                               <div class="col-md-5 col-sm-12">
                                    <div class="footer-thumb footer-info">
                                         <h2>FullTime</h2>
-                                        <p>FullTime is a professional services provider for students, faculty, and
-                                             employers. Our site creates an immersive experience that enables students
-                                             with the power to leverage available job postings and find their next step.
-                                        </p>
+                                        <p>FullTime is a professional services provider for students, faculty, and employers. Our site creates an immersive experience that enables students with the power to leverage available job postings and find their next step.</p>
                                    </div>
                               </div>
 
@@ -186,8 +182,7 @@
                                                   <p>Call us <span>(765) Get-Jobs</span></p>
                                              </div>
                                              <ul class="social-icon">
-                                                  <li><a href="https://www.facebook.com/templatemo"
-                                                            class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                                  <li><a href="https://www.facebook.com/templatemo" class="fa fa-facebook-square" attr="facebook icon"></a></li>
                                                   <li><a href="#" class="fa fa-twitter"></a></li>
                                                   <li><a href="#" class="fa fa-instagram"></a></li>
                                              </ul>
