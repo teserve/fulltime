@@ -16,7 +16,7 @@ try
     $_SESSION['account_id'] = $account->id;
 
     if ($res === 'student') {
-        header('location: ./Dashboard/dbstudent.html');
+        header('location: ./Dashboard/dbstudent.php');
     }
     elseif ($res === 'employee') {
         header('location: ./Dashboard/dbemployer.html');

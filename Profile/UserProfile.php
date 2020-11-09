@@ -96,7 +96,7 @@
             <h1 class="display-2 text-white">Hello <?php echo $account->first_name;?></h1>
             <p class="text-white mt-0 mb-5">This is your profile page. You can add your skills, build your portfolio,
               and express your creative endeavors.</p>
-            <a href="../Dashboard/dbstudent.html" class="btn btn-info">Dashboard</a>
+            <a href="../Dashboard/dbstudent.php" class="btn btn-info">Dashboard</a>
           </div>
         </div>
       </div>

@@ -3,12 +3,17 @@
 
 <head>
 
+  <?php
+    session_start();
+    include '../account_class.php';
+    $account = new Account();
+    $account->getInfo($_SESSION['account_id']);
+  ?>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>profile</title>
-  <meta name="description"
-    content="Creative CV is a HTML resume template for professionals. Built with Bootstrap 4, Now UI Kit and FontAwesome, this modern and responsive design template is perfect to showcase your portfolio, skils and experience." />
+  <title>Profile Page</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <link href="css/aos.css" rel="stylesheet">
@@ -79,7 +84,7 @@
             <div class="container">
               <div class="content-center">
                 <div class="cc-profile-image"><a href="#"><img src="images/blankprofile.jpg" alt="Image" /></a></div>
-                <div class="h2 title">Claire Standhart</div>
+                <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
                 <p class="category text-white">Undergraduate, Industrial Engineering</p><a
                   class="btn btn-primary smooth-scroll mr-2" href="../Profile/UserProfile.php" data-aos="zoom-in"
                   data-aos-anchor="data-aos-anchor">Edit Profile</a><a class="btn btn-primary" href="#"
