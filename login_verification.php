@@ -10,17 +10,19 @@ $account = new Account();
 try
 {
     $res = $account->login($_POST['email'], $_POST['password']);
-    // echo $res;
-    // if ($res == FALSE) header('location: index.html');
+
+    if ($res == FALSE) header('location: index.html');
+
+    $_SESSION['account_id'] = $account->id;
 
     if ($res === 'student') {
-        // header('location: ./Dashboard/dbstudent.html');
+        header('location: ./Dashboard/dbstudent.html');
     }
     elseif ($res === 'employee') {
-        // header('location: ./Dashboard/dbemployer.html');
+        header('location: ./Dashboard/dbemployer.html');
     }
     elseif ($res === 'admin') {
-        // header('location: ./Dashboard/dbadmin.html');
+        header('location: ./Dashboard/dbadmin.html');
     }
 }
 catch (Exception $e)
@@ -32,3 +34,4 @@ catch (Exception $e)
 // Dereferencing the object will cause PDO to close the Database connection.
 // If you don't do this explicitly, PHP will automatically close the connection when your script ends.
 $pdo = NULL;
+?>

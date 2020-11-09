@@ -8,10 +8,10 @@ $account = new Account();
 
 try
 {
-    $newId = $account->addAccount($_POST['password'], $_POST['email'], $_POST['telephone'], $_POST['first_name'], $_POST['last_name']);
+    $newId = $account->addAccount($_POST['password'], $_POST['email'], $_POST['telephone'], $_POST['first_name'], $_POST['last_name'], $_POST['account_type']);
 
     if ($_POST['account_type'] == 'Student') {
-        header('location: ./Profile/UserProfile.html');
+        header('location: ./Profile/UserProfile.php');
     }
     elseif ($_POST['account_type'] == 'Employer') {
         header('location: ./Profile/EmployerProfile.html');

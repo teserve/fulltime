@@ -1518,6 +1518,7 @@ fieldset[disabled]
 
 .btn-primary {
   background-color: #ffbc6e;
+  border-radius: 1.5rem;
   color: #FFFFFF;
 }
 
@@ -3267,7 +3268,6 @@ body {
 
 .navbar .navbar-brand {
   text-transform: uppercase;
-  color: #ffdaae;
   font-size: 1.5em;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -5172,6 +5172,8 @@ Created using IcoMoon - icomoon.io
   text-align: center;
   position: relative;
 }
+
+/* Profile Picture Position*/
 
 .page-header .container > .content-center {
   position: absolute;
