@@ -6,63 +6,55 @@ include 'account_class.php';
 
 // $account = new Account();
 
-echo var_dump($_POST) . "<br>";
-echo $_FILES['profile_pic']['name'];
+$upload_dir = "../../user_data/" . $_SESSION['account_id'];
+$upload_file = "/profile_picture.png";
+$upload_location = $upload_dir . $upload_file;
 
-$target_file = "../../user_data/" . $_SESSION['account_id'] . "/profile_picture.png";
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+$upload = 1;
 
 // Check if it is a valid image
-if(exif_imagetype($_FILES["profile_pic"]["tmp_name"]) === FALSE)
-{
-    $uploadOk = 0;
-    echo 'not a valid image';
-}
+$invalid_image = exif_imagetype($_FILES["profile_pic"]["tmp_name"]) === FALSE;
 
-// Check if file already exists
-if (file_exists($target_file)) {
-    $uploadOk = 0;
+if($invalid_image)
+{
+    $upload = 0;
 }
 
 // Check file size
-if ($_FILES["profile_pic"]["size"] > 500000)
+$file_size_exceeded = $_FILES["profile_pic"]["size"] > 500000;
+
+if ($file_size_exceeded)
 {
-    $uploadOk = 0;
+    $upload = 0;
 }
-
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    $uploadOk = 0;
-}
-
-// Perform upload
-// if ($uploadOk)
-// {
-//     $file_string = file_get_contents($_FILES["profile_pic"]["tmp_name"]);
-//     $img = imagecreatefromstring($file_string);
-//     imagepng($img, "output.png");
-// }
-
 
 try
 {
-    // $newId = $account->editAccount($_SESSION['account_id'], $_POST['email'], $_POST['telephone'], $_POST['first_name'], $_POST['last_name']);
+    // Perform upload
+    if ($upload)
+    {
+        $file_string = file_get_contents($_FILES["profile_pic"]["tmp_name"]);
+        $img = imagecreatefromstring($file_string);
+        if (!file_exists($upload_dir)) mkdir($upload_dir);
+        imagepng($img, $upload_location);
+        echo 'Upload successful to ' . $upload_location;
+    }
 
-    // if ($_POST['account_type'] == 'Student') {
-    //     header('location: ./Profile/UserProfile.php');
-    // }
-    // elseif ($_POST['account_type'] == 'Employer') {
-    //     header('location: ./Profile/EmployerProfile.php');
-    // }
-    // elseif ($_POST['account_type'] == 'Administration') {
-    //     header('location: ./Profile/AdminProfile.php');
-    // }
+    $account->editAccount($_SESSION['account_id'], $_POST['email'], $_POST['input-phone'], $_POST['input-first-name'], $_POST['input-last-name']);
+
+    if ($_POST['account_type'] == 'Student') {
+        header('location: ./Profile/UserProfile.php');
+    }
+    elseif ($_POST['account_type'] == 'Employer') {
+        header('location: ./Profile/EmployerProfile.php');
+    }
+    elseif ($_POST['account_type'] == 'Administration') {
+        header('location: ./Profile/AdminProfile.php');
+    }
 }
 catch (Exception $e)
 {
-    echo 'Account creation failed.<br>';
+    echo 'Account edit failed.<br>';
     echo $e->getMessage();
 	die();
 }
