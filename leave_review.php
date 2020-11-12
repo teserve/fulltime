@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 include 'enter_review.php';
 include 'db_connection.php';
 
-public function insert_review($company, $industry, $e_type, $rating, $review)
+function insert_review($company, $industry, $e_type, $rating, $review)
 {
 
     global $pdo;
@@ -19,7 +19,7 @@ public function insert_review($company, $industry, $e_type, $rating, $review)
     $main_values = array(':company' => $company,':industry' => $industry, 'e_type' => $e_type, ':rating' => $rating, ':review' => $review);
 
     try{
-    
+
         $pdo->beginTransaction();
 
         $res1 = $pdo->prepare($review_query);
@@ -34,5 +34,3 @@ public function insert_review($company, $industry, $e_type, $rating, $review)
     }
 
 }
-
-?> 
