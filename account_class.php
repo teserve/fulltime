@@ -41,24 +41,30 @@ class Account
         }
 
         $user_query = 'INSERT INTO g1116887.User (pass, need_pwch, email, cell, fir_name, las_name, creat_time) VALUES (:password, 0, :email, :cell, :fname, :lname, CURDATE())';
+        $id_query = 'SELECT user_id from g1116887.User WHERE email = :email';
 
         $type_query = NULL;
-        $table_name = NULL;
+
         if ($acc_type === "Student")
         {
-            $table_name = 'Student';
-            $type_query = 'INSERT INTO g1116887.' . $table_name . ' (user_id, start_date) VALUES ((SELECT user_id FROM g1116887.User WHERE email = :email), CURDATE())';
+            $type_query = 'INSERT INTO g1116887.Student (user_id, start_date) VALUES ((SELECT user_id FROM g1116887.User WHERE email = :email), CURDATE())';
         }
-        else
+        elseif ($acc_type === "Employer")
         {
-            $table_name = 'Employee';
-            $type_query = 'INSERT INTO g1116887.' . $table_name . ' (user_id, inst_id) VALUES ((SELECT user_id FROM g1116887.User WHERE email = :email), 1)';
+            $type_query = 'INSERT INTO g1116887.Employee (user_id, inst_id) VALUES ((SELECT user_id FROM g1116887.User WHERE email = :email), 1)';
+        }
+        elseif ($acc_type === "Administration")
+        {
+            $type_query = 'INSERT INTO g1116887.Admin (user_id, university) VALUES ((SELECT user_id FROM g1116887.User WHERE email = :email), 1)';
         }
 
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
 
         $main_values = array(':password' => $hash, ':email' => $email, ':cell' => $cell, ':fname' => $first_name, ':lname' => $last_name);
         $type_values = array(':email' => $email);
+        $id_values = $type_values;
+
+        $last_id = NULL;
 
         try
         {
@@ -70,6 +76,9 @@ class Account
             $res2 = $pdo->prepare($type_query);
             $res2->execute($type_values);
 
+            $res3 = $pdo->prepare($id_query);
+            $res3->execute($id_values);
+
             $pdo->commit();
         }
         catch (PDOException $e)
@@ -77,10 +86,13 @@ class Account
             throw new Exception($e->getMessage());
         }
 
-        return $pdo->lastInsertId();
+        $row = $res3->fetch(PDO::FETCH_ASSOC);
+        if (is_array($row)) $last_id = $row['user_id'];
+
+        return $last_id;
     }
 
-    public function editAccount($id, $email, $cell, $first_name, $last_name)
+    public function editAccountStud($id, $password, $email, $cell, $first_name, $last_name)
     {
         global $pdo;
 
@@ -89,9 +101,15 @@ class Account
         $first_name = trim($first_name);
         $last_name = trim($last_name);
 
-        $query = 'UPDATE g1116887.User SET email = :email, cell = :cell, fir_name = :first_name, las_name = :last_name WHERE user_id = :id';
+        if (!$this->isIdValid($id)) throw new Exception('Invalid account ID');
+        if (!$this->isNameValid($name)) throw new Exception('Invalid username');
+        if (!$this->isPasswdValid($password)) throw new Exception('Invalid password');
 
-        $values = array(':email' => $email, ':cell' => $cell, ':first_name' => $first_name, ':last_name' => $last_name, ':id' => $id);
+        $query = 'UPDATE g111887.accounts SET account_name = :name, account_password = :password, account_enabled = :enabled WHERE account_id = :id';
+
+        $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
+
+        $values = array(':name' => $name, ':password' => $hash, ':enabled' => $intEnabled, ':id' => $id);
 
         try
         {
@@ -180,15 +198,16 @@ class Account
                     $acc_type = 'student';
                     echo 'student';
                 }
-
-                $emp_or_admin = $this->isEmployee($this->id);
-                echo $emp_or_admin;
-
-                if ($emp_or_admin && $emp_or_admin === 'employee') $acc_type = 'employee';
-                elseif ($emp_or_admin && $emp_or_admin === 'admin') $acc_type = 'admin';
-
-                /* Register the current Sessions on the database */
-                // $this->registerLoginSession();
+                elseif($this->isEmployee($this->id))
+                {
+                    $acc_type = 'employee';
+                    echo 'employee';
+                }
+                else
+                {
+                    $acc_type = 'admin';
+                    echo 'admin';
+                }
             }
         }
         return $acc_type;
@@ -215,7 +234,6 @@ class Account
         $row = $res->fetch(PDO::FETCH_ASSOC);
         $this->id = $id;
         $this->first_name = $row['fir_name'];
-        $this->middle_name = $row['mid_name'];
         $this->last_name = $row['las_name'];
         $this->password = $row['pass'];
         $this->email = $row['email'];
@@ -268,8 +286,35 @@ class Account
 
         if (is_array($row))
         {
-            if ($row['is_advisor']) return 'admin';
-            else return 'employee';
+            if (is_array($row)) return TRUE;
+            else return FALSE;
+        }
+    }
+
+    public function isAdministrator($id)
+    {
+        global $pdo;
+
+        $admin_query = 'SELECT * FROM g1116887.Administrator WHERE (user_id = :id)';
+
+        $values = array(':id' => $id);
+
+        try
+        {
+            $res = $pdo->prepare($employee_query);
+            $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($row))
+        {
+            if (is_array($row)) return TRUE;
+            else return FALSE;
         }
         else return FALSE;
     }

@@ -10,14 +10,16 @@ try
 {
     $newId = $account->addAccount($_POST['password'], $_POST['email'], $_POST['telephone'], $_POST['first_name'], $_POST['last_name'], $_POST['account_type']);
 
+    $_SESSION['account_id'] = $newId;
+
     if ($_POST['account_type'] == 'Student') {
         header('location: ./Profile/UserProfile.php');
     }
     elseif ($_POST['account_type'] == 'Employer') {
-        header('location: ./Profile/EmployerProfile.html');
+        header('location: ./Profile/EmployerProfile.php');
     }
     elseif ($_POST['account_type'] == 'Administration') {
-        header('location: ./Profile/AdminProfile.html');
+        header('location: ./Profile/AdminProfile.php');
     }
 }
 catch (Exception $e)

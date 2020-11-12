@@ -5,6 +5,9 @@
 
   <?php
     session_start();
+
+    if (!isset($_SESSION['account_id'])) header('location: ../index.html');
+
     include '../account_class.php';
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
@@ -22,7 +25,6 @@
   <link rel="stylesheet" href="css/magnific-popup.css">
   <link rel="stylesheet" href="css/magnific-popup.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/websitev2.css">
 
 </head>
 
@@ -63,16 +65,15 @@
       <!-- MENU LINKS -->
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="../Matches/StudentMatches.html">Matches</a></li>
-          <li><a href="../JobSearch/Userjobs.html">Jobs</a></li>
-          <li><a href="../Reviews/reviews.html">Ratings</a></li>
-          <form action="../logout.php">
-            <li><input type='submit' class="section-btn" name='submit' value='Log Out'></li>
-          </form>
+          <li><a href="../Matches/StudentMatches.php">Matches</a></li>
+          <li><a href="../JobSearch/Userjobs.php">Jobs</a></li>
+          <li><a href="../Reviews/reviewsfinal.php">Reviews</a></li>
+          <li><form action="../logout.php">
+          <input type='submit' class="btn btn-primary" name='submit' value='Log Out'>
+          </form></li>
         </ul>
       </div>
 
-    </div>
   </section>
   <div class="page-content">
     <div>
@@ -85,12 +86,14 @@
               <div class="content-center">
                 <div class="cc-profile-image"><a href="#"><img src="images/blankprofile.jpg" alt="Image" /></a></div>
                 <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
-                <p class="category text-white">Undergraduate, Industrial Engineering</p><a
+                <p class="category text-white">Univerity, Major</p>
+                <p class="small text-white">bio blah blah blah</p><a
                   class="btn btn-primary smooth-scroll mr-2" href="../Profile/UserProfile.php" data-aos="zoom-in"
                   data-aos-anchor="data-aos-anchor">Edit Profile</a><a class="btn btn-primary" href="#"
                   data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Upload CV</a>
               </div>
-            </div>
+          </div>
+            <!--
             <div class="section">
               <div class="container">
                 <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon"
@@ -104,35 +107,48 @@
                       class="fa fa-instagram"></i></a></div>
               </div>
             </div>
+          -->
           </div>
         </div>
       </div>
       <div class="section" id="about">
         <div class="h4 text-center mb-4 title">Basic Profile</div>
         <div class="container">
-          <div class="card" data-aos="fade-up" data-aos-offset="10">
+          <div class="card" data-aos="fade-up" data-aos-offset="10" style="background-color: #e0e0e0;">
             <div class="row">
-              <div class="col-lg-6 col-md-12">
+              <div class="col-lg-10 col-md-5">
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-4"><strong class="text-uppercase">Age:</strong></div>
-                    <div class="col-sm-8">24</div>
-                  </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">Email:</strong></div>
-                    <div class="col-sm-8">anthony@company.com</div>
+                    <div class="col-sm-8"><?php echo $account->email?></div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">Phone:</strong></div>
-                    <div class="col-sm-8">+1718-111-0011</div>
+                    <div class="col-sm-8"><?php echo $account->cell?></div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
-                    <div class="col-sm-8">140, City Center, New York, U.S.A</div>
+                    <div class="col-sm-8">City, State, County Postal Code</div>
                   </div>
                   <div class="row mt-3">
-                    <div class="col-sm-4"><strong class="text-uppercase">Language:</strong></div>
-                    <div class="col-sm-8">English, German, French</div>
+                    <div class="col-sm-4"><strong class="text-uppercase">Major</strong></div>
+                    <div class="col-sm-8">major</div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-sm-4"><strong class="text-uppercase">Education Level:</strong></div>
+                    <div class="col-sm-8">level</div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-sm-4"><strong class="text-uppercase">Grade Level:</strong></div>
+                    <div class="col-sm-8">grade level</div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-sm-4"><strong class="text-uppercase">Graduation Date:</strong></div>
+                    <div class="col-sm-8">grad date</div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-sm-4"><strong class="text-uppercase">GPA:</strong></div>
+                    <div class="col-sm-8">gpa</div>
                   </div>
                 </div>
               </div>
@@ -140,67 +156,103 @@
           </div>
         </div>
       </div>
-      <div class="section" id="skill">
+      <div class="section" id="techskill">
         <div class="container">
-          <div class="h4 text-center mb-4 title">Professional Skills</div>
+          <div class="h4 text-center mb-4 title">Technical Skills</div>
           <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge">HTML</span>
-                    <div class="progress">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill1</span>
+                    <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%;"></div><span class="progress-value">80%</span>
+                        aria-valuemax="100" style="width: 100%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge">CSS</span>
-                    <div class="progress">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill2</span>
+                    <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 75%;"></div><span class="progress-value">75%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge">JavaScript</span>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
-                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 60%;"></div><span class="progress-value">60%</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge">SASS</span>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
-                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 60%;"></div><span class="progress-value">60%</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge">Bootstrap</span>
-                    <div class="progress">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill3</span>
+                    <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 75%;"></div><span class="progress-value">75%</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge">Photoshop</span>
-                    <div class="progress">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill4</span>
+                    <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 70%;"></div><span class="progress-value">70%</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill5</span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill6</span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill7</span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill8</span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill9</span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill10</span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
                     </div>
                   </div>
                 </div>
@@ -209,51 +261,132 @@
           </div>
         </div>
       </div>
+
+      <div class="section" id="softskill">
+        <div class="container cc-experience">
+          <div class="h4 text-center mb-4 title">Soft Skills</div>
+          <div class="card2">
+              <div class="row">
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill1</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill2</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill2</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill4</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill5</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill6</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill7</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill8</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill9</div>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
+                  <div class="card-body cc-experience-header2">
+                    <div class="h5" style="color:#ffbc6e;">softskill10</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="section" id="experience">
+        <div class="container cc-experience">
+          <div class="h4 text-center mb-4 title">Certifications and Awards</div>
+          <div class="card">
+            <div class="row">
+              <div class="col-md-3" style="background-color:#ffbc6e;" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+                <div class="card-body cc-experience-header">
+                  <div class="h5">Certifications and Awards</div>
+                </div>
+              </div>
+              <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
+                <div class="card-body">
+                  <div class="h6 small">Certification/Award #1</div>
+                  <div class="h6">Certification/Award #2</div>
+                  <div class="h6">Certification/Award #3</div>
+                  <div class="h6">Certification/Award #4</div>
+                  <div class="h6">Certification/Award #5</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work Experience -->
       <div class="section" id="experience">
         <div class="container cc-experience">
           <div class="h4 text-center mb-4 title">Work Experience</div>
           <div class="card">
             <div class="row">
-              <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+              <div class="col-md-3" style="background-color:#ffbc6e;" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body cc-experience-header">
-                  <p>May 2019 - August 2019</p>
-                  <div class="h5">WebNote</div>
+                  <p>Duration1</p>
+                  <div class="h5">Employer1</div>
                 </div>
               </div>
               <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body">
-                  <div class="h5">Web Developer</div>
-                  <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis,
-                    tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend
-                    primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros
-                    pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium
-                    molestie ultricies sollicitudin dui.</p>
+                  <div class="h5">Title of Position1</div>
+                  <p>Job description1</p>
                 </div>
               </div>
             </div>
           </div>
           <div class="card">
             <div class="row">
-              <div class="col-md-3 bg-primary" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
+              <div class="col-md-3" style="background-color:#ffbc6e;" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body cc-experience-header">
-                  <p>May 2018 - August 2018</p>
-                  <div class="h5">WEBM</div>
+                  <p>Duration2</p>
+                  <div class="h5">Employer2</div>
                 </div>
               </div>
               <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body">
-                  <div class="h5">Intern</div>
-                  <p>Euismod massa scelerisque suspendisse fermentum habitant vitae ullamcorper magna quam iaculis,
-                    tristique sapien taciti mollis interdum sagittis libero nunc inceptos tellus, hendrerit vel eleifend
-                    primis lectus quisque cubilia sed mauris. Lacinia porta vestibulum diam integer quisque eros
-                    pulvinar curae, curabitur feugiat arcu vivamus parturient aliquet laoreet at, eu etiam pretium
-                    molestie ultricies sollicitudin dui.</p>
+                  <div class="h5">Title of Postion2</div>
+                  <p>Job Description2</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <!--
       <div class="section">
         <div class="container cc-education">
           <div class="h4 text-center mb-4 title">Education</div>
@@ -301,6 +434,7 @@
           </div>
         </div>
       </div>
+    -->
       <!--
 <div class="section" id="portfolio">
   <div class="container">

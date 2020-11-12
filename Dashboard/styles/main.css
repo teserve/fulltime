@@ -2870,6 +2870,13 @@ h4, .h4 {
   margin-bottom: 15px;
 }
 
+h4 small, .h4 small {
+  font-weight: 1em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+
 h4 + .category,
 h4.title + .category, .h4 + .category,
 .h4.title + .category {
@@ -2883,9 +2890,8 @@ h5, .h5 {
 }
 
 h6, .h6 {
-  font-size: 1em;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-size: 1.3em;
+  line-height: 1em;
 }
 
 p {
@@ -4643,13 +4649,31 @@ Created using IcoMoon - icomoon.io
           box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.2);
 }
 
+.card2 {
+  border: 1;
+  border-radius: 0.1875rem;
+  border-color: #ff964f;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.2);
+          box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.2);
+}
+
 .card .card-body {
   min-height: 150px;
   min-width: 100px;
 }
 
+.card2 .card-body {
+  min-height: 50px;
+  min-width: 100px;
+}
+
 .card[data-background-color="orange"] {
-  background-color: #ff964f;
+  background-color: #ffbc6e;
 }
 
 .card[data-background-color="red"] {
@@ -4669,7 +4693,7 @@ Created using IcoMoon - icomoon.io
 }
 
 .card-signup {
-  max-width: 350px;
+  max-width: 100px;
   margin: 10px;
 }
 
@@ -4856,11 +4880,11 @@ Created using IcoMoon - icomoon.io
 }
 
 .profile-page .page-header {
-  min-height: 550px;
+  min-height: 650px;
 }
 
 .profile-page .profile-container {
-  color: #FFFFFF;
+  color: #grey;
 }
 
 .profile-page .photo-container {
@@ -5161,9 +5185,10 @@ Created using IcoMoon - icomoon.io
 }
 
 .page-header footer {
-  position: absolute;
+  position: ;
   bottom: 0;
-  width: 100%;
+  width: 0%;
+  background-color: #000;
 }
 
 .page-header .container {
@@ -5182,7 +5207,7 @@ Created using IcoMoon - icomoon.io
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
-  padding: 0 15px;
+  padding: 0;
   color: #FFFFFF;
   width: 100%;
   max-width: 880px;
@@ -5195,7 +5220,7 @@ Created using IcoMoon - icomoon.io
 
 .page-header.page-header-small {
   height: 80vh;
-  max-height: 440px;
+  max-height: 1000px;
 }
 
 .page-header:after, .page-header:before {
@@ -7187,7 +7212,16 @@ Created using IcoMoon - icomoon.io
 /* Experience Style */
 .cc-experience .cc-experience-header {
   padding-top: 60px;
-  padding-right: 0;
+  padding-right: 0px;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* Experience Style */
+.cc-experience .cc-experience-header2 {
+  padding-top: 10px;
+  padding-right: 0px;
   text-align: center;
   color: #fff;
   text-transform: uppercase;

@@ -322,7 +322,7 @@ http://www.templatemo.com/tm-509-hydro
                          <div class="row">
 
                          <!-- CONTACT FORM HERE -->
-                         <form id="contact-form" role="form" action="#" method="post">
+                         <form id="contact-form" role="form" action="../Reviews/submitted.php" method="post">
                               <div class="col-md-6 col-sm-6">
                                    <input type="text" class="form-control" placeholder="Full Name" id="cf-name"
                                         name="cf-name" required="">
@@ -355,8 +355,8 @@ http://www.templatemo.com/tm-509-hydro
                                         name="cf-message" required=""></textarea>
                               </div>
 
-                              <div class="col-md-4 col-sm-12">
-                                   <input type="submit" class="form-control" name="submit" value="Send Message">
+                              <div class="col-md-4 col-sm-12" >
+                                   <a href = "SendMessage.html" class="btn btn-primary" style ="background-color: #ffcc90;">Send message</a>
                               </div>
                            </form>
                     </div>
@@ -435,8 +435,8 @@ http://www.templatemo.com/tm-509-hydro
                                    </div>
                                    <ul class="social-icon">
                                         <li><a href="profile.html"></a></li>
-                                        <li><a href="https://www.facebook.com/" class="fa fa-facebook-square" attr="facebook icon"></a></li>     
-                                        <li><a href="https://twitter.com/?lang=en" class="fa fa-twitter"></a></li>     
+                                        <li><a href="https://www.facebook.com/" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                        <li><a href="https://twitter.com/?lang=en" class="fa fa-twitter"></a></li>
                                         <li><a href="https://www.instagram.com/" class="fa fa-instagram"></a></li>
                                    </ul>
                               </div>
@@ -493,6 +493,7 @@ http://www.templatemo.com/tm-509-hydro
                                                             placeholder="Username" required> -->
                                                        <input type="password" class="form-control" name="password"
                                                             placeholder="Password" required>
+                                                        <!--
                                                        <script type="text/javascript">
                                                             function showfield(name) {
                                                                  if (name == 'Employer') document.getElementById('div1').innerHTML = '<input type="company" class="form-control" name="company" placeholder="Company" required>';
@@ -501,6 +502,7 @@ http://www.templatemo.com/tm-509-hydro
                                                                  else document.getElementById('div1').innerHTML = '';
                                                             }
                                                        </script>
+                                                     -->
                                                        <select type="account type" class="form-control"
                                                             name="account type" placeholder="Account Type"
                                                             onchange="showfield(this.options[this.selectedIndex].value)"

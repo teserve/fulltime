@@ -19,10 +19,10 @@ try
         header('location: ./Dashboard/dbstudent.php');
     }
     elseif ($res === 'employee') {
-        header('location: ./Dashboard/dbemployer.html');
+        header('location: ./Dashboard/dbemployer.php');
     }
     elseif ($res === 'admin') {
-        header('location: ./Dashboard/dbadmin.html');
+        header('location: ./Dashboard/dbadmin.php');
     }
 }
 catch (Exception $e)
