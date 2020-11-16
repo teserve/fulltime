@@ -11,6 +11,13 @@
     include '../account_class.php';
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
+
+    $account2 = new Account();
+    $account2->getInfoStudent($_SESSION['account_id']);
+
+    $account3 = new Account();
+    $account3->getInfoStuSkills($_SESSION['account_id']);
+
   ?>
 
   <meta charset="UTF-8">
@@ -84,13 +91,12 @@
             </div>
             <div class="container">
               <div class="content-center">
-                <div class="cc-profile-image"><a href="#"><img src="images/blankprofile.jpg" alt="Image" /></a></div>
+                <div class="cc-profile-image"><img src="images/blankprofile.jpg" alt="Image" /></div>
                 <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
-                <p class="category text-white">Univerity, Major</p>
-                <p class="small text-white">bio blah blah blah</p><a
+                <p class="category text-white"><?php echo $account2->university?>, <?php echo $account2->major?>
+                <p class="small text-white"><?php echo $account2->bio?></p><a
                   class="btn btn-primary smooth-scroll mr-2" href="../Profile/UserProfile.php" data-aos="zoom-in"
-                  data-aos-anchor="data-aos-anchor">Edit Profile</a><a class="btn btn-primary" href="#"
-                  data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Upload CV</a>
+                  data-aos-anchor="data-aos-anchor">Edit Profile</a>
               </div>
           </div>
             <!--
@@ -128,27 +134,23 @@
                   </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
-                    <div class="col-sm-8">City, State, County Postal Code</div>
+                    <div class="col-sm-8"><?php echo $account2->city?> <?php echo $account2->Nstate?>, <?php echo $account2->country?> <?php echo $account2->post_code?></div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">Major</strong></div>
-                    <div class="col-sm-8">major</div>
+                    <div class="col-sm-8"><?php echo $account2->major?></div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">Education Level:</strong></div>
-                    <div class="col-sm-8">level</div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-sm-4"><strong class="text-uppercase">Grade Level:</strong></div>
-                    <div class="col-sm-8">grade level</div>
+                    <div class="col-sm-8"><?php echo $account2->ed_level?></div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">Graduation Date:</strong></div>
-                    <div class="col-sm-8">grad date</div>
+                    <div class="col-sm-8"><?php echo $account2->grad_date?></div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-sm-4"><strong class="text-uppercase">GPA:</strong></div>
-                    <div class="col-sm-8">gpa</div>
+                    <div class="col-sm-8"><?php echo $account2->gpa?></div>
                   </div>
                 </div>
               </div>
@@ -156,103 +158,106 @@
           </div>
         </div>
       </div>
+
       <div class="section" id="techskill">
         <div class="container">
-          <div class="h4 text-center mb-4 title">Technical Skills</div>
+          <div class="h4 text-center mb-4 title">Technical Skills and Proficiency Level</div>
           <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill1</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill1?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 100%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style=  <?php if($account3->tech_skill1 === "5: Expert") {echo "width:"100%"; background-color: #ffbc6e;"} elseif ($account3->tech_skill1 === "4: Advanced") {echo "width:"80%"; background-color: #ffbc6e;"} elseif ($account3->tech_skill1 === "3: Intermediate") {echo "width:"60%"; background-color: #ffbc6e;"}
+                        elseif ($account3->tech_skill1 ==="2: Basic"){echo "width:"40%"; background-color: #ffbc6e;"} elseif ($account3->tech_skill1 ==="1: Beginner") {echo "width:"20%"; background-color: #ffbc6e;"}?>></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate1?></span>
                     </div>
                   </div>
+
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill2</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill2?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill3</span>
-                    <div class="progress" style="background-color: #737373;">
-                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
-                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill4</span>
-                    <div class="progress" style="background-color: #737373;">
-                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
-                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate2?></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill5</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill3?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate3?></span>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill6</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill4?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate4?></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill5?></span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate5?></span>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill7</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill6?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate6?></span>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill8</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill7?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate7?></span>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill9</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill8?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate8?></span>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;">techskill10</span>
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill9?></span>
                     <div class="progress" style="background-color: #737373;">
                       <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
                         data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;">rating</span>
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate9?></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="progress-container progress-primary"><span class="progress-badge" style="color: #949494;"><?php echo $account3->tech_skill10?></span>
+                    <div class="progress" style="background-color: #737373;">
+                      <div class="progress-bar progress-bar-primary" data-aos="progress-full" data-aos-offset="10"
+                        data-aos-duration="2000" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 80%; background-color: #ffbc6e;"></div><span class="progress-value" style="color: #949494;"><?php echo $account3->tech_rate10?></span>
                     </div>
                   </div>
                 </div>
@@ -269,52 +274,52 @@
               <div class="row">
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill1</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill1?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill2</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill2?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill2</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill3?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill4</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill4?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill5</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill5?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill6</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill6?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill7</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill7?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill8</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill8?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-right" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill9</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill9?></div>
                   </div>
                 </div>
                 <div class="col-sm-6" style="background-color:#ededed;" data-aos="fade-left" data-aos-offset="100" data-aos-duration="500">
                   <div class="card-body cc-experience-header2">
-                    <div class="h5" style="color:#ffbc6e;">softskill10</div>
+                    <div class="h5" style="color:#ffbc6e;"><?php echo $account3->soft_skill10?></div>
                   </div>
                 </div>
               </div>
@@ -336,11 +341,11 @@
               </div>
               <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body">
-                  <div class="h6 small">Certification/Award #1</div>
-                  <div class="h6">Certification/Award #2</div>
-                  <div class="h6">Certification/Award #3</div>
-                  <div class="h6">Certification/Award #4</div>
-                  <div class="h6">Certification/Award #5</div>
+                  <div class="h6 small"><?php echo $account2->award1?></div>
+                  <div class="h6"><?php echo $account2->award2?></div>
+                  <div class="h6"><?php echo $account2->award3?></div>
+                  <div class="h6"><?php echo $account2->award4?></div>
+                  <div class="h6"><?php echo $account2->award5?></div>
                 </div>
               </div>
             </div>
@@ -356,14 +361,14 @@
             <div class="row">
               <div class="col-md-3" style="background-color:#ffbc6e;" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body cc-experience-header">
-                  <p>Duration1</p>
-                  <div class="h5">Employer1</div>
+                  <p><?php echo $account2->work_duration1?></p>
+                  <div class="h5"><?php echo $account2->work_employer1?></div>
                 </div>
               </div>
               <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body">
-                  <div class="h5">Title of Position1</div>
-                  <p>Job description1</p>
+                  <div class="h5"><?php echo $account2->work_position1?></div>
+                  <p><?php echo $account2->work_descr1?></p>
                 </div>
               </div>
             </div>
@@ -372,14 +377,14 @@
             <div class="row">
               <div class="col-md-3" style="background-color:#ffbc6e;" data-aos="fade-right" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body cc-experience-header">
-                  <p>Duration2</p>
-                  <div class="h5">Employer2</div>
+                  <p><?php echo $account2->work_duration2?></p>
+                  <div class="h5"><?php echo $account2->work_employer2?></div>
                 </div>
               </div>
               <div class="col-md-9" data-aos="fade-left" data-aos-offset="50" data-aos-duration="500">
                 <div class="card-body">
-                  <div class="h5">Title of Postion2</div>
-                  <p>Job Description2</p>
+                  <div class="h5"><?php echo $account2->work_position2?></div>
+                  <p><?php echo $account2->work_descr2?></p>
                 </div>
               </div>
             </div>

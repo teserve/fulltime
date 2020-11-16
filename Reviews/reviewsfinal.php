@@ -85,6 +85,8 @@
                               <br>
                               <h2>Search <em>Reviews</em></h2>
                               </h2>
+                              <a class="btn btn-primary smooth-scroll mr-2" href="../Reviews/leave_areview.php" data-aos="zoom-in"
+                                         data-aos-anchor="data-aos-anchor">Leave a Review</a>
                          </div>
                     </div>
                </div>
@@ -101,11 +103,11 @@
                <br>
 
                <div class="row">
-                    <div class="col-lg-4">
+
                          <!-- Filter Options-->
-                   <a class="btn btn-primary smooth-scroll mr-2" href="../Reviews/leave_areview.php" data-aos="zoom-in"
-                              data-aos-anchor="data-aos-anchor">Leave a Review</a>   <br>  <br>
-                            
+
+
+                              <!--
                          <h3 style="margin-bottom: 15px">Filter by...</h5>
 
                               <h5 style="margin-bottom: 15px">Rating Score</h5>
@@ -239,11 +241,12 @@
 
                             </br>
 
- 
-                    </div>
+                          -->
+
+
                     <!--Filter options end -->
 
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                          <div class="row">
                               <div class="col-md-6">
                                    <div class="trainer-item">
@@ -310,6 +313,42 @@
                                         </div>
                                    </div>
                               </div>
+
+                              <div class="col-md-6">
+                                   <div class="trainer-item">
+                                        <div class="image-thumb">
+                                        </div>
+                                        <div class="down-content">
+                                             <span>2.5 Stars</span>
+
+                                             <h4>"Huge Time Investment"</h4>
+
+                                             <p>FCA</p>
+
+                                             <ul class="social-icons">
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                   <div class="trainer-item">
+                                        <div class="image-thumb">
+                                        </div>
+                                        <div class="down-content">
+                                             <span>2.5 Stars</span>
+
+                                             <h4>"Huge Time Investment"</h4>
+
+                                             <p>FCA</p>
+
+                                             <ul class="social-icons">
+                                             </ul>
+                                        </div>
+                                   </div>
+                              </div>
+
+
                               <div class="col-md-6">
                                    <div class="trainer-item">
                                         <div class="image-thumb">

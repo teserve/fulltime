@@ -52,7 +52,7 @@
                     <div class="col-12">
                          <nav class="main-nav">
                               <!-- ***** Logo Start ***** -->
-                              <a href="../index.html" class="navbar-brand" style="color:#ffbc6e">FULLTIME</a>
+                              <a class="logo" style="color:#ffbc6e">FULLTIME</a>
                               <!-- ***** Logo End ***** -->
                               <!-- ***** Menu Start ***** -->
                               <ul class="nav">
@@ -99,8 +99,10 @@
                <br>
 
                <div class="row">
+                 <!--Filter options start-->
+                 <!--
                     <div class="col-lg-4">
-                         <!-- Filter Options-->
+
                          <h3 style="margin-bottom: 15px">Filter by...</h5>
 
                               <h5 style="margin-bottom: 15px">Rating Score</h5>
@@ -236,9 +238,10 @@
 
 
                     </div>
+                  -->
                     <!--Filter options end -->
 
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                          <div class="row">
                               <div class="col-md-6">
                                    <div class="trainer-item">

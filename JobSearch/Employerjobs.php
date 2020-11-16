@@ -100,6 +100,7 @@
             <br>
 
             <div class="row">
+              <!--
                 <div class="col-lg-4">
                   <div class="search-container">
                       <form action="#">
@@ -243,8 +244,8 @@
 
                     <br>
                 </div>
-
-                <div class="col-lg-8">
+              -->
+                <div class="col-lg-12">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="trainer-item">

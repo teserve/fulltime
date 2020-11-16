@@ -18,13 +18,12 @@
     content="Creative CV is a HTML resume template for professionals. Built with Bootstrap 4, Now UI Kit and FontAwesome, this modern and responsive design template is perfect to showcase your portfolio, skils and experience." />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/aos.css" rel="stylesheet">
+  <link href="Dashboard/css/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link href="styles/main.css" rel="stylesheet">
+  <link href="Dashboard/styles/main.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/magnific-popup.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/websitev2.css">
+  <link rel="stylesheet" href="Dashboard/css/websitev2.css">
 
 
 

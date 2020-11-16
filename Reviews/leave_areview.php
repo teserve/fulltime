@@ -187,7 +187,7 @@ input[type=submit]:hover {
                         <div class="col-25">
                         </div>
                         <div class="col-75">
-                          <input type="text" id="inst_id" name="institution" placeholder="Company">
+                          <input type="text" id="inst_id" name="company" placeholder="Company">
                         </div>
                       </div>
                       <div class="row">
@@ -196,19 +196,19 @@ input[type=submit]:hover {
                           <div class="col-75">
                            <select id="industry" name="industry">
                             <option value="">Enter Industry</option>
-                            <option value="">Business-Related Fields</option>
-                            <option value="">Chemicals, Petroleum, Plastics & Rubber</option>
-                            <option value="">Computer Systems - Design/Programming</option>
-                            <option value="">Consulting Services</option>
-                            <option value="">Consumer Goods</option>
-                            <option value="">Energy</option>
-                            <option value="">Engineering Services</option>
-                            <option value="">Environmental Services</option>
-                            <option value="">Government</option>
-                            <option value="">Manufacturing & Industrial Systems</option>
-                            <option value="">Other</option>
-                            <option value="">Pharmaceuticals & Medicine</option>
-                            <option value="">Scientific Research & Development</option>
+                            <option value="1">Business-Related Fields</option>
+                            <option value="2">Chemicals, Petroleum, Plastics & Rubber</option>
+                            <option value="3">Computer Systems - Design/Programming</option>
+                            <option value="4">Consulting Services</option>
+                            <option value="5">Consumer Goods</option>
+                            <option value="6">Energy</option>
+                            <option value="7">Engineering Services</option>
+                            <option value="8">Environmental Services</option>
+                            <option value="9">Government</option>
+                            <option value="10">Manufacturing & Industrial Systems</option>
+                            <option value="11">Other</option>
+                            <option value="12">Pharmaceuticals & Medicine</option>
+                            <option value="13">Scientific Research & Development</option>
                           </select>
                           </div>
                         </div>
@@ -216,13 +216,13 @@ input[type=submit]:hover {
                         <div class="col-25">
                         </div>
                         <div class="col-75">
-                          <select id="type" name="type">
-                            <option value="none">Select Type</option>
-                            <option value="intern">intern</option>
-                            <option value="employee">Full-Time Employee</option>
-                            <option value="co_op">Co-Op</option>
-                            <option value="volunteer">Volunteer</option>
-                            <option value="other">Other</option>
+                          <select id="type" name="job_type">
+                            <option value="">Select Type</option>
+                            <option value="Intern">Intern</option>
+                            <option value="Full-Time Employee">Full-Time Employee</option>
+                            <option value="Co-op">Co-Op</option>
+                            <option value="Volunteer">Volunteer</option>
+                            <option value="Other">Other</option>
                           </select>
                         </div>
                         </div>
@@ -230,19 +230,19 @@ input[type=submit]:hover {
                         <div class="col-25">
                         </div>
                         <div class="col-75">
-                          <select id="rate" name="rate">
-                            <option value="none">Rate how many stars this experience was...</option>
-                            <option>0</option>
-                            <option>0.5</option>
-                            <option>1</option>
-                            <option>1.5</option>
-                            <option>2</option>
-                            <option>2.5</option>
-                            <option>3</option>
-                            <option>3.5</option>
-                            <option>4</option>
-                            <option>4.5</option>
-                            <option>5</option>
+                          <select id="rate" name="review_rating">
+                            <option value="">Rate how many stars this experience was...</option>
+                            <option value="0">0</option>
+                            <option value="0.5">0.5</option>
+                            <option value="1">1</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2">2</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5">5</option>
                           </select>
                         </div>
                         </div>
@@ -250,7 +250,7 @@ input[type=submit]:hover {
                         <div class="col-25">
                         </div>
                         <div class="col-75">
-                          <textarea id="subject" name="subject" placeholder="Review..." style="height:100px"></textarea>
+                          <textarea id="subject" name="review_bio" placeholder="Review..." style="height:100px"></textarea>
                         </div>
                       </div>
                       <div class="row">
@@ -260,8 +260,9 @@ input[type=submit]:hover {
                         <input type="submit" class="form-control" name="submit"
                                                             value="Submit Button">
                       </div>
-                      <br></br>
                     </form>
+                    <br> </br>
+                    <br> </br>
                   </div>
                   </div>
                 </div>

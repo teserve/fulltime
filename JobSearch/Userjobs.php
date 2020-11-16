@@ -51,7 +51,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo" style="color:#ffbc6e">FULLTIME</a>
+                        <a class="logo" style="color:#ffbc6e">FULLTIME</a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
@@ -97,6 +97,7 @@
             <br>
 
             <div class="row">
+              <!--
                 <div class="col-lg-4">
                   <div class="search-container">
                       <form action="#">
@@ -348,8 +349,8 @@
 
                     <br>
                 </div>
-
-                <div class="col-lg-8">
+`-->`
+                <div class="col-lg-12">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="trainer-item">
@@ -364,7 +365,7 @@
                                     <p>Medical &nbsp;/&nbsp; Health Jobs</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -382,7 +383,7 @@
                                     <p>Medical &nbsp;/&nbsp; Health Jobs</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                          <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -400,7 +401,7 @@
                                     <p>Medical &nbsp;/&nbsp; Health Jobs</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -419,7 +420,7 @@
                                     <p>Medical &nbsp;/&nbsp; Health Jobs</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -437,7 +438,7 @@
                                     <p>Medical &nbsp;/&nbsp; Health Jobs</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                          <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -455,7 +456,7 @@
                                     <p>Medical &nbsp;/&nbsp; Health Jobs</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                          <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>

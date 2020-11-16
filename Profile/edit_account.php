@@ -4,9 +4,9 @@ session_start();
 include 'db_connection.php';
 include 'account_class.php';
 
-// $account = new Account();
+$account = new Account();
 
-$upload_dir = "../../user_data/" . $_SESSION['account_id'];
+$upload_dir = "../user_data/" . $_SESSION['account_id'];
 $upload_file = "/profile_picture.png";
 $upload_location = $upload_dir . $upload_file;
 
@@ -14,19 +14,11 @@ $upload = 1;
 
 // Check if it is a valid image
 $invalid_image = exif_imagetype($_FILES["profile_pic"]["tmp_name"]) === FALSE;
-
-if($invalid_image)
-{
-    $upload = 0;
-}
+if($invalid_image) $upload = 0;
 
 // Check file size
 $file_size_exceeded = $_FILES["profile_pic"]["size"] > 500000;
-
-if ($file_size_exceeded)
-{
-    $upload = 0;
-}
+if ($file_size_exceeded) $upload = 0;
 
 try
 {

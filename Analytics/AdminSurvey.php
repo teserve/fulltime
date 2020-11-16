@@ -133,7 +133,7 @@ Author URL: http://w3layouts.com
             <div class="navbar-header">
 
                  <!-- lOGO TEXT HERE -->
-                 <a href="../index.html" class="navbar-brand">FullTime</a>
+                 <a class="navbar-brand">FullTime</a>
             </div>
 
             <!-- MENU LINKS -->

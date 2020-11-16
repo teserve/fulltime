@@ -11,6 +11,9 @@
     include '../account_class.php';
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
+
+    $account4 = new Account();
+    $account4->getInfoAdmin($_SESSION['account_id']);
   ?>
 
      <meta charset="UTF-8">
@@ -54,7 +57,7 @@
                <div class="navbar-header">
 
                     <!-- lOGO TEXT HERE -->
-                    <a href="../index.html" class="navbar-brand">FullTime</a>
+                    <a class="navbar-brand">FullTime</a>
                </div>
 
                <!-- MENU LINKS -->
@@ -79,11 +82,11 @@
                                    style="background-image: url('images/fulltime.jpg');"></div>
                               <div class="container">
                                 <div class="content-center">
-                                  <div class="cc-profile-image"><a href="#"><img src="images/blankprofile.jpg" alt="Image" /></a></div>
+                                  <div class="cc-profile-image"><img src="images/blankprofile.jpg" alt="Image" /></div>
                                   <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
-                                  <p class="category text-white">University - Position Title</p>
+                                  <p class="category text-white"><?php echo $account4->university?> - <?php echo $account4->position_type?> </p>
                                   <p class="card-body text-white"><b>Email:</b> <?= $account->email?>   <b>Cell:</b>  <?= $account->cell?></p>
-                                  <p class="card-body text-white"><b>Location:</b> City, State, Country Postal Code</p><a
+                                  <p class="card-body text-white"><b>Location:</b> <?php echo $account4->city?> , <?php echo $account4->Nstate?> , <?php echo $account4->country?>  <?php echo $account4->post_code?> </p><a
                                              class="btn btn-primary smooth-scroll mr-2" href="../Profile/AdminProfile.php"
                                              data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Edit Profile</a>
                                    </div>

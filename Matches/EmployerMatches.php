@@ -51,7 +51,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo" style="color:#ffbc6e">FULLTIME</a>
+                        <a class="logo" style="color:#ffbc6e">FULLTIME</a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
@@ -93,149 +93,8 @@
     <!-- ***** Fleet Starts ***** -->
     <section class="section" id="trainers">
         <div class="container">
-            <br>
-            <br>
 
-            <div class="row">
-                <div class="col-lg-4">
-                  <!-- Filter Options-->
-                         <h3 style="margin-bottom: 15px">Filter by...</h5>
-
-                         <h5 style="margin-bottom: 15px">Job Type</h5>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Internship</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Co-op</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Full-time</span>
-                              </label>
-                         </div>
-
-                         <br>
-
-                         <h5 style="margin-bottom: 15px">Education Level</h5>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Bachelor's Degree</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Master's Degree</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Doctorate Degree</span>
-                              </label>
-                         </div>
-                         <br>
-
-                         <h5 style="margin-bottom: 15px">GPA</h5>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>4.0</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.80-3.99</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.60-3.79</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.40-3.59</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.20-3.39</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.00-3.19</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>2.80-2.99</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>2.60-2.79</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>&#8805 2.50</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>< 2.49</span>
-                              </label>
-                         </div>
-                    </form>
-
-                    <br>
-                </div>
-
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="trainer-item">

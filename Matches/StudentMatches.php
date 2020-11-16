@@ -53,7 +53,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo" style="color:#ffbc6e">FULLTIME</a>
+                        <a class="logo" style="color:#ffbc6e">FULLTIME</a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
@@ -94,13 +94,12 @@
 
     <!-- ***** Fleet Starts ***** -->
     <section class="section" id="trainers">
-        <div class="container">
-            <br>
-            <br>
+        <div class="container" position="center">
 
-            <div class="row">
-                <div class="col-lg-4">
+          <!--  <div class="row">
+                <div class="col-lg-4"> -->
                     <!-- Filter Options-->
+                    <!--
                     <h3 style="margin-bottom: 15px">Filter by...</h5>
 
                         <h5 style="margin-bottom: 15px">Job Type</h5>
@@ -242,33 +241,33 @@
 
                         <br>
                 </div>
+              -->
                 <!--Filter options end -->
 
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-1-720x480.jpg" alt="">
-                                </div>
-                                <div class="down-content">
+                            <div class="trainer-item center">
+                                <div class="right-content">
                                     <span>92% Match</span>
 
-                                    <h4>Computer Systems - Design/Programming Co-op/Internship</h4>
+                                    <h4>Industry - Job Title Job Position</h4>
 
-                                    <p>Microsoft</p>
+                                    <p>Company</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="trainer-item">
+                              <!--
                                 <div class="image-thumb">
                                     <img src="assets/images/product-2-720x480.jpg" alt="">
                                 </div>
+                              -->
                                 <div class="down-content">
                                     <span>89% Match</span>
 
@@ -277,16 +276,13 @@
                                     <p>PepsiCo</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-3-720x480.jpg" alt="">
-                                </div>
                                 <div class="down-content">
                                     <span>87% Match</span>
 
@@ -295,17 +291,13 @@
                                     <p>Ford</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                      <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-4-720x480.jpg" alt="">
-                                </div>
                                 <div class="down-content">
                                     <span>87% Match</span>
 
@@ -314,16 +306,13 @@
                                     <p>FCA</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-5-720x480.jpg" alt="">
-                                </div>
                                 <div class="down-content">
                                     <span>68% Match</span>
 
@@ -332,16 +321,13 @@
                                     <p>Deloitte</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                      <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-6-720x480.jpg" alt="">
-                                </div>
                                 <div class="down-content">
                                     <span>64% Match</span>
 
@@ -350,18 +336,14 @@
                                     <p>Ecolab</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-
-
-            <br>
             <!--
             <nav>
               <ul class="pagination pagination-lg justify-content-center">
@@ -386,7 +368,6 @@
         </div>
     </section>
     <!-- ***** Fleet Ends ***** -->
-
 
     <!-- ***** Footer Start ***** -->
     <!-- FOOTER -->

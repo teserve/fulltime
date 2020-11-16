@@ -789,8 +789,8 @@ schedule
 
 .section-bg > form,
 .section-bg .container {
-  position: relative;
-  z-index: 2
+  position: center;
+  z-index: 0;
 }
 
 #schedule {

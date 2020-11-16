@@ -56,7 +56,7 @@
         </button>
 
         <!-- lOGO TEXT HERE -->
-        <a href="../index.html" class="navbar-brand">FullTime</a>
+        <a class="navbar-brand">FullTime</a>
       </div>
 
       <!-- MENU LINKS -->
@@ -82,7 +82,7 @@
             </div>
             <div class="container">
               <div class="content-center">
-                <div class="cc-profile-image"><a href="#"><img src="images/blankprofile.jpg" alt="Image" /></a></div>
+                <div class="cc-profile-image"><img src="images/blankprofile.jpg" alt="Image"/></div>
                 <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
                 <p class="category text-white">Company - Position Title</p>
                 <p class="card-body text-white"><b>Email:</b> <?= $account->email?>   <b>Cell:</b>  <?= $account->cell?></p>
