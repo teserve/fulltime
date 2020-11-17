@@ -26,6 +26,37 @@
       echo '<option value="2: Basic">2: Basic </option>';
       echo '<option value="1: Beginner">1: Beginner </option>';
     }
+
+    function getTechSkillList()
+    {
+      global $pdo;
+
+      $query = 'SELECT skill_name FROM g1116887.Skills';
+
+      try
+      {
+        $result = $pdo->query($query);
+      }
+      catch (PDOException $e)
+      {
+        throw new Exception($e->getMessage());
+      }
+
+      $skill_names = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+
+      if (!is_array($skill_names)) return;
+
+      foreach ($skill_names as $column => $name)
+      {
+        $output = '<option value="' . $name;
+        // if ($account2->asdf === "4.0")
+        // {
+        //   $output .= 'selected="selected"';
+        // }
+        $output .= '">' . $name . '</option>';
+        echo $output;
+      }
+    }
   ?>
 
 </head>
