@@ -129,7 +129,7 @@ input[type=submit]:hover {
         </button>
 
         <!-- lOGO TEXT HERE -->
-        <a href="../index.html" class="navbar-brand">FullTime</a>
+        <a class="navbar-brand">FullTime</a>
       </div>
 
       <!-- MENU LINKS -->

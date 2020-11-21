@@ -52,7 +52,7 @@
                     <div class="col-12">
                          <nav class="main-nav">
                               <!-- ***** Logo Start ***** -->
-                              <a href="../index.html" class="navbar-brand" style="color:#ffbc6e">FULLTIME</a>
+                              <a class="logo" style="color:#ffbc6e">FULLTIME</a>
                               <!-- ***** Logo End ***** -->
                               <!-- ***** Menu Start ***** -->
                               <ul class="nav">
@@ -81,10 +81,9 @@
                <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                          <div class="cta-content">
-                              <br>
-                              <br>
                               <h2>Search <em>Reviews</em></h2>
                               </h2>
+                              <br>
                               <a class="btn btn-primary smooth-scroll mr-2" href="../Reviews/leave_areview.php" data-aos="zoom-in"
                                          data-aos-anchor="data-aos-anchor">Leave a Review</a>
                          </div>
@@ -248,171 +247,42 @@
 
                     <div class="col-lg-12">
                          <div class="row">
+                           <?php include "../db_connection.php";
+                            $res1 = $pdo->query('SELECT * FROM Reviews');
+                            if (count($res1) === 0) {
+                              echo "No Reviews Posted";
+                            } else {
+                              foreach ($res1 as $post){
+                                echo '<div class="col-md-6">';
+                                echo '<div class="trainer-item">';
+                                echo '<div class="down-content">';
+                                echo '<span> &#9733 ' . $post['review_rating'] . ' Stars &#9733 </span>';
+                                echo '<h4>' . $post['company'] . ' | ' . $post['job_type'] . ' | ' . $post['industry'] . '</h4>';
+                                echo '<h6>' . $post['review_bio'] . '</h6>';
+                                echo '<small>' . $post['review_date'] . '</small>';
+                                echo '<ul class="social-icons">';
+                                echo '</ul>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                              }
+                            }
+
+                            ?>
+                            <!--
                               <div class="col-md-6">
                                    <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
                                         <div class="down-content">
+                                             <p> Date </p>
                                              <span>4.5 Stars</span>
-
-                                             <h4>"Great Experience"</h4>
-
-                                             <p>Microsoft</p>
-
+                                             <p>Company | Job Type | Industry</p>
+                                             <h4>"Review"</h4>
                                              <ul class="social-icons">
                                              </ul>
                                         </div>
                                    </div>
                               </div>
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>4.5 Stars</span>
-
-                                             <h4>"Fun Team"</h4>
-
-                                             <p>PepsiCo</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>4.5 Stars</span>
-
-                                             <h4>"Good Leadership Experience"</h4>
-
-                                             <p>Ford</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>2.5 Stars</span>
-
-                                             <h4>"Huge Time Investment"</h4>
-
-                                             <p>FCA</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>2.5 Stars</span>
-
-                                             <h4>"Huge Time Investment"</h4>
-
-                                             <p>FCA</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>2.5 Stars</span>
-
-                                             <h4>"Huge Time Investment"</h4>
-
-                                             <p>FCA</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-
-
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>3 Stars</span>
-
-                                             <h4>"Mediocre"</h4>
-
-                                             <p>Deloitte</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>5 Stars</span>
-
-                                             <h4>"Absolutely Recommend"</h4>
-
-                                             <p>Ecolab</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>5 Stars</span>
-
-                                             <h4>"Absolutely Recommend"</h4>
-
-                                             <p>Ecolab</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="col-md-6">
-                                   <div class="trainer-item">
-                                        <div class="image-thumb">
-                                        </div>
-                                        <div class="down-content">
-                                             <span>5 Stars</span>
-
-                                             <h4>"Absolutely Recommend"</h4>
-
-                                             <p>Ecolab</p>
-
-                                             <ul class="social-icons">
-                                             </ul>
-                                        </div>
-                                   </div>
-                              </div>
+                            -->
                          </div>
                     </div>
                </div>

@@ -212,70 +212,14 @@ Author URL: http://w3layouts.com
         <div class="col-lg-6 pr-lg-2 chart-grid">
           <div class="card text-center card_border">
             <div class="card-header chart-grid__header">
-              Send Email
+              Send Survey
             </div>
             <div class="card-body">
-                  <div class="section" id="send_email">
-                        <div class="row">
-                          <div class="col-lg-6 col-md-12">
-                            <div class="card-body">
-                              <div class="container">
-                                <form>
-                                  <div class="row">
-                                    <div class="col-25">
-                                    </div>
-                                    <div class="col-75">
-                                      <input type="text" id="name" name="name" placeholder="Full name">
-                                    </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                    <div class="col-25">
-                                    </div>
-                                    <div class="col-75">
-                                      <input type="text" id="inst_id" name="email" placeholder="Email Address">
-                                    </div>
-                                  </div>
-                                  <br>
-                                  <div class="row">
-                                      <div class="col-25">
-                                      </div>
-                                      <div class="col-75">
-                                        <input type="text" id="position" name="position" placeholder="Student / Company">
-                                      </div>
-                                    </div>
-                                  <br>
-                                  <div class="row">
-                                    <div class="col-25">
-                                    </div>
-                                    <div class="col-75">
-                                      <select id="type" name="Frequency">
-                                        <option value="none">Every Month</option>
-                                        <option value="intern">Every 6 Months</option>
-                                        <option value="employee">Every 12 Month</option>
-                                        <option value="co_op">Every 18 Months</option>
-                                        <option value="volunteer">Every 24 Months</option>
-                                      </select>
-                                    </div>
-                                    </div>
-                                  <br>
-                                  <div class="row">
-                                    <div class="col-25">
-                                    </div>
-                                    <div class="col-75">
-                                   <a href="../Survey/Survey.php" class="btn btn-primary">Questions</a>
-                                  </div>
-                                  </div>
-                                </form>
-                              </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                  </div>
+              <a href="../Survey/Survey.php" class="btn btn-primary">Questions</a>
+            </div>
           </div>
-
         </div>
+
         <div class="col-lg-6 pl-lg-2 chart-grid">
           <div class="card text-center">
             <div class="card-header chart-grid__header">

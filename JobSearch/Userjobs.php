@@ -8,6 +8,12 @@
     include '../account_class.php';
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
+
+    if (isset($_SESSION['app_done']))
+    {
+         echo '<script>alert("Application successful.");</script>';
+         $_SESSION['app_done'] = NULL;
+    }
   ?>
 
     <meta charset="utf-8">
@@ -352,17 +358,54 @@
 `-->`
                 <div class="col-lg-12">
                     <div class="row">
+                      <?php include "../db_connection.php";
+                       $res1 = $pdo->query('SELECT * FROM Job_posting');
+                       if (count($res1) === 0) {
+                         echo "No Jobs Posted";
+                       } else {
+                         foreach ($res1 as $post){
+                           echo '<div class="col-md-6">';
+                           echo '<div class="trainer-item">';
+                           echo '<div class="down-content">';
+                           echo '<span> ' . $post['job_type'] . '&nbsp;|&nbsp;' . $post['region'] . '</span>';
+                           echo '<h4>' . $post['company'] . '</h4>';
+                           echo '<h6>' . $post['industry'] . '&nbsp;|&nbsp;' . $post['position'] . '</h6>';
+                           echo '<p>' . $post['job_descr'] . '</p>';
+                           echo '<a> Requirements: </a><br>';
+                           echo '<small style="color:#757575;">Education Level: ' . $post['ed_level'] . '</small><br>';
+                           echo '<small style="color:#757575;">Minimum GPA: ' . $post['gpa'] . '</small><br>';
+                           echo '<br><h6>Application Due: ' . $post['date_closed'] . '</h6>';
+                           echo '<ul class="social-icons">';
+                           echo '<li><form action="perform_application.php" method="post"><input type="submit" class="btn btn-primary" value="Apply"><input type="hidden" name="hidden_job_id_label" value="' . $post['job_id'] . '"></form></li>';
+                              // insert into Application user_id and job_id and date
+                              // $_SESSION['app_done'] = 1;
+                              // header('location: Userjobs.php');
+                           //   echo '<li><a href="apply.php" class="btn btn-primary">Apply</a></li>';
+                           echo '</ul>';
+                           echo '</div>';
+                           echo '</div>';
+                           echo '</div>';
+                         }
+                       }
+
+                       ?>
+<!--
                         <div class="col-md-6">
                             <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-1-720x480.jpg" alt="">
-                                </div>
                                 <div class="down-content">
-                                    <span> <sup>$</sup>70 000 </span>
+                                    <span> Job Type &nbsp;|&nbsp; Region </span>
 
-                                    <h4>Lorem ipsum dolor sit amet, consectetur</h4>
+                                    <h4>Company</h4>
 
-                                    <p>Medical &nbsp;/&nbsp; Health Jobs</p>
+                                    <h6>Industry &nbsp;|&nbsp; Job Position </h6>
+
+                                    <p>Job Description</p>
+
+                                    <a> Requirements: </a><br>
+                                    <small style="color:#757575;">Education Level: ed_level </small><br>
+                                    <small style="color:#757575;">Minimum GPA: gpa </small><br>
+
+                                    <br><h6>Application Due: date_closed </h6>
 
                                     <ul class="social-icons">
                                         <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
@@ -370,97 +413,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-2-720x480.jpg" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <span> <sup>$</sup>70 000 </span>
-
-                                    <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                                    <p>Medical &nbsp;/&nbsp; Health Jobs</p>
-
-                                    <ul class="social-icons">
-                                          <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-3-720x480.jpg" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <span> <sup>$</sup>70 000 </span>
-
-                                    <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                                    <p>Medical &nbsp;/&nbsp; Health Jobs</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-4-720x480.jpg" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <span> <sup>$</sup>70 000 </span>
-
-                                    <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                                    <p>Medical &nbsp;/&nbsp; Health Jobs</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-5-720x480.jpg" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <span> <sup>$</sup>70 000 </span>
-
-                                    <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                                    <p>Medical &nbsp;/&nbsp; Health Jobs</p>
-
-                                    <ul class="social-icons">
-                                          <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-6-720x480.jpg" alt="">
-                                </div>
-                                <div class="down-content">
-                                    <span> <sup>$</sup>70 000 </span>
-
-                                    <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                                    <p>Medical &nbsp;/&nbsp; Health Jobs</p>
-
-                                    <ul class="social-icons">
-                                          <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+-->
                     </div>
                 </div>
             </div>

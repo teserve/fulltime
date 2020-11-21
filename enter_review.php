@@ -29,7 +29,7 @@ try{
 
     $pdo->commit();
 
-    header('location: ./Reviews/leave_areview.php');
+    header('location: ./Reviews/submitted.php');
 }
 
 catch (Exception $e)

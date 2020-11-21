@@ -256,7 +256,7 @@
                                     <p>Company</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
+                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                                     <p>PepsiCo</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
+                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                     <p>Ford</p>
 
                                     <ul class="social-icons">
-                                      <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
+                                      <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
                                     <p>FCA</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
+                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                                     <p>Deloitte</p>
 
                                     <ul class="social-icons">
-                                      <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
+                                      <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -336,7 +336,7 @@
                                     <p>Ecolab</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="../JobSearch/apply.php" class="btn btn-primary">Apply</a></li>
+                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -10,7 +10,9 @@
 
     include '../account_class.php';
     $account = new Account();
+
     $account->getInfo($_SESSION['account_id']);
+    $account->getInfoEmployer($_SESSION['account_id']);
   ?>
 
   <meta charset="UTF-8">
@@ -82,11 +84,12 @@
             </div>
             <div class="container">
               <div class="content-center">
-                <div class="cc-profile-image"><img src="images/blankprofile.jpg" alt="Image"/></div>
+                <div class="cc-profile-image"><img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="Image"/></div>
                 <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
-                <p class="category text-white">Company - Position Title</p>
+                <p class="category text-white"><?php echo $account->company?> - <?php echo $account->position_type?></p>
+                <p class="category text-white"><?php echo $account->industry?></p>
                 <p class="card-body text-white"><b>Email:</b> <?= $account->email?>   <b>Cell:</b>  <?= $account->cell?></p>
-                <p class="card-body text-white"><b>Location:</b> City, State, Country Postal Code</p><a
+                <p class="card-body text-white"><b>Location:</b> <?php echo $account->city?>, <?php echo $account->country?> <?php echo $account->post_code?></p><a
                   class="btn btn-primary smooth-scroll mr-2" href="../Profile/EmployerProfile.php" data-aos="zoom-in"
                   data-aos-anchor="data-aos-anchor">Edit Profile</a>
               </div>

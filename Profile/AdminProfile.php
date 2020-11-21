@@ -9,10 +9,9 @@
 
       include '../account_class.php';
       $account = new Account();
-      $account->getInfo($_SESSION['account_id']);
 
-      $account4 = new Account();
-      $account4->getInfoAdmin($_SESSION['account_id']);
+      $account->getInfo($_SESSION['account_id']);
+      $account->getInfoAdmin($_SESSION['account_id']);
     ?>
 
           <link rel="stylesheet" href="stylesheet.css">
@@ -142,10 +141,10 @@
                   <?php echo $account->first_name?> <?php echo $account->last_name?><span class="font-weight-light"></span>
                 </h3>
                 <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i><?php echo $account4->city?>, <?php echo $account4->Nstate?>, <?php echo $account4->country?> <?php echo $account4->post_code?>
+                  <i class="ni location_pin mr-2"></i><?php echo $account->city?>, <?php echo $account->Nstate?>, <?php echo $account->country?> <?php echo $account->post_code?>
                 </div>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i><?php echo $account4->university?> - <?php echo $account4->position_type?>
+                  <i class="ni business_briefcase-24 mr-2"></i><?php echo $account->university?> - <?php echo $account->position_type?>
                 </div>
                 <hr class="my-4">
               </div>
@@ -162,7 +161,7 @@
               </div>
             </div>
             <div class="card-body">
-              <form action="../Edit_account_admin.php" method="POST" enctype="multipart/form-data">
+              <form action="../Edit_account_admin.php" method="POST" enctype="multipart/form-data" onsubmit='alert("Changes saved successfully");'>
                 <div class="col-6 text-right">
                   <input type="submit" class="btn btn-sm btn-primary" value="Save">
                 </div>
@@ -215,25 +214,25 @@
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-city">City</label>
-                        <input type="text" id="input-city" class="form-control form-control-alternative" name="city" placeholder="City" value=<?php echo $account4->city?>>
+                        <input type="text" id="input-city" class="form-control form-control-alternative" name="city" placeholder="City" value=<?php echo $account->city?>>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-state">State</label>
-                        <input type="text" id="input-state" class="form-control form-control-alternative" name="Nstate" placeholder="State" value=<?php echo $account4->Nstate?>>
+                        <input type="text" id="input-state" class="form-control form-control-alternative" name="Nstate" placeholder="State" value=<?php echo $account->Nstate?>>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-country">Country</label>
-                        <input type="text" id="input-country" class="form-control form-control-alternative" name="country" placeholder="Country" value=<?php echo $account4->country?>>
+                        <input type="text" id="input-country" class="form-control form-control-alternative" name="country" placeholder="Country" value=<?php echo $account->country?>>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-postcode">Postal code</label>
-                        <input type="number" id="input-postal-code" class="form-control form-control-alternative" name="post_code" placeholder="Postal code" value=<?php echo $account4->post_code?>>
+                        <label class="form-control-label" for="input-postal-code">Postal code</label>
+                        <input type="text" id="input-postal-code" class="form-control form-control-alternative" name="post_code" placeholder="Postal code" value=<?php echo $account->post_code?>>
                       </div>
                     </div>
                   </div>
@@ -248,13 +247,13 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-university">University</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" name="university" placeholder="Enter University" value="<?php echo $account4->university?>">
+                        <input type="text" id="input-university" class="form-control form-control-alternative" name="university" placeholder="Enter University" value="<?php echo $account->university?>">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-title">Position Title</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" name="position_type" placeholder="Enter Position Title" value=<?php echo $account4->position_type?>>
+                        <input type="text" id="input-title" class="form-control form-control-alternative" name="position_type" placeholder="Enter Position Title" value=<?php echo $account->position_type?>>
                       </div>
                     </div>
                   </div>

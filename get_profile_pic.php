@@ -1,15 +1,15 @@
 <?php
-session_start();
-
-$upload_dir = "../user_data/" . $id;
-$upload_file = "/profile_picture.png";
-$upload_location = $upload_dir . $upload_file;
-
-if (!file_exists($upload_location))
+function getProfilePic($id)
 {
-    echo "Profile/images/blankprofile.jpg";
-}
-else
-{
-    echo $upload_location;
+    $pic_url = 'https://web.ics.purdue.edu/~g1116887/user_data/' . $id . '/profile_picture.png';
+    $pic_loc = '/home/campus/g1116887/www/user_data/' . $id . '/profile_picture.png';
+
+    if (file_exists($pic_loc))
+    {
+        echo $pic_url;
+    }
+    else
+    {
+        echo "https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png";
+    }
 }

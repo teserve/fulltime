@@ -7,15 +7,51 @@
 
   <?php
     session_start();
+
     include '../account_class.php';
+    include '../get_profile_pic.php';
+
     $account = new Account();
+    $account->id = $_SESSION['account_id'];
+
     $account->getInfo($_SESSION['account_id']);
+    $account->getInfoStudent($_SESSION['account_id']);
+    $account->getInfoStuSkills($_SESSION['account_id']);
+    $account->getInfoStuCourses($_SESSION['account_id']);
 
-    $account2 = new Account();
-    $account2->getInfoStudent($_SESSION['account_id']);
+    $student_has_tech_skill_names = array(
+      $account->tech_skill1,
+      $account->tech_skill2,
+      $account->tech_skill3,
+      $account->tech_skill4,
+      $account->tech_skill5,
+      $account->tech_skill6,
+      $account->tech_skill7,
+      $account->tech_skill8,
+      $account->tech_skill9,
+      $account->tech_skill10
+    );
 
-    $account3 = new Account();
-    $account3->getInfoStuSkills($_SESSION['account_id']);
+    $student_has_soft_skill_names = array(
+      $account->soft_skill1,
+      $account->soft_skill2,
+      $account->soft_skill3,
+      $account->soft_skill4,
+      $account->soft_skill5,
+      $account->soft_skill6,
+      $account->soft_skill7,
+      $account->soft_skill8,
+      $account->soft_skill9,
+      $account->soft_skill10
+    );
+
+    $student_has_course_names = array(
+      $account->course1,
+      $account->course2,
+      $account->course3,
+      $account->course4,
+      $account->course5,
+    );
 
     function showTechRatingInput($n)
     {
@@ -26,8 +62,114 @@
       echo '<option value="2: Basic">2: Basic </option>';
       echo '<option value="1: Beginner">1: Beginner </option>';
     }
+
+    function getTechSkillList($n)
+    {
+      global $pdo;
+      global $student_has_tech_skill_names;
+
+      $query = 'SELECT skill_name FROM g1116887.TechSkills';
+
+      try
+      {
+        $result = $pdo->query($query);
+      }
+      catch (PDOException $e)
+      {
+        throw new Exception($e->getMessage());
+      }
+
+      $skill_names = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+
+      if (!is_array($skill_names)) return;
+
+      foreach ($skill_names as $column => $name)
+      {
+        $output = '<option value="' . $name . '"';
+
+        if ($name === $student_has_tech_skill_names[$n - 1])
+        {
+          $output .= ' selected="selected"';
+        }
+
+        $output .= '>' . $name . '</option>';
+        echo $output;
+      }
+    }
+
+    function getSoftSkillList($n)
+    {
+      global $pdo;
+      global $student_has_soft_skill_names;
+
+      $query = 'SELECT skill_name FROM g1116887.SoftSkills';
+
+      try
+      {
+        $result = $pdo->query($query);
+      }
+      catch (PDOException $e)
+      {
+        throw new Exception($e->getMessage());
+      }
+
+      $skill_names = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+
+      if (!is_array($skill_names)) return;
+
+      foreach ($skill_names as $column => $name)
+      {
+        $output = '<option value="' . $name . '"';
+
+        if ($name === $student_has_soft_skill_names[$n - 1])
+        {
+          $output .= ' selected="selected"';
+        }
+
+        $output .= '>' . $name . '</option>';
+        echo $output;
+      }
+    }
+
+    function getCourseList($n)
+    {
+      global $pdo;
+      global $student_has_course_names;
+
+      $query = 'SELECT course_name FROM g1116887.Courses';
+
+      try
+      {
+        $result = $pdo->query($query);
+      }
+      catch (PDOException $e)
+      {
+        throw new Exception($e->getMessage());
+      }
+
+      $course_names = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+
+      if (!is_array($course_names)) return;
+
+      foreach ($course_names as $column => $name)
+      {
+        $output = '<option value="' . $name . '"';
+
+        if ($name === $student_has_course_names[$n - 1])
+        {
+          $output .= ' selected="selected"';
+        }
+
+        $output .= '>' . $name . '</option>';
+        echo $output;
+      }
+    }
+
   ?>
 
+<!-- EXAMPLE FOR LOOP ABOVE
+  <option value="3.80-3.99"<php if($account->gpa === "3.80-3.99") echo 'selected="selected"';?>>  3.80-3.99 </option>
+-->
 </head>
 
 <body>
@@ -43,10 +185,10 @@
               aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="images/blankprofile.jpg">
+                  <img alt="Profile picture" src=<?php getProfilePic($account->id); ?>>
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold"><?php echo $account->first_name?> <?php echo $account->last_name?></span>
+                  <span class="mb-0 text-sm  font-weight-bold"><?php echo $account->first_name; ?> <?php echo $account->last_name?></span>
                 </div>
               </div>
             </a>
@@ -89,7 +231,7 @@
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello <?php echo $account->first_name;?>,</h1>
+            <h1 class="display-2 text-white">Hello <?php echo $account->first_name; ?>,</h1>
             <p class="text-white mt-0 mb-5">This is your profile page. You can add your skills, build your portfolio,
               and express your creative endeavors.</p>
             <a href="../Dashboard/dbstudent.php" class="btn btn-info">Dashboard</a>
@@ -106,8 +248,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src="../user_data/60/profile_picture.jpg" class="rounded-circle">
-                    <!-- <img src="images/blankprofile.jpg" class="rounded-circle"> -->
+                    <img alt="Profile picture" src=<?php getProfilePic($account->id); ?> class="rounded-circle">
                   </a>
                 </div>
               </div>
@@ -145,13 +286,13 @@
                   <?php echo $account->first_name?> <?php echo $account->last_name?><span class="font-weight-light"></span>
                 </h3>
                 <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i><?php echo $account2->city?>, <?php echo $account2->Nstate?>, <?php echo $account2->country?> <?php echo $account2->post_code?>
+                  <i class="ni location_pin mr-2"></i><?php echo $account->city?>, <?php echo $account->Nstate?>, <?php echo $account->country?> <?php echo $account->post_code?>
                 </div>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i><?php echo $account2->ed_level?>, <?php echo $account2->grad_date?>
+                  <i class="ni business_briefcase-24 mr-2"></i><?php echo $account->ed_level?>,  <?php echo $account->grad_date?>
                 </div>
                 <div>
-                  <i class="ni education_hat mr-2"></i><?php echo $account2->university?>
+                  <i class="ni education_hat mr-2"></i><?php echo $account->university?>
                 </div>
               </div>
             </div>
@@ -228,28 +369,28 @@
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-city">City</label>
                         <input type="text" id="input-city" name="city" class="form-control form-control-alternative"
-                          placeholder="City" value="<?php echo $account2->city?>">
+                          placeholder="City" value="<?php echo $account->city?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-state">State</label>
                         <input type="text" id="input-state" name="Nstate" class="form-control form-control-alternative"
-                          placeholder="State" value="<?php echo $account2->Nstate?>">
+                          placeholder="State" value="<?php echo $account->Nstate?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-country">Country</label>
                         <input type="text" id="input-country" name="country" class="form-control form-control-alternative"
-                          placeholder="Country" value="<?php echo $account2->country?>">
+                          placeholder="Country" value="<?php echo $account->country?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-postal-code">Postal code</label>
-                        <input type="number" id="input-postal-code" name="post_code" class="form-control form-control-alternative"
-                          placeholder="Postal code" value="<?php echo $account2->post_code?>">
+                        <input type="text" id="input-postal-code" name="post_code" class="form-control form-control-alternative"
+                          placeholder="Postal code" value="<?php echo $account->post_code?>">
                       </div>
                     </div>
                   </div>
@@ -264,14 +405,14 @@
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-univ">University</label>
                         <input type="text" id="input-univ" name="university" class="form-control form-control-alternative"
-                          placeholder="Enter University" value="<?php echo $account2->university?>">
+                          placeholder="Enter University" value="<?php echo $account->university?>">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-major">Major</label>
                         <input type="text" id="input-major" name="major" class="form-control form-control-alternative"
-                          placeholder="Enter Major" value="<?php echo $account2->major?>">
+                          placeholder="Enter Major" value="<?php echo $account->major?>">
                       </div>
                     </div>
                   </div>
@@ -279,18 +420,18 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-gpa">GPA</label>
-                        <select id="input-gpa" name="gpa" class="form-control form-control-alternative" value="<?php echo $account2->gpa?>">
+                        <select id="input-gpa" name="gpa" class="form-control form-control-alternative" value="<?php echo $account->gpa?>">
                             <option value="">Enter Required GPA</option>
-                            <option value="4.0"<?php if($account2->gpa === "4.0") echo 'selected="selected"';?>> 4.0 </option>
-                            <option value="3.80-3.99"<?php if($account2->gpa === "3.80-3.99") echo 'selected="selected"';?>>  3.80-3.99 </option>
-                            <option value="3.60-3.79"<?php if($account2->gpa === "3.60-3.79") echo 'selected="selected"';?>>  3.60-3.79 </option>
-                            <option value="3.40-3.59"<?php if($account2->gpa === "3.40-3.59") echo 'selected="selected"';?>>  3.40-3.59 </option>
-                            <option value="3.20-3.39"<?php if($account2->gpa === "3.20-3.39") echo 'selected="selected"';?>>  3.20-3.39 </option>
-                            <option value="3.00-3.19"<?php if($account2->gpa === "3.00-3.19") echo 'selected="selected"';?>>  3.00-3.19 </option>
-                            <option value="2.80-2.99"<?php if($account2->gpa === "2.80-2.99") echo 'selected="selected"';?>>  2.80-2.99 </option>
-                            <option value="2.60-2.79"<?php if($account2->gpa === "2.60-2.79") echo 'selected="selected"';?>>  2.60-2.79 </option>
-                            <option value="2.40-2.59"<?php if($account2->gpa === "2.40-2.59") echo 'selected="selected"';?>>  2.40-2.59 </option>
-                            <option value="< 2.39"<?php if($account2->gpa === "< 2.39") echo 'selected="selected"';?>> < 2.39 </option>
+                            <option value="4.0"<?php if($account->gpa === "4.0") echo 'selected="selected"';?>> 4.0 </option>
+                            <option value="3.80-3.99"<?php if($account->gpa === "3.80-3.99") echo 'selected="selected"';?>>  3.80-3.99 </option>
+                            <option value="3.60-3.79"<?php if($account->gpa === "3.60-3.79") echo 'selected="selected"';?>>  3.60-3.79 </option>
+                            <option value="3.40-3.59"<?php if($account->gpa === "3.40-3.59") echo 'selected="selected"';?>>  3.40-3.59 </option>
+                            <option value="3.20-3.39"<?php if($account->gpa === "3.20-3.39") echo 'selected="selected"';?>>  3.20-3.39 </option>
+                            <option value="3.00-3.19"<?php if($account->gpa === "3.00-3.19") echo 'selected="selected"';?>>  3.00-3.19 </option>
+                            <option value="2.80-2.99"<?php if($account->gpa === "2.80-2.99") echo 'selected="selected"';?>>  2.80-2.99 </option>
+                            <option value="2.60-2.79"<?php if($account->gpa === "2.60-2.79") echo 'selected="selected"';?>>  2.60-2.79 </option>
+                            <option value="2.40-2.59"<?php if($account->gpa === "2.40-2.59") echo 'selected="selected"';?>>  2.40-2.59 </option>
+                            <option value="< 2.39"<?php if($account->gpa === "< 2.39") echo 'selected="selected"';?>> < 2.39 </option>
                           </select>
                       </div>
                     </div>
@@ -298,17 +439,18 @@
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-grad-date">Graduation Date</label>
                         <input type="text" id="input-grad-date" name="grad_date" class="form-control form-control-alternative"
-                          placeholder="Enter Graduation Month and Year (Ex: May 2022)" value="<?php echo $account2->grad_date?>">
+                          placeholder="Enter Graduation Month and Year (Ex: May 2022)" value="<?php echo $account->grad_date?>">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="ed_level">Education Level</label>
-                          <select id="ed_level" name="ed_level" class="form-control form-control-alternative" value="<?php echo $account2->ed_level?>">
+                          <select id="ed_level" name="ed_level" class="form-control form-control-alternative" value="<?php echo $account->ed_level?>">
                             <option value="">Enter Required Education Level</option>
-                            <option value="Bachelor's Degree" <?php if($account2->ed_level === "Bachelor's Degree") echo 'selected="selected"';?>> Bachelor's Degree </option>
-                            <option value="Master's Degree" <?php if($account2->ed_level === "Master's Degree") echo 'selected="selected"';?>>Master's Degree </option>
-                            <option value="Doctorate's Degree" <?php if($account2->ed_level === "Doctorate's Degree") echo 'selected="selected"';?>>Doctorate's Degree </option>
+                            <option value="Freshman" <?php if($account->ed_level === "Freshman") echo 'selected="selected"';?>> Freshman </option>
+                            <option value="Sophomore" <?php if($account->ed_level === "Sophomore") echo 'selected="selected"';?>>Sophomore</option>
+                            <option value="Junior" <?php if($account->ed_level === "Junior") echo 'selected="selected"';?>>Junior</option>
+                            <option value="Senior" <?php if($account->ed_level === "Senior") echo 'selected="selected"';?>>Senior</option>
                         </select>
                       </div>
                     </div>
@@ -323,7 +465,7 @@
                   <div class="form-group focused" method="post">
                     <label class="form-control-label" for="bio">About me</label>
                     <textarea rows="4" class="form-control form-control-alternative" name="bio"
-                      placeholder="A few words about you ..." value="<?php echo $account2->bio?>"></textarea>
+                      placeholder="A few words about you ..." value="<?php echo $account->bio?>"><?php echo $account->bio?></textarea>
                   </div>
                 </div>
                 <hr class="my-4">
@@ -334,45 +476,45 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-region">Ideal Region Location</label>
-                        <select id="input-region" name="region" class="form-control form-control-alternative" value="<?php echo $account2->region?>">
+                        <select id="input-region" name="region" class="form-control form-control-alternative" value="<?php echo $account->region?>">
                             <option value="">Enter Ideal Region</option>
-                            <option value="Northeast" <?php if($account2->region === "Northeast") echo 'selected="selected"';?>>Northeast</option>
-                            <option value="Southeast" <?php if($account2->region === "Southeast") echo 'selected="selected"';?>>Southeast</option>
-                            <option value="Midwest" <?php if($account2->region === "Midwest") echo 'selected="selected"';?>>Midwest</option>
-                            <option value="Southwest" <?php if($account2->region === "Southwest") echo 'selected="selected"';?>>Southwest</option>
-                            <option value="West"<?php if($account2->region === "West") echo 'selected="selected"';?>>West</option>
+                            <option value="Northeast" <?php if($account->region === "Northeast") echo 'selected="selected"';?>>Northeast</option>
+                            <option value="Southeast" <?php if($account->region === "Southeast") echo 'selected="selected"';?>>Southeast</option>
+                            <option value="Midwest" <?php if($account->region === "Midwest") echo 'selected="selected"';?>>Midwest</option>
+                            <option value="Southwest" <?php if($account->region === "Southwest") echo 'selected="selected"';?>>Southwest</option>
+                            <option value="West"<?php if($account->region === "West") echo 'selected="selected"';?>>West</option>
                         </select>
                       </div>
                     </div>
                       <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-ideal-job">Ideal Job Type</label>
-                          <select id="input-ideal-job" name="job_type" class="form-control form-control-alternative" value="<?php echo $account2->job_type?>">
+                          <select id="input-ideal-job" name="job_type" class="form-control form-control-alternative" value="<?php echo $account->job_type?>">
                             <option value="">Choose Ideal Job Type</option>
-                            <option value="Internship"<?php if($account2->job_type === "Internship") echo 'selected="selected"';?>>Internship</option>
-                            <option value="Co-op"<?php if($account2->job_type === "Co-op") echo 'selected="selected"';?>>Co-Op</option>
-                            <option value="Full-time"<?php if($account2->job_type === "Full-time") echo 'selected="selected"';?>>Full-Time</option>
+                            <option value="Internship"<?php if($account->job_type === "Internship") echo 'selected="selected"';?>>Internship</option>
+                            <option value="Co-op"<?php if($account->job_type === "Co-op") echo 'selected="selected"';?>>Co-Op</option>
+                            <option value="Full-time"<?php if($account->job_type === "Full-time") echo 'selected="selected"';?>>Full-Time</option>
                           </select>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-ideal-indust">Ideal Job Industry</label>
-                        <select id="input-ideal-indust" name="industry" class="form-control form-control-alternative" value="<?php echo $account2->industry?>">
+                        <select id="input-ideal-indust" name="industry" class="form-control form-control-alternative" value="<?php echo $account->industry?>">
                             <option value="">Enter Ideal Industry</option>
-                            <option value="Business-Related Fields"<?php if($account2->industry === "Business-Related Fields") echo 'selected="selected"';?>>Business-Related Fields</option>
-                            <option value="Chemicals, Petroleum, Plastics & Rubber"<?php if($account2->industry === "Chemicals, Petroleum, Plastics & Rubber") echo 'selected="selected"';?>>Chemicals, Petroleum, Plastics & Rubber</option>
-                            <option value="Computer Systems - Design/Programming"<?php if($account2->industry === "Chemicals, Petroleum, Plastics & Rubber") echo 'selected="selected"';?>>Computer Systems - Design/Programming</option>
-                            <option value="Consulting Services"<?php if($account2->industry === "Consulting Services") echo 'selected="selected"';?>>Consulting Services</option>
-                            <option value="Consumer Goods"<?php if($account2->industry === "Consumer Goods") echo 'selected="selected"';?>>Consumer Goods</option>
-                            <option value="Energy"<?php if($account2->industry === "Energy") echo 'selected="selected"';?>>Energy</option>
-                            <option value="Engineering Services"<?php if($account2->industry === "Engineering Services") echo 'selected="selected"';?>>Engineering Services</option>
-                            <option value="Environmental Services"<?php if($account2->industry === "Environmental Services") echo 'selected="selected"';?>>Environmental Services</option>
-                            <option value="Government"<?php if($account2->industry === "Government") echo 'selected="selected"';?>>Government</option>
-                            <option value="Manufacturing & Industrial Systems"<?php if($account2->industry === "Manufacturing & Industrial Systems") echo 'selected="selected"';?>>Manufacturing & Industrial Systems</option>
-                            <option value="Other"<?php if($account2->industry === "Other") echo 'selected="selected"';?>>Other</option>
-                            <option value="Pharmaceuticals & Medicine"<?php if($account2->industry === "Pharmaceuticals & Medicine") echo 'selected="selected"';?>>Pharmaceuticals & Medicine</option>
-                            <option value="Scientific Research & Development"<?php if($account2->industry === "Scientific Research & Development") echo 'selected="selected"';?>>Scientific Research & Development</option>
+                            <option value="Business-Related Fields"<?php if($account->industry === "Business-Related Fields") echo 'selected="selected"';?>>Business-Related Fields</option>
+                            <option value="Chemicals, Petroleum, Plastics & Rubber"<?php if($account->industry === "Chemicals, Petroleum, Plastics & Rubber") echo 'selected="selected"';?>>Chemicals, Petroleum, Plastics & Rubber</option>
+                            <option value="Computer Systems - Design/Programming"<?php if($account->industry === "Chemicals, Petroleum, Plastics & Rubber") echo 'selected="selected"';?>>Computer Systems - Design/Programming</option>
+                            <option value="Consulting Services"<?php if($account->industry === "Consulting Services") echo 'selected="selected"';?>>Consulting Services</option>
+                            <option value="Consumer Goods"<?php if($account->industry === "Consumer Goods") echo 'selected="selected"';?>>Consumer Goods</option>
+                            <option value="Energy"<?php if($account->industry === "Energy") echo 'selected="selected"';?>>Energy</option>
+                            <option value="Engineering Services"<?php if($account->industry === "Engineering Services") echo 'selected="selected"';?>>Engineering Services</option>
+                            <option value="Environmental Services"<?php if($account->industry === "Environmental Services") echo 'selected="selected"';?>>Environmental Services</option>
+                            <option value="Government"<?php if($account->industry === "Government") echo 'selected="selected"';?>>Government</option>
+                            <option value="Manufacturing & Industrial Systems"<?php if($account->industry === "Manufacturing & Industrial Systems") echo 'selected="selected"';?>>Manufacturing & Industrial Systems</option>
+                            <option value="Other"<?php if($account->industry === "Other") echo 'selected="selected"';?>>Other</option>
+                            <option value="Pharmaceuticals & Medicine"<?php if($account->industry === "Pharmaceuticals & Medicine") echo 'selected="selected"';?>>Pharmaceuticals & Medicine</option>
+                            <option value="Scientific Research & Development"<?php if($account->industry === "Scientific Research & Development") echo 'selected="selected"';?>>Scientific Research & Development</option>
                         </select>
                     </div>
                   </div>
@@ -388,70 +530,20 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-tech">Enter up to 10 Technical Skills</label>
-                        <select id="input-tech1" name="tech_skill1" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill1?>">
-
+                        <select id="input-tech1" name="tech_skill1" class="form-control form-control-alternative" value="<?php echo $account->tech_skill1?>">
                           <option value="">Enter Technical Skill #1</option>
-                          <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(1); ?>
                         </select>
-                        <select id="input-tech1-rating" name="tech_rate1" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate1?>">
+                        <select id="input-tech1-rating" name="tech_rate1" class="form-control form-control-alternative" value="<?php echo $account->tech_rate1?>">
                           <option value="">Rate Technical Skill #1</option>
-                          <option value="5: Expert">5: Expert </option>
-                          <option value="4: Advanced">4: Advanced </option>
-                          <option value="3: Intermediate">3: Intermediate </option>
-                          <option value="2: Basic">2: Basic </option>
-                          <option value="1: Beginner">1: Beginner </option>
+                          <option value="5: Expert"<?php if($account->tech_rate1 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                          <option value="4: Advanced"<?php if($account->tech_rate1 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                          <option value="3: Intermediate"<?php if($account->tech_rate1 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                          <option value="2: Basic"<?php if($account->tech_rate1 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                          <option value="1: Beginner"<?php if($account->tech_rate1 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                         </select>
                         <!--
-                        <select id="input-tech1-rating" name="tech_rate_perc1" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate_perc1?>">
+                        <select id="input-tech1-rating" name="tech_rate_perc1" class="form-control form-control-alternative" value="<?php echo $account->tech_rate_perc1?>">
                           <option value="">Rate Technical Skill #1</option>
                           <option value="100%">5: Expert </option>
                           <option value="80%">4: Advanced </option>
@@ -461,562 +553,121 @@
                         </select>
                       -->
                         <br>
-                          <select id="input-tech2" name="tech_skill2" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill2?>">
+                          <select id="input-tech2" name="tech_skill2" class="form-control form-control-alternative" value="<?php echo $account->tech_skill2?>">
                           <option value="">Enter Technical Skill #2</option>
-                         <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(2); ?>
                         </select>
-                          <select id="input-tech2-rating" name="tech_rate2" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate2?>">
+                          <select id="input-tech2-rating" name="tech_rate2" class="form-control form-control-alternative" value="<?php echo $account->tech_rate2?>">
                             <option value="">Rate Technical Skill #2</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate2 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate2 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate2 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate2 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate2 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech3" name="tech_skill3" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill3?>">
+                          <select id="input-tech3" name="tech_skill3" class="form-control form-control-alternative" value="<?php echo $account->tech_skill3?>">
                           <option value="">Enter Technical Skill #3</option>
-                         <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(3); ?>
                         </select>
-                          <select id="input-tech3-rating" name="tech_rate3" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate3?>">
+                          <select id="input-tech3-rating" name="tech_rate3" class="form-control form-control-alternative" value="<?php echo $account->tech_rate3?>">
                             <option value="">Rate Technical Skill #3</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate3 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate3 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate3 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate3 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate3 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech4" name="tech_skill4" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill4?>">
+                          <select id="input-tech4" name="tech_skill4" class="form-control form-control-alternative" value="<?php echo $account->tech_skill4?>">
                           <option value="">Enter Technical Skill #4</option>
-                          <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(4); ?>
                         </select>
-                          <select id="input-tech4-rating" name="tech_rate4" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate4?>">
+                          <select id="input-tech4-rating" name="tech_rate4" class="form-control form-control-alternative" value="<?php echo $account->tech_rate4?>">
                             <option value="">Rate Technical Skill #4</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate4 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate4 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate4 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate4 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate4 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech5" name="tech_skill5" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill5?>">
+                          <select id="input-tech5" name="tech_skill5" class="form-control form-control-alternative" value="<?php echo $account->tech_skill5?>">
                           <option value="">Enter Technical Skill #5</option>
-                          <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(5); ?>
                         </select>
-                          <select id="input-tech5-rating" name="tech_rate5" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate5?>">
+                          <select id="input-tech5-rating" name="tech_rate5" class="form-control form-control-alternative" value="<?php echo $account->tech_rate5?>">
                             <option value="">Rate Technical Skill #5</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate5 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate5 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate5 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate5 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate5 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech6" name="tech_skill6" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill6?>">
+                          <select id="input-tech6" name="tech_skill6" class="form-control form-control-alternative" value="<?php echo $account->tech_skill6?>">
                           <option value="">Enter Technical Skill #6</option>
-                          <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(6); ?>
                         </select>
-                          <select id="input-tech6" name="tech_rate6" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate6?>">
+                          <select id="input-tech6" name="tech_rate6" class="form-control form-control-alternative" value="<?php echo $account->tech_rate6?>">
                             <option value="">Rate Technical Skill #6</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate6 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate6 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate6 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate6 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate6 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech7" name="tech_skill7" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill7?>">
+                          <select id="input-tech7" name="tech_skill7" class="form-control form-control-alternative" value="<?php echo $account->tech_skill7?>">
                           <option value="">Enter Technical Skill #7</option>
-                         <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(7); ?>
                         </select>
-                          <select id="input-tech7" name="tech_rate7" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate7?>">
+                          <select id="input-tech7" name="tech_rate7" class="form-control form-control-alternative" value="<?php echo $account->tech_rate7?>">
                             <option value="">Rate Technical Skill #7</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate7 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate7 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate7 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate7 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate7 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech8" name="tech_skill8" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill8?>">
+                          <select id="input-tech8" name="tech_skill8" class="form-control form-control-alternative" value="<?php echo $account->tech_skill8?>">
                           <option value="">Enter Technical Skill #8</option>
-                          <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(8); ?>
                         </select>
-                          <select id="input-tech8" name="tech_rate8" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate8?>">
+                          <select id="input-tech8" name="tech_rate8" class="form-control form-control-alternative" value="<?php echo $account->tech_rate8?>">
                             <option value="">Rate Technical Skill #8</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate8 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate8 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate8 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate8 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate8 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech9" name="tech_skill9" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill9?>">
+                          <select id="input-tech9" name="tech_skill9" class="form-control form-control-alternative" value="<?php echo $account->tech_skill9?>">
                           <option value="">Enter Technical Skill #9</option>
-                          <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(9); ?>
                         </select>
-                          <select id="input-tech9" name="tech_rate9" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate9?>">
+                          <select id="input-tech9" name="tech_rate9" class="form-control form-control-alternative" value="<?php echo $account->tech_rate9?>">
                             <option value="">Rate Technical Skill #9</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate9 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate9 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate9 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate9 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate9 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                           <br>
-                          <select id="input-tech10" name="tech_skill10" class="form-control form-control-alternative" value="<?php echo $account3->tech_skill10?>">
+                          <select id="input-tech10" name="tech_skill10" class="form-control form-control-alternative" value="<?php echo $account->tech_skill10?>">
                           <option value="">Enter Technical Skill #10</option>
-                          <option value="Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)">Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)</option>
-                          <option value="Algorithms">Algorithms</option>
-                          <option value="Architecture and engineering (CAD software)">Architecture and engineering (CAD software)</option>
-                          <option value="Auditing">Auditing</option>
-                          <option value="BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)">BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)</option>
-                          <option value="Backend development">Backend development</option>
-                          <option value="Budget planning">Budget planning</option>
-                          <option value="C#">C#</option>
-                          <option value="C/C++">C/C++</option>
-                          <option value="Cloud computing">Cloud computing</option>
-                          <option value="Content Management Systems (CMS)">Content Management Systems (CMS)</option>
-                          <option value="Cost and trend analysis">Cost and trend analysis</option>
-                          <option value="Data management and analytics">Data management and analytics</option>
-                          <option value="Data modeling">Data modeling</option>
-                          <option value="ERP systems">ERP systems</option>
-                          <option value="Front-end development">Front-end development</option>
-                          <option value="GAAP and FASB knowledge">GAAP and FASB knowledge</option>
-                          <option value="Google Suite (Docs, Sheets, Slides, Forms, etc.)">Google Suite (Docs, Sheets, Slides, Forms, etc.)</option>
-                          <option value="HTML">HTML</option>
-                          <option value="Java">Java</option>
-                          <option value="JavaScript">JavaScript</option>
-                          <option value="Journalism and writing: Content Management Systems">Journalism and writing: Content Management Systems</option>
-                          <option value="Foreign language">Foreign language</option>
-                          <option value="Marketing analytics tools">Marketing analytics tools</option>
-                          <option value="Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)">Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)</option>
-                          <option value="Network structure and security">Network structure and security</option>
-                          <option value="PHP">PHP</option>
-                          <option value="PM tools (JIRA, Trello, Monday.com, etc.)">PM tools (JIRA, Trello, Monday.com, etc.)</option>
-                          <option value="Perl">Perl</option>
-                          <option value="Photoshop, Illustrator, Adobe CS, and InDesign">Photoshop, Illustrator, Adobe CS, and InDesign</option>
-                          <option value="Product lifecycle management">Product lifecycle management</option>
-                          <option value="Project management and planning">Project management and planning</option>
-                          <option value="Python">Python</option>
-                          <option value="R">R</option>
-                          <option value="Risk management">Risk management</option>
-                          <option value="Ruby">Ruby</option>
-                          <option value="SQL">SQL</option>
-                          <option value="Salesforce">Salesforce</option>
-                          <option value="Scrum and Agile">Scrum and Agile </option>
-                          <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                          <option value="Shipping and transportation: Logistics management software">Shipping and transportation: Logistics management software</option>
-                          <option value="Social marketing">Social marketing</option>
-                          <option value="Statistics and probability">Statistics and probability</option>
-                          <option value="Swift">Swift</option>
-                          <option value="System design">System design</option>
-                          <option value="Task management">Task management</option>
-                          <option value="Technical writing and reporting">Technical writing and reporting</option>
-                          <option value="UI/UX">UI/UX</option>
-                          <option value="Website design">Website design</option>
-                          <option value="Zapier">Zapier</option>
+                          <?php getTechSkillList(10); ?>
                         </select>
-                          <select id="input-tech10" name="tech_rate10" class="form-control form-control-alternative" value="<?php echo $account3->tech_rate10?>">
+                          <select id="input-tech10" name="tech_rate10" class="form-control form-control-alternative" value="<?php echo $account->tech_rate10?>">
                             <option value="">Rate Technical Skill #10</option>
-                            <option value="5: Expert">5: Expert </option>
-                            <option value="4: Advanced">4: Advanced </option>
-                            <option value="3: Intermediate">3: Intermediate </option>
-                            <option value="2: Basic">2: Basic </option>
-                            <option value="1: Beginner">1: Beginner </option>
+                            <option value="5: Expert"<?php if($account->tech_rate10 === "5: Expert") echo 'selected="selected"';?>>5: Expert </option>
+                            <option value="4: Advanced"<?php if($account->tech_rate10 === "4: Advanced") echo 'selected="selected"';?>>4: Advanced </option>
+                            <option value="3: Intermediate"<?php if($account->tech_rate10 === "3: Intermediate") echo 'selected="selected"';?>>3: Intermediate </option>
+                            <option value="2: Basic"<?php if($account->tech_rate10 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
+                            <option value="1: Beginner"<?php if($account->tech_rate10 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                           </select>
                       </div>
                     </div>
@@ -1027,354 +678,55 @@
                   <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-soft">Soft Skills</label>
-                        <select id="input-soft" name="soft_skill1" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill1" class="form-control form-control-alternative" value="<?php echo $account->soft_skill1?>">
                           <option value="">Enter Soft Skill #1</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(1); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill2" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill2" class="form-control form-control-alternative" value="<?php echo $account->soft_skill2?>">
                           <option value="">Enter Soft Skill #2</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(2); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill3" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill3" class="form-control form-control-alternative" value="<?php echo $account->soft_skill3?>">
                           <option value="">Enter Soft Skill #3</option>
-                         <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(3); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill4" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill4" class="form-control form-control-alternative" value="<?php echo $account->soft_skill4?>">
                           <option value="">Enter Soft Skill #4</option>
                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                         <?php getSoftSkillList(4); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill5" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill5" class="form-control form-control-alternative" value="<?php echo $account->soft_skill5?>">
                           <option value="">Enter Soft Skill #5</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(5); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill6" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill6" class="form-control form-control-alternative" value="<?php echo $account->soft_skill6?>">
                           <option value="">Enter Soft Skill #6</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(6); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill7" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill7" class="form-control form-control-alternative" value="<?php echo $account->soft_skill7?>">
                           <option value="">Enter Soft Skill #7</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(7); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill8" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill8" class="form-control form-control-alternative" value="<?php echo $account->soft_skill8?>">
                           <option value="">Enter Soft Skill #8</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(8); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill9" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill9" class="form-control form-control-alternative" value="<?php echo $account->soft_skill9?>">
                           <option value="">Enter Soft Skill #9</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(9); ?>
                           </select>
                           <br>
-                        <select id="input-soft" name="soft_skill10" class="form-control form-control-alternative">
+                        <select id="input-soft" name="soft_skill10" class="form-control form-control-alternative" value="<?php echo $account->soft_skill10?>">
                           <option value="">Enter Soft Skill #10</option>
-                          <option value="Accountability">Accountability</option>
-                          <option value="Adaptability">Adaptability</option>
-                          <option value="Collaborative">Collaborative</option>
-                          <option value="Communication skills">Communication skills</option>
-                          <option value="Conflict resolution">Conflict resolution</option>
-                          <option value="Creativity">Creativity</option>
-                          <option value="Critical problem solving">Critical problem solving</option>
-                          <option value="Decisiveness">Decisiveness</option>
-                          <option value="Dependability">Dependability</option>
-                          <option value="Flexibility">Flexibility</option>
-                          <option value="Honesty">Honesty</option>
-                          <option value="Innovation">Innovation</option>
-                          <option value="Integrity">Integrity</option>
-                          <option value="Logical reasoning">Logical reasoning</option>
-                          <option value="Leadership">Leadership</option>
-                          <option value="Organization">Organization</option>
-                          <option value="Patience">Patience</option>
-                          <option value="People management">People management</option>
-                          <option value="Perseverance">Perseverance</option>
-                          <option value="Planning">Planning</option>
-                          <option value="Positive work ethic">Positive work ethic</option>
-                          <option value="Public speaking/presentation skills">Public speaking/presentation skills</option>
-                          <option value="Punctuality">Punctuality</option>
-                          <option value="Reliability">Reliability</option>
-                          <option value="Responsibility">Responsibility</option>
-                          <option value="Results-oriented">Results-oriented</option>
-                          <option value="Self-motivated">Self-motivated</option>
-                          <option value="Teamwork">Teamwork</option>
-                          <option value="Time management skills">Time management skills</option>
-                          <option value="Willingness to learn new things">Willingness to learn new things</option>
-                          <option value="Work well under pressure">Work well under pressure</option>
+                          <?php getSoftSkillList(10); ?>
                           </select>
                       </div>
                     </div>
@@ -1383,24 +735,117 @@
                 </div>
                 <hr class="my-4">
 
-                <!-- Certifications and Awards -->
+                <!-- Courses -->
 
-                <h6 class="heading-small text-muted mb-4">Certifications and Awards</h6>
-                    <div class="pl-lg-6">
+                <h6 class="heading-small text-muted mb-4">Courses</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-certif">Enter Up to 5 Certifications or Awards</label>
-                        <input type="text" id="input-certif" class="form-control form-control-alternative"
-                          name="award1" placeholder="Enter Certification/Award #1" value="<?php echo $account2->award1?>">
-                        <input type="text" id="input-certif" class="form-control form-control-alternative"
-                          name="award2" placeholder="Enter Certification/Award #2" value="<?php echo $account2->award2?>">
-                        <input type="text" id="input-certif" class="form-control form-control-alternative"
-                          name="award3" placeholder="Enter Certification/Award #3" value="<?php echo $account2->award3?>">
-                        <input type="text" id="input-certif" class="form-control form-control-alternative"
-                          name="award4" placeholder="Enter Certification/Award #4" value="<?php echo $account2->award4?>">
-                        <input type="text" id="input-certif" class="form-control form-control-alternative"
-                          name="award5" placeholder="Enter Certification/Award #5" value="<?php echo $account2->award5?>">
+                        <label class="form-control-label" for="input-tech">Enter up to 5 Courses</label>
+                        <select id="input-tech1" name="course1" class="form-control form-control-alternative" value="<?php echo $account->course1?>">
+                          <option value="">Enter Course #1</option>
+                          <?php getCourseList(1); ?>
+                        </select>
+                        <select id="input-course-grade1" name="course_grade1" class="form-control form-control-alternative" value="<?php echo $account->course_grade1?>">
+                          <option value="">Enter Course #1 Grade</option>
+                          <option value="A"<?php if($account->course_grade1 === "A") echo 'selected="selected"';?>>A</option>
+                          <option value="B"<?php if($account->course_grade1 === "B") echo 'selected="selected"';?>>B</option>
+                          <option value="C"<?php if($account->course_grade1 === "C") echo 'selected="selected"';?>>C</option>
+                          <option value="D"<?php if($account->course_grade1 === "D") echo 'selected="selected"';?>>D</option>
+                          <option value="F"<?php if($account->course_grade1 === "F") echo 'selected="selected"';?>>F</option>
+                        </select>
+                        <br>
+                          <select id="input-tech2" name="course2" class="form-control form-control-alternative" value="<?php echo $account->course2?>">
+                          <option value="">Enter Course #2</option>
+                          <?php getCourseList(2); ?>
+                        </select>
+                          <select id="input-course-grade2" name="course_grade2" class="form-control form-control-alternative" value="<?php echo $account->course_grade2?>">
+                            <option value="">Enter Course #2 Grade</option>
+                            <option value="A"<?php if($account->course_grade2 === "A") echo 'selected="selected"';?>>A</option>
+                            <option value="B"<?php if($account->course_grade2 === "B") echo 'selected="selected"';?>>B</option>
+                            <option value="C"<?php if($account->course_grade2 === "C") echo 'selected="selected"';?>>C</option>
+                            <option value="D"<?php if($account->course_grade2 === "D") echo 'selected="selected"';?>>D</option>
+                            <option value="F"<?php if($account->course_grade2 === "F") echo 'selected="selected"';?>>F</option>
+                          </select>
+                          <br>
+                          <select id="input-tech3" name="course3" class="form-control form-control-alternative" value="<?php echo $account->course3?>">
+                          <option value="">Enter Course #3</option>
+                          <?php getCourseList(3); ?>
+                        </select>
+                          <select id="input-course-grade3" name="course_grade3" class="form-control form-control-alternative" value="<?php echo $account->course_grade3?>">
+                            <option value="">Enter Course #3 Grade</option>
+                            <option value="A"<?php if($account->course_grade3 === "A") echo 'selected="selected"';?>>A</option>
+                            <option value="B"<?php if($account->course_grade3 === "B") echo 'selected="selected"';?>>B</option>
+                            <option value="C"<?php if($account->course_grade3 === "C") echo 'selected="selected"';?>>C</option>
+                            <option value="D"<?php if($account->course_grade3 === "D") echo 'selected="selected"';?>>D</option>
+                            <option value="F"<?php if($account->course_grade3 === "F") echo 'selected="selected"';?>>F</option>
+                          </select>
+                          <br>
+                          <select id="input-tech4" name="course4" class="form-control form-control-alternative" value="<?php echo $account->course4?>">
+                          <option value="">Enter Course #4</option>
+                          <?php getCourseList(4); ?>
+                        </select>
+                          <select id="input-course-grade4" name="course_grade4" class="form-control form-control-alternative" value="<?php echo $account->course_grade4?>">
+                            <option value="">Enter Course #4 Grade</option>
+                            <option value="A"<?php if($account->course_grade4 === "A") echo 'selected="selected"';?>>A</option>
+                            <option value="B"<?php if($account->course_grade4 === "B") echo 'selected="selected"';?>>B</option>
+                            <option value="C"<?php if($account->course_grade4 === "C") echo 'selected="selected"';?>>C</option>
+                            <option value="D"<?php if($account->course_grade4 === "D") echo 'selected="selected"';?>>D</option>
+                            <option value="F"<?php if($account->course_grade4 === "F") echo 'selected="selected"';?>>F</option>
+                          </select>
+                          <br>
+                          <select id="input-tech5" name="course5" class="form-control form-control-alternative" value="<?php echo $account->course5?>">
+                          <option value="">Enter Course #5</option>
+                          <?php getCourseList(5); ?>
+                        </select>
+                          <select id="input-course-grade5" name="course_grade5" class="form-control form-control-alternative" value="<?php echo $account->course_grade5?>">
+                            <option value="">Enter Course #5 Grade</option>
+                            <option value="A"<?php if($account->course_grade5 === "A") echo 'selected="selected"';?>>A</option>
+                            <option value="B"<?php if($account->course_grade5 === "B") echo 'selected="selected"';?>>B</option>
+                            <option value="C"<?php if($account->course_grade5 === "C") echo 'selected="selected"';?>>C</option>
+                            <option value="D"<?php if($account->course_grade5 === "D") echo 'selected="selected"';?>>D</option>
+                            <option value="F"<?php if($account->course_grade5 === "F") echo 'selected="selected"';?>>F</option>
+                          </select>
+                          <br>
+                        </div>
+                       </div>
                       </div>
                     </div>
+                    <hr class="my-4">
+                    <!--end of Courses -->
+
+                <!-- Certifications and Awards -->
+
+                <h6 class="heading-small text-muted mb-4">Projects</h6>
+                    <div class="pl-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-project1">Project #1</label>
+                      </div>
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-workdate2">Project Title</label>
+                          <input type="text" id="input-workdate2" class="form-control form-control-alternative"
+                            name="project_title1" placeholder="Project Title" value="<?php echo $account->project_title1?>">
+                          </div>
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-workdescript2">Project Description</label>
+                          <textarea rows="4" id="input-workdescript2" class="form-control form-control-alternative"
+                            name="project_descr1" placeholder="Describe your projects duties..." value="<?php echo $account->project_descr1?>"><?php echo $account->project_descr1?></textarea>
+                          </div>
+                      </div>
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-certif">Project #2</label>
+                      </div>
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-workdate2">Project Title</label>
+                          <input type="text" id="input-workdate2" class="form-control form-control-alternative"
+                            name="project_title2" placeholder="Project Title" value="<?php echo $account->project_title2?>">
+                          </div>
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-workdescript2">Project Description</label>
+                          <textarea rows="4" id="input-workdescript2" class="form-control form-control-alternative"
+                            name="project_descr2" placeholder="Describe your project duties..." value="<?php echo $account->project_descr2?>"><?php echo $account->project_descr2?></textarea>
+                          </div>
                 <hr class="my-4">
 
                 <!-- Work Experience -->
@@ -1412,22 +857,22 @@
                       <div class="form-group focused">
                       <label class="form-control-label" for="input-workcompany1">Employer</label>
                     <input type="text" id="input-workemployer1" class="form-control form-control-alternative"
-                      name="work_employer1" placeholder="Employer" value="<?php echo $account2->work_employer1?>">
+                      name="work_employer1" placeholder="Employer" value="<?php echo $account->work_employer1?>">
                      </div>
                     <div class="form-group focused">
                       <label class="form-control-label" for="input-worktitle1">Title of Position</label>
                     <input type="text" id="input-worktitle1" class="form-control form-control-alternative"
-                      name="work_position1" placeholder="Title of Position" value="<?php echo $account2->work_position1?>">
+                      name="work_position1" placeholder="Title of Position" value="<?php echo $account->work_position1?>">
                     </div>
                     <div class="form-group focused">
                       <label class="form-control-label" for="input-workdate1">Duration of Employment</label>
                     <input type="text" id="input-workdate1" class="form-control form-control-alternative"
-                      name="work_duration1" placeholder="Duration of Employment" value="<?php echo $account2->work_duration1?>">
+                      name="work_duration1" placeholder="Duration of Employment" value="<?php echo $account->work_duration1?>">
                     </div>
                     <div class="form-group focused">
                       <label class="form-control-label" for="input-workdescript1">Job Description</label>
                     <textarea rows="4" id="input-workdescript1" class="form-control form-control-alternative"
-                      name="work_descr1" placeholder="Describe your job duties or projects..." value="<?php echo $account2->work_descr1?>"></textarea>
+                      name="work_descr1" placeholder="Describe your job duties or projects..." value="<?php echo $account->work_descr1?>"><?php echo $account->work_descr1?></textarea>
                     </div>
                   <div class="form-group focused">
                     <label class="form-control-label" for="input-work2">Work #2</label>
@@ -1435,22 +880,22 @@
                     <div class="form-group focused">
                     <label class="form-control-label" for="input-workcompany2">Employer</label>
                   <input type="text" id="input-workemployer2" class="form-control form-control-alternative"
-                    name="work_employer2" placeholder="Employer" value="<?php echo $account2->work_employer2?>">
+                    name="work_employer2" placeholder="Employer" value="<?php echo $account->work_employer2?>">
                   </div>
                   <div class="form-group focused">
                     <label class="form-control-label" for="input-worktitle2">Title of Position</label>
                   <input type="text" id="input-worktitle2" class="form-control form-control-alternative"
-                    name="work_position2" placeholder="Title of Position" value="<?php echo $account2->work_position2?>">
+                    name="work_position2" placeholder="Title of Position" value="<?php echo $account->work_position2?>">
                   </div>
                   <div class="form-group focused">
                     <label class="form-control-label" for="input-workdate2">Duration of Employment</label>
                   <input type="text" id="input-workdate2" class="form-control form-control-alternative"
-                    name="work_duration2" placeholder="Duration of Employment" value="<?php echo $account2->work_duration2?>">
+                    name="work_duration2" placeholder="Duration of Employment" value="<?php echo $account->work_duration2?>">
                   </div>
                   <div class="form-group focused">
                     <label class="form-control-label" for="input-workdescript2">Job Description</label>
                   <textarea rows="4" id="input-workdescript2" class="form-control form-control-alternative"
-                    name="work_descr2" placeholder="Describe your job duties or projects..." value="<?php echo $account2->work_descr2?>"></textarea>
+                    name="work_descr2" placeholder="Describe your job duties or projects..." value="<?php echo $account->work_descr2?>"><?php echo $account->work_descr2?></textarea>
                   </div>
                 </div>
                 <hr class="my-4">

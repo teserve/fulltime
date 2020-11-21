@@ -99,7 +99,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                    <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
+                                    <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>98% Match</span>
@@ -109,7 +109,7 @@
                                     <p>Full Time</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="ViewProfile.php">+ View More</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
+                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>96% Match</span>
@@ -127,7 +127,7 @@
                                     <p>Full Time</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="ViewProfile.php">+ View More</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
+                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>89% Match</span>
@@ -145,7 +145,7 @@
                                     <p>Full Time</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="ViewProfile.php">+ View More</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
+                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>78% Match</span>
@@ -163,7 +163,7 @@
                                     <p>Full Time</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="ViewProfile.php">+ View More</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                  <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
+                                  <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>75% Match</span>
@@ -180,7 +180,7 @@
                                     <p>Contract</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="ViewProfile.php">+ View More</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
+                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>71% Match</span>
@@ -197,7 +197,7 @@
                                     <p>Contract</p>
 
                                     <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
+                                        <li><a href="ViewProfile.php">+ View More</a></li>
                                     </ul>
                                 </div>
                             </div>

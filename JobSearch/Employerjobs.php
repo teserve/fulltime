@@ -51,7 +51,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo" style="color:#ffbc6e">FULLTIME</a>
+                        <a class="logo" style="color:#ffbc6e">FULLTIME</a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
@@ -84,6 +84,13 @@
                         <br>
                         <h2>Search <em>Applicants</em></h2>
                         <br>
+                        <div class="search-container">
+                        <form action="search_student.php", method "post">
+                          <input type="text" placeholder="Search.." name="k">
+                          <button type="submit" value="search"><i class="fa fa-search"></i></button>
+                         </form>
+                         </div>
+                         <br>
                         <a class="btn btn-primary smooth-scroll mr-2" href="Postjobs.php" data-aos="zoom-in"
                           data-aos-anchor="data-aos-anchor">Post Job Openings</a>
                     </div>
@@ -100,256 +107,50 @@
             <br>
 
             <div class="row">
-              <!--
-                <div class="col-lg-4">
-                  <div class="search-container">
-                      <form action="#">
-                        <input type="text" placeholder="Search.." name="search">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                      </form>
-                  </div>
-                  <br></br>
-                         <h5 style="margin-bottom: 15px">Job Type</h5>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Internship</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Co-op</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Full-time</span>
-                              </label>
-                         </div>
-
-                         <br>
-
-                         <h5 style="margin-bottom: 15px">Education Level</h5>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Bachelor's Degree</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Master's Degree</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>Doctorate Degree</span>
-                              </label>
-                         </div>
-
-                         <br>
-
-
-                         <h5 style="margin-bottom: 15px">GPA</h5>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>4.0</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.80-3.99</span>
-                              </label>
-                         </div>
-
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.60-3.79</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.40-3.59</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.20-3.39</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>3.00-3.19</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>2.80-2.99</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>2.60-2.79</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>&#8805 2.50</span>
-                              </label>
-                         </div>
-                         <div>
-                              <label>
-                                   <input type="checkbox">
-
-                                   <span>< 2.49</span>
-                              </label>
-                         </div>
-                    </form>
-
-                    <br>
-                </div>
-              -->
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
+                      <?php
+                         include "../db_connection.php";
 
-                                    <h4>Haley Clark </h4>
+                         try
+                         {
+                              $res = $pdo->prepare('SELECT U.user_id, U.fir_name, U.las_name, S.university, S.major, S.bio
+                                   FROM g1116887.Job_posting J, g1116887.Applied A, g1116887.User U, g1116887.Student S
+                                   WHERE (J.user_id = :employer_id) AND (A.job_id = J.job_id) AND (A.user_id = U.user_id) AND (U.user_id = S.user_id)');
+                              $id = $account->id;
+                              $res->execute(array(':employer_id' => $id));
+                         }
+                         catch (PDOException $e)
+                         {
+                              throw("Database query error");
+                              echo $e->getMessage();
+                         }
 
-                                    <p>Full Time</p>
+                         $res;
 
-                                    <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
+                         if (count($res) === 0) {
+                              echo "No Applicants";
+                         } else {
+                              foreach ($res as $applicant){
+                              echo '<div class="col-md-6">';
+                              echo '<div class="trainer-item">';
+                              echo '<div class="image-thumb">';
+                              echo '<img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">';
+                              echo '</div>';
+                              echo '<div class="down-content">';
+                              echo '<h4>' . $applicant['fir_name'] . ' ' . $applicant['las_name'] . '</h4>';
+                              echo '<h6>' . $applicant['university'] . ' | ' . $applicant['major'] . '</h6>';
+                              echo '<p>' . $applicant['bio'] . '</p>';
+                              echo '<ul class="social-icons">';
+                              echo '<li><a href="Views.php">Go to Student Profile</a></li>';
+                              echo '</ul>';
+                              echo '</div>';
+                              echo '</div>';
+                              echo '</div>';
+                              }
+                         }
 
-                                    <h4>Courtney Halak </h4>
-
-                                    <p>Full Time</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-
-                                    <h4>Christopher Bower</h4>
-
-                                    <p>Full Time</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-
-                                    <h4>Douglas McWherter</h4>
-
-                                    <p>Full Time</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                  <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-
-                                    <h4>Daniel Bolinaga</h4>
-
-                                    <p>Contract</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src="blankprofile.jpg" alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-
-                                    <h4>Claire Standhart</h4>
-
-                                    <p>Contract</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="job-details.html">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                       ?>
                     </div>
                 </div>
             </div>

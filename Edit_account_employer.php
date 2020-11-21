@@ -5,30 +5,31 @@ require 'db_connection.php';
 
 $id = $_SESSION['account_id'];
 
-$company = trim($_POST['company']);
-$position_type = trim($_POST['position_type']);
-$industry = trim($_POST['industry']);
-$city= trim($_POST['city']);
+$city = trim($_POST['city']);
 $country = trim($_POST['country']);
 $post_code = trim($_POST['post_code']);
+$company = trim($_POST['company']);
+$industry = trim($_POST['industry']);
+$position_type = $_POST['position_type'];
 
 $edit_employee_query = 'REPLACE INTO g1116887.Employee SET 
 user_id = :user_id, 
-company = :company, 
-position = :position, 
-industry = :industry, 
-city = :city, 
-country = :country,
-post_code = :post_code';
+city = :city,  
+country = :country, 
+post_code = :post_code, 
+company = :company,
+industry = :industry,
+position_type = :position_type';
+
 
 $main_values = array(
     ':user_id' => $id,
-    ':company' => $company,
-    ':position_type' => $position_type,
-    ':industry' => $industry,
     ':city' => $city,
     ':country' => $country,
-    ':post_code' => $post_code
+    ':post_code' => $post_code,
+    ':company' => $company,
+    ':industry' => $industry, 
+    ':position_type' => $position_type
 );
 
 try{

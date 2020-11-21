@@ -141,7 +141,6 @@ input[type=submit]:hover {
           <li><form action="../logout.php">
                  <input type='submit' class="btn btn-primary" name='submit' value='Log Out'>
                  </form></li>
-                </form>
         </ul>
       </div>
 
@@ -196,19 +195,19 @@ input[type=submit]:hover {
                           <div class="col-75">
                            <select id="industry" name="industry">
                             <option value="">Enter Industry</option>
-                            <option value="1">Business-Related Fields</option>
-                            <option value="2">Chemicals, Petroleum, Plastics & Rubber</option>
-                            <option value="3">Computer Systems - Design/Programming</option>
-                            <option value="4">Consulting Services</option>
-                            <option value="5">Consumer Goods</option>
-                            <option value="6">Energy</option>
-                            <option value="7">Engineering Services</option>
-                            <option value="8">Environmental Services</option>
-                            <option value="9">Government</option>
-                            <option value="10">Manufacturing & Industrial Systems</option>
-                            <option value="11">Other</option>
-                            <option value="12">Pharmaceuticals & Medicine</option>
-                            <option value="13">Scientific Research & Development</option>
+                            <option value="Business-Related Fields">Business-Related Fields</option>
+                            <option value="Chemicals, Petroleum, Plastics & Rubber">Chemicals, Petroleum, Plastics & Rubber</option>
+                            <option value="Computer Systems - Design/Programming">Computer Systems - Design/Programming</option>
+                            <option value="Consulting Services">Consulting Services</option>
+                            <option value="Consumer Goods">Consumer Goods</option>
+                            <option value="Energy">Energy</option>
+                            <option value="Engineering Services">Engineering Services</option>
+                            <option value="Environmental Services">Environmental Services</option>
+                            <option value="Government">Government</option>
+                            <option value="Manufacturing & Industrial Systems">Manufacturing & Industrial Systems</option>
+                            <option value="Other">Other</option>
+                            <option value="Pharmaceuticals & Medicine">Pharmaceuticals & Medicine</option>
+                            <option value="Scientific Research & Development">Scientific Research & Development</option>
                           </select>
                           </div>
                         </div>
@@ -257,8 +256,7 @@ input[type=submit]:hover {
                         <div class="col-25">
                         </div>
                         <div class="col-75">
-                        <input type="submit" class="form-control" name="submit"
-                                                            value="Submit Button">
+                       <input type='submit' class="btn btn-primary" name='submit' value='Post'>
                       </div>
                     </form>
                     <br> </br>

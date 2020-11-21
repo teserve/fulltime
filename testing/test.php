@@ -3,13 +3,13 @@
 session_start();
 
 require '../password.php';
+include '../db_connection.php';
+include '../get_profile_pic.php';
 
-$servername = "mydb.itap.purdue.edu";
-$username = "g1116887";
-$password = "12Blueapples";
+getProfilePic($_SESSION['account_id']);
 
 
-echo 'here1';
-$account_id = $_SESSION['account_id'];
-echo $account_id;
-echo 'here3';
+// foreach ($_SERVER as $key => $val)
+// {
+//     echo $key . ': ' . $val . '<br>';
+// }

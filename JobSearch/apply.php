@@ -14,13 +14,6 @@
 
           <link rel="stylesheet" href="../Profile/stylesheet.css">
           <link rel="stylesheet" href="../css/templatemo-style.css">
-
-
-          <script>
-          function myFunction() {
-            alert("The form was submitted");
-          }
-          </script>
       </head>
 
 <body>
@@ -58,7 +51,7 @@
           <div class="col-lg-7 col-md-10">
             <h1 class="display-2 text-white">Hello <?php echo $account->first_name;?>,</h1>
             <div class="form-group focused">
-              <form action="" onsubmit='alert("The form was submitted");'>
+              <form action="" onsubmit='alert("Your resume was uploaded successfully");' enctype="multipart/form-data">
                 To apply, upload your resume!
                 <input type="file" name="resume" id="resume">
                 <input type="submit" value = "Submit" class="btn btn-info">

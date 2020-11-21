@@ -242,7 +242,7 @@ class Account
 
     public function getInfoStudent($id)
     {
-        global $pdo; 
+        global $pdo;
 
         $query = 'SELECT * FROM g1116887.Student WHERE (user_id = :id)';
 
@@ -270,11 +270,10 @@ class Account
         $this->region = $row['region'];
         $this->job_type = $row['job_type'];
         $this->industry = $row['industry'];
-        $this->award1 = $row['award1'];
-        $this->award2 = $row['award2'];
-        $this->award3 = $row['award3'];
-        $this->award4 = $row['award4'];
-        $this->award5 = $row['award5'];
+        $this->project_title1 = $row['project_title1'];
+        $this->project_title2 = $row['project_title2'];
+        $this->project_descr1 = $row['project_descr1'];
+        $this->project_descr2 = $row['project_descr2'];
         $this->work_employer1 = $row['work_employer1'];
         $this->work_position1 = $row['work_position1'];
         $this->work_duration1 = $row['work_duration1'];
@@ -289,7 +288,7 @@ class Account
     public function getInfoStuSkills($id)
     {
         global $pdo;
-        
+
         $query = 'SELECT * FROM g1116887.Student_skills WHERE (user_id = :id)';
 
         $values = array(':id' => $id);
@@ -298,7 +297,7 @@ class Account
             $res = $pdo->prepare($query);
             $res-> execute($values);
         }
-        
+
         catch(PDOException $e)
         {
             throw new Exception('Database query error');
@@ -337,11 +336,42 @@ class Account
         $this->soft_skill10 = $row['soft_skill10'];
     }
 
+		public function getInfoStuCourses($id)
+		{
+				global $pdo;
+
+				$query = 'SELECT * FROM g1116887.Student_courses WHERE (user_id = :id)';
+
+				$values = array(':id' => $id);
+
+				try{
+						$res = $pdo->prepare($query);
+						$res-> execute($values);
+				}
+
+				catch(PDOException $e)
+				{
+						throw new Exception('Database query error');
+				}
+
+				$row = $res->fetch(PDO::FETCH_ASSOC);
+				$this->course1 = $row['course1'];
+				$this->course2 = $row['course2'];
+				$this->course3 = $row['course3'];
+				$this->course4 = $row['course4'];
+				$this->course5 = $row['course5'];
+				$this->course_grade1 = $row['course_grade1'];
+				$this->course_grade2 = $row['course_grade2'];
+				$this->course_grade3 = $row['course_grade3'];
+				$this->course_grade4 = $row['course_grade4'];
+				$this->course_grade5 = $row['course_grade5'];
+		}
+
     public function getInfoAdmin($id)
     {
 
         global $pdo;
-        
+
         $query = 'SELECT * FROM g1116887.Admin WHERE (user_id = :id)';
 
         $values = array(':id' => $id);
@@ -350,7 +380,7 @@ class Account
             $res = $pdo->prepare($query);
             $res-> execute($values);
         }
-        
+
         catch(PDOException $e)
         {
             throw new Exception('Database query error');
@@ -367,9 +397,9 @@ class Account
 
     public function getInfoEmployer($id)
     {
-        
+
         global $pdo;
-        
+
         $query = 'SELECT * FROM g1116887.Employee WHERE (user_id = :id)';
 
         $values = array(':id' => $id);
@@ -378,12 +408,12 @@ class Account
             $res = $pdo->prepare($query);
             $res-> execute($values);
         }
-        
+
         catch(PDOException $e)
         {
             throw new Exception('Database query error');
         }
-        
+
         $row = $res->fetch(PDO::FETCH_ASSOC);
         $this->city = $row['city'];
         $this->country = $row['country'];
@@ -394,6 +424,88 @@ class Account
 
     }
 
+    public function getInfoPostJobs($id)
+    {
+        global $pdo;
+
+        $query = 'SELECT * FROM g1116887.Job_posting WHERE (user_id = :id)';
+
+        $values = array(':id' => $id);
+
+        try{
+            $res = $pdo->prepare($query);
+            $res-> execute($values);
+        }
+
+        catch(PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+        $this->industry = $row['industry'];
+        $this->position = $row['position'];
+        $this->job_type = $row['job_type'];
+        $this->ed_level = $row['ed_level'];
+        $this->gpa = $row['gpa'];
+        $this->region = $row['region'];
+        $this->company = $row['company'];
+        $this->date_post = $row['date_post'];
+        $this->date_closed = $row['date_closed'];
+        $this->job_descr = $row['job_descr'];
+
+    }
+
+    public function getInfoJobsSkills($id)
+    {
+        global $pdo;
+
+        $query = 'SELECT * FROM g1116887.Job_skills WHERE (user_id = :id)';
+
+        $values = array(':id' => $id);
+
+        try{
+            $res = $pdo->prepare($query);
+            $res-> execute($values);
+        }
+
+        catch(PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+        $this->tech_skill1 = $row['tech_skill1'];
+        $this->tech_skill2 = $row['tech_skill2'];
+        $this->tech_skill3 = $row['tech_skill3'];
+        $this->tech_skill4 = $row['tech_skill4'];
+        $this->tech_skill5 = $row['tech_skill5'];
+        $this->tech_skill6 = $row['tech_skill6'];
+        $this->tech_skill7 = $row['tech_skill7'];
+        $this->tech_skill8 = $row['tech_skill8'];
+        $this->tech_skill9 = $row['tech_skill9'];
+        $this->tech_skill10 = $row['tech_skill10'];
+        $this->tech_rate1 = $row['tech_rate1'];
+        $this->tech_rate2 = $row['tech_rate2'];
+        $this->tech_rate3 = $row['tech_rate3'];
+        $this->tech_rate4 = $row['tech_rate4'];
+        $this->tech_rate5 = $row['tech_rate5'];
+        $this->tech_rate6 = $row['tech_rate6'];
+        $this->tech_rate7 = $row['tech_rate7'];
+        $this->tech_rate8 = $row['tech_rate8'];
+        $this->tech_rate9 = $row['tech_rate9'];
+        $this->tech_rate10 = $row['tech_rate10'];
+        $this->soft_skill1 = $row['soft_skill1'];
+        $this->soft_skill2 = $row['soft_skill2'];
+        $this->soft_skill3 = $row['soft_skill3'];
+        $this->soft_skill4 = $row['soft_skill4'];
+        $this->soft_skill5 = $row['soft_skill5'];
+        $this->soft_skill6 = $row['soft_skill6'];
+        $this->soft_skill7 = $row['soft_skill7'];
+        $this->soft_skill8 = $row['soft_skill8'];
+        $this->soft_skill9 = $row['soft_skill9'];
+        $this->soft_skill10 = $row['soft_skill10'];
+    }
 
 
     public function isStudent($id)

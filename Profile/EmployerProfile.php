@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-     <head>
+<head>
 
-    <?php
-      session_start();
+  <?php
+  session_start();
 
-      if (!isset($_SESSION['account_id'])) header('location: ../index.html');
+  if (!isset($_SESSION['account_id'])) header('location: ../index.html');
 
-      include '../account_class.php';
-      $account = new Account();
-      $account->getInfo($_SESSION['account_id']);
+  include '../account_class.php';
+  $account = new Account();
 
-      $account5 = new Account();
-      $account5->getInfoEmployer($_SESSION['account_id']);
-    ?>
+  $account->getInfo($_SESSION['account_id']);
+  $account->getInfoEmployer($_SESSION['account_id']);
+  ?>
 
-          <link rel="stylesheet" href="stylesheet.css">
-          <link rel="stylesheet" href="../css/templatemo-style.css">
-      </head>
+  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="../css/templatemo-style.css">
+</head>
 
 <body>
   <div class="main-content">
@@ -137,10 +136,10 @@
                 <?php echo $account->first_name?> <?php echo $account->last_name?><span class="font-weight-light"></span>
                 </h3>
                 <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i><?php echo $account5->city?>, <?php echo $account5->country?> <?php echo $account5->post_code?>
+                  <i class="ni location_pin mr-2"></i><?php echo $account->city?>, <?php echo $account->country?> <?php echo $account->post_code?>
                 </div>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Company - Job Position
+                  <i class="ni business_briefcase-24 mr-2"></i><?php echo $account->company?> - <?php echo $account->position_type?>
                 </div>
                 <hr class="my-4">
               </div>
@@ -157,7 +156,7 @@
               </div>
             </div>
             <div class="card-body">
-            <form action="../Edit_account_employer.php" method="POST" enctype="multipart/form-data">
+            <form action="../Edit_account_employer.php" method="POST" enctype="multipart/form-data" onsubmit='alert("Changes saved successfully");'>
                 <div class="col-6 text-right">
                   <input type="submit" class="btn btn-sm btn-primary" value="Save">
                 </div>
@@ -167,13 +166,13 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">First name</label>
-                        <input type="text" id="input-first-name" class="form-control form-control-alternative" value=<?php echo $account->first_name?>>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" value= "<?php echo $account->first_name?>">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">Last name</label>
-                        <input type="text" id="input-last-name" class="form-control form-control-alternative" value=<?php echo $account->last_name?>>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" value= "<?php echo $account->last_name?>">
                       </div>
                     </div>
                   </div>
@@ -181,13 +180,13 @@
                     <div class="col-lg-6">
                         <div class="form-group focused">
                         <label class="form-control-label" for="input-cell">Phone Number</label>
-                        <input type="text" id="input-cell" class="form-control form-control-alternative" value=<?php echo $account->cell?>>
+                        <input type="text" id="input-cell" class="form-control form-control-alternative" value= "<?php echo $account->cell?>">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative" value=<?php echo $account->email?>>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" value= "<?php echo $account->email?>">
                       </div>
                     </div>
                   </div>
@@ -209,14 +208,14 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-username">Company</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" name="company" placeholder="Enter Company" value= <?php echo $account5->company?> >
+                        <label class="form-control-label" for="input-company">Company</label>
+                        <input type="text" id="input-company" class="form-control form-control-alternative" name="company" placeholder="Enter Company" value= "<?php echo $account->company?>" >
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-position">Position Title</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" name="position_type" placeholder="Enter Job Position" value= <?php echo $account5->position_type?>>
+                        <input type="text" id="input-username" class="form-control form-control-alternative" name="position_type" placeholder="Enter Job Position" value= "<?php echo $account->position_type?>">
                       </div>
                     </div>
                   </div>
@@ -224,21 +223,21 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">Industry</label>
-                        <select id="input-tech1" name="industry" class="form-control form-control-alternative">
+                        <select id="input-first-name" name="industry" class="form-control form-control-alternative" value= "<?php echo $account->industry?>">
                             <option value="">Enter Industry</option>
-                            <option value="">Business-Related Fields</option>
-                            <option value="">Chemicals, Petroleum, Plastics & Rubber</option>
-                            <option value="">Computer Systems - Design/Programming</option>
-                            <option value="">Consulting Services</option>
-                            <option value="">Consumer Goods</option>
-                            <option value="">Energy</option>
-                            <option value="">Engineering Services</option>
-                            <option value="">Environmental Services</option>
-                            <option value="">Government</option>
-                            <option value="">Manufacturing & Industrial Systems</option>
-                            <option value="">Other</option>
-                            <option value="">Pharmaceuticals & Medicine</option>
-                            <option value="">Scientific Research & Development</option>
+                            <option value="Business-Related Fields"<?php if($account->industry === "Business-Related Fields") echo 'selected="selected"';?>>Business-Related Fields</option>
+                            <option value="Chemicals, Petroleum, Plastics & Rubber"<?php if($account->industry === "Chemicals, Petroleum, Plastics & Rubber") echo 'selected="selected"';?>>Chemicals, Petroleum, Plastics & Rubber</option>
+                            <option value="Computer Systems - Design/Programming"<?php if($account->industry === "Chemicals, Petroleum, Plastics & Rubber") echo 'selected="selected"';?>>Computer Systems - Design/Programming</option>
+                            <option value="Consulting Services"<?php if($account->industry === "Consulting Services") echo 'selected="selected"';?>>Consulting Services</option>
+                            <option value="Consumer Goods"<?php if($account->industry === "Consumer Goods") echo 'selected="selected"';?>>Consumer Goods</option>
+                            <option value="Energy"<?php if($account->industry === "Energy") echo 'selected="selected"';?>>Energy</option>
+                            <option value="Engineering Services"<?php if($account->industry === "Engineering Services") echo 'selected="selected"';?>>Engineering Services</option>
+                            <option value="Environmental Services"<?php if($account->industry === "Environmental Services") echo 'selected="selected"';?>>Environmental Services</option>
+                            <option value="Government"<?php if($account->industry === "Government") echo 'selected="selected"';?>>Government</option>
+                            <option value="Manufacturing & Industrial Systems"<?php if($account->industry === "Manufacturing & Industrial Systems") echo 'selected="selected"';?>>Manufacturing & Industrial Systems</option>
+                            <option value="Other"<?php if($account->industry === "Other") echo 'selected="selected"';?>>Other</option>
+                            <option value="Pharmaceuticals & Medicine"<?php if($account->industry === "Pharmaceuticals & Medicine") echo 'selected="selected"';?>>Pharmaceuticals & Medicine</option>
+                            <option value="Scientific Research & Development"<?php if($account->industry === "Scientific Research & Development") echo 'selected="selected"';?>>Scientific Research & Development</option>
                         </select>
                       </div>
                     </div>
@@ -253,19 +252,19 @@
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-city">City</label>
-                        <input type="text" id="input-city" class="form-control form-control-alternative" name="city" placeholder="City" value=<?php echo $account5->city?>>
+                        <input type="text" id="input-city" class="form-control form-control-alternative" name="city" placeholder="City" value= "<?php echo $account->city?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-country">Country</label>
-                        <input type="text" id="input-country" class="form-control form-control-alternative" name="country" placeholder="Country"value=<?php echo $account5->country?>>
+                        <input type="text" id="input-country" class="form-control form-control-alternative" name="country" placeholder="Country" value= "<?php echo $account->country?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-country">Postal code</label>
-                        <input type="number" id="input-postal-code" class="form-control form-control-alternative" name="post_code" placeholder="Postal code" value=<?php echo $account5->post_code?>>
+                        <label class="form-control-label" for="input-postal-code">Postal code</label>
+                        <input type="text" id="input-postal-code" class="form-control form-control-alternative" name="post_code" placeholder="Postal code" value= "<?php echo $account->post_code?>">
                       </div>
                     </div>
                   </div>

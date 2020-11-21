@@ -1,155 +1,250 @@
 library(RMySQL)
-mydb <- dbConnect(MySQL(), user='g1116887', password='12Blueapples', dbname='g1116887', host='mydb.itap.purdue.edu')
-on.exit(dbDisconnect(mydb))
+# db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+# on.exit(dbDisconnect(db_connection))
 
-#STUDENT DATA------------------------------------------------
-#generate random names for 100 students
+# STUDENT DATA GENERATION ------------------------------------------------
+n = 50
+
+library(stringi)
+email <- stri_rand_strings(n, 10)
+email <- sapply(1:n, function(x) return(paste0(email[x], "@gmail.com")))
+
+pass <- 1:n
+
+cell <- rep("1234567890", times = n)
+
+# generate random names for n students
 library(randomNames)
-randomNames(57, 0) #male
-randomNames(43, 1) #female
+fir_name <- randomNames(n, which.names = "first")
+las_name <- randomNames(n, which.names = "last")
 
-#generate gpa for 100 students
+# generate gpa for n students
 library(wakefield)
-gpa(100, mean = 85, sd = 4, name = "GPA")
+gpa <- gpa(n, mean = 85, sd = 4) # 85 corresponds to GPA of ~3.15
 
-#generate region preferences for 100 students
-region <- c("Midwest", "Southwest", "West", "Northeast", "Southeast")
-sample(region, 100, replace = T, prob = c(0.681, 0.062, 0.117, 0.071, 0.069))
+# generate region preferences for n students
+region_list <- c("Midwest", "Southwest", "West", "Northeast", "Southeast")
+region_prob <- c(0.681, 0.062, 0.117, 0.071, 0.069)
+region <- sample(region_list, n, replace = T, prob = region_prob)
 
-#generate industry preferences for 100 students
-industry <- c("Business-Related Fields", "Chemicals, Petroleum, Plastics & Rubber", "Computer Systems - Design/Programming", 
-              "Consulting Services", "Consumer Goods", "Energy", "Engineering Services", "Environmental Services",
-              "Government", "Manufacturing & Industrial Systems", "Other", "Pharmaceuticals & Medicine", "Scientific Research & Development")
-sample(industry, 100, replace = T, c(0.061, 0.018, 0.079, 0.128, 0.226, 0.018, 0.189, 0.012, 0.012, 0.183, 0.037, 0.031, 0.610))
+# generate industry preferences for n students
+industry_list <- c(
+  "Business-Related Fields",
+  "Chemicals, Petroleum, Plastics & Rubber",
+  "Computer Systems - Design/Programming",
+  "Consulting Services",
+  "Consumer Goods",
+  "Energy",
+  "Engineering Services",
+  "Environmental Services",
+  "Government",
+  "Manufacturing & Industrial Systems",
+  "Other",
+  "Pharmaceuticals & Medicine",
+  "Scientific Research & Development"
+)
+industry_prob <- c(0.061, 0.018, 0.079, 0.128, 0.226, 0.018, 0.189, 0.012, 0.012, 0.183, 0.037, 0.031, 0.610)
+industry <- sample(industry_list, n, replace = T, prob = industry_prob)
 
-#generate job type preferences for 100 students
-type <- c("Internship", "Co-op", "Full-time")
-sample(type, 100, replace = T)
+# generate job type preferences for n students
+type_list <- c("Internship", "Co-op", "Full-time")
+job_type <- sample(type_list, n, replace = T, prob = c(0.4, 0.2, 0.4))
 
-#generate education level for 100 students
-ed_level <- c("Bachelor's Degree", "Master's Degree", "Docterate's Degree")
-sample(ed_level, 100, replace = T)
+# generate education level for n students
+school_year <- c("Freshman", "Sophomore", "Junior", "Senior")
+ed_level <- sample(school_year, n, replace = T)
 
-#generate 10 technical skills for 100 students
-tech_skill <- c("Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)", "Algorithms", 
-                "Architecture and engineering (CAD software)", "Auditing", "BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)", 
-                "Backend development", "Budget planning", "C#", "C/C++", "Cloud computing", "Content Management Systems (CMS)",
-                "Cost and trend analysis", "Data management and analytics", "Data modeling", "ERP systems", "Front-end development",
-                "GAAP and FASB knowledge", "Google Suite (Docs, Sheets, Slides, Forms, etc.)", "HTML", "Java", "JavaScript",
-                "Journalism and writing: Content Management Systems", "Foreign language", "Marketing analytics tools",
-                "Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)", "Network structure and security", "PHP",
-                "PM tools (JIRA, Trello, Monday.com, etc.)", "Perl", "Photoshop, Illustrator, Adobe CS, and InDesign",
-                "Product lifecycle management", "Project management and planning", "Prototyping", "Python", "R", "Risk management",
-                "Ruby", "SQL", "Salesforce", "Scrum and Agile", "Search Engine Optimization (SEO)", "Shipping and transportation: Logistics management software",
-                "Social marketing", "Statistics and probability", "Swift", "System design", "Task management", "Technical writing and reporting",
-                "UI/UX", "Website design", "Zapier")
-replicate(100, sample(tech_skill, 10, replace = F))
+# Fill matching alg requirements in Student table
+simulated_student_info <- data.frame(
+  email,
+  pass,
+  cell,
+  fir_name,
+  las_name,
+  gpa,
+  region,
+  industry,
+  job_type,
+  ed_level
+)
 
-#generate ranking for each of the 10 technical skills for 100 students
-if (ed_level == "Bachelor's Degree") {
-  replicate(100, sample(1:5, 10, replace = T, c(0.10, 0.20, 0.50, 0.15, 0.05)))
-} if (ed_level == "Master's Degree") {
-  replicate(100, sample(1:5, 10, replace = T), c(0.10, 0.10, 0.15, 0.50, 0.15))
-} if (ed_level == "Docterate's Degree") {
-  replicate(100, sample(1:5, 10, replace = T), c(0.05, 0.10, 0.15, 0.20, 0.50))
+# generate 10 technical skills for n students
+db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+tech_skill_list <- dbReadTable(db_connection, "TechSkills")$skill_name
+dbDisconnect(db_connection)
+
+tech_skill_data <- matrix(nrow = n, ncol = 10)
+for (i in 1:n) {
+  tech_skill_data[i,] <- sample(tech_skill_list, 10, replace = F)
+}
+tech_skill_data <- data.frame(tech_skill_data)
+
+# generate ranking for each of the 10 technical skills for n students
+rating_list <- c("1: Beginner", "2: Basic", "3: Intermediate", "4: Advanced", "5: Expert")
+for (i in 1:10) {
+  tech_skill_data <- cbind(tech_skill_data, sample(rating_list, n, replace = T))
+}
+names(tech_skill_data) <- c(
+  sapply(1:10, function(x) return(paste0("tech_skill", x))),
+  sapply(1:10, function(x) return(paste0("tech_rate", x)))
+)
+
+# generate 10 soft skills for n students
+db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+soft_skill_list <- dbReadTable(db_connection, "SoftSkills")$skill_name
+dbDisconnect(db_connection)
+
+soft_skill_data <- matrix(nrow = n, ncol = 10)
+for (i in 1:n) {
+  soft_skill_data[i,] <- sample(soft_skill_list, 10, replace = F)
+}
+soft_skill_data <- data.frame(soft_skill_data)
+names(soft_skill_data) <- sapply(1:10, function(x) return(paste0("soft_skill", x)))
+
+
+# Fill matching alg skill requirements in Student_skills table
+simulated_student_skills <- cbind(tech_skill_data, soft_skill_data)
+
+
+# JOB POSTING DATA GENERATION --------------------------------------------
+# generate gpa for n job postings
+library(wakefield)
+gpa <- gpa(n, mean = 85, sd = 4) # 85 corresponds to GPA of ~3.15
+
+# generate region for n job postings
+region_list <- c("Midwest", "Southwest", "West", "Northeast", "Southeast")
+region_prob <- c(0.681, 0.062, 0.117, 0.071, 0.069)
+region <- sample(region_list, n, replace = T, prob = region_prob)
+
+# generate industry for n job postings
+industry_list <- c(
+  "Business-Related Fields",
+  "Chemicals, Petroleum, Plastics & Rubber",
+  "Computer Systems - Design/Programming",
+  "Consulting Services",
+  "Consumer Goods",
+  "Energy",
+  "Engineering Services",
+  "Environmental Services",
+  "Government",
+  "Manufacturing & Industrial Systems",
+  "Other",
+  "Pharmaceuticals & Medicine",
+  "Scientific Research & Development"
+)
+industry_prob <- c(0.061, 0.018, 0.079, 0.128, 0.226, 0.018, 0.189, 0.012, 0.012, 0.183, 0.037, 0.031, 0.610)
+industry <- sample(industry_list, n, replace = T, prob = industry_prob)
+
+# generate job type for n job postings
+type_list <- c("Internship", "Co-op", "Full-time")
+job_type <- sample(type_list, n, replace = T, prob = c(0.4, 0.2, 0.4))
+
+# generate education level for n job postings
+school_year <- c("Freshman", "Sophomore", "Junior", "Senior")
+ed_level <- sample(school_year, n, replace = T)
+
+# Fill matching alg requirements in Job_posting table
+simulated_job_posting <- data.frame(
+  gpa,
+  region,
+  industry,
+  job_type,
+  ed_level
+)
+
+# generate 10 technical skills for n job postings
+db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+tech_skill_list <- dbReadTable(db_connection, "TechSkills")$skill_name
+dbDisconnect(db_connection)
+
+tech_skill_data <- matrix(nrow = n, ncol = 10)
+for (i in 1:n) {
+  tech_skill_data[i,] <- sample(tech_skill_list, 10, replace = F)
+}
+tech_skill_data <- data.frame(tech_skill_data)
+
+# generate ranking for each of the 10 technical skills for n job postings
+rating_list <- c("1: Beginner", "2: Basic", "3: Intermediate", "4: Advanced", "5: Expert")
+for (i in 1:10) {
+  tech_skill_data <- cbind(tech_skill_data, sample(rating_list, n, replace = T))
+}
+names(tech_skill_data) <- c(
+  sapply(1:10, function(x) return(paste0("tech_skill", x))),
+  sapply(1:10, function(x) return(paste0("tech_rate", x)))
+)
+
+# generate 10 soft skills for n students
+db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+soft_skill_list <- dbReadTable(db_connection, "SoftSkills")$skill_name
+dbDisconnect(db_connection)
+
+soft_skill_data <- matrix(nrow = n, ncol = 10)
+for (i in 1:n) {
+  soft_skill_data[i,] <- sample(soft_skill_list, 10, replace = F)
+}
+soft_skill_data <- data.frame(soft_skill_data)
+names(soft_skill_data) <- sapply(1:10, function(x) return(paste0("soft_skill", x)))
+
+# Fill matching alg skill requirements in Job_skills table
+simulated_job_skills <- cbind(tech_skill_data, soft_skill_data)
+
+
+db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+dbBegin(db_connection)
+
+# User table insert
+for (i in 1:n) {
+  tryCatch({
+    dbWriteTable(db_connection, name = "User", value = simulated_student_info[i, 1:5], append = T, row.names = F)
+  },
+  warning = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  },
+  error = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  })
 }
 
-#generate 10 soft skills for 100 students
-soft_skill <- c("Accountability", "Adaptability", "Collaborative", "Communication skills", 
-                "Conflict resolution", "Creativity", "Critical problem solving", "Decisiveness",
-                "Dependability", "Flexibility", "Honesty", "Innovation", "Integrity", "Logical reasoning",
-                "Leadership", "Organization", "Patience", "People management", "Perseverance", "Planning",
-                "Positive work ethic", "Public speaking/presentation skills", "Punctuality", "Reliability", 
-                "Responsibility", "Results-oriented", "Self-motivated", "Teamwork", "Time management skills", 
-                "Willingness to learn new things", "Work well under pressure")
-replicate(100, sample(soft_skill, 10, replace = F))
-
-
-#JOB POSTING DATA--------------------------------------------
-#generate gpa for 100 job postings
-library(wakefield)
-gpa(100, mean = 83, sd = 4, name = "GPA")
-
-#generate region for 100 job postings
-region <- c("Midwest", "Southwest", "West", "Northeast", "Southeast")
-sample(region, 100, replace = T, prob = c(0.681, 0.062, 0.117, 0.071, 0.069))
-
-#generate industry for 100 job postings
-industry <- c("Business-Related Fields", "Chemicals, Petroleum, Plastics & Rubber", "Computer Systems - Design/Programming", 
-              "Consulting Services", "Consumer Goods", "Energy", "Engineering Services", "Environmental Services",
-              "Government", "Manufacturing & Industrial Systems", "Other", "Pharmaceuticals & Medicine", "Scientific Research & Development")
-sample(industry, 100, replace = T, c(0.061, 0.018, 0.079, 0.128, 0.226, 0.018, 0.189, 0.012, 0.012, 0.183, 0.037, 0.031, 0.610))
-
-#generate job type for 100 job postings
-type <- c("Internship", "Co-op", "Full-time")
-sample(type, 100, replace = T)
-
-#generate education level for 100 job postings
-ed_level <- c("Bachelor's Degree", "Master's Degree", "Docterate's Degree")
-sample(ed_level, 100, replace = T)
-
-#generate 10 technical skills for 100 job postings
-tech_skill <- c("Accounting and finance tools (SAP, Oracle, Bookkeeping software etc.)", "Algorithms", 
-                "Architecture and engineering (CAD software)", "Auditing", "BI tools and applications (datapine, SAS, SAP, MicroStrategy, etc.)", 
-                "Backend development", "Budget planning", "C#", "C/C++", "Cloud computing", "Content Management Systems (CMS)",
-                "Cost and trend analysis", "Data management and analytics", "Data modeling", "ERP systems", "Front-end development",
-                "GAAP and FASB knowledge", "Google Suite (Docs, Sheets, Slides, Forms, etc.)", "HTML", "Java", "JavaScript",
-                "Journalism and writing: Content Management Systems", "Foreign language", "Marketing analytics tools",
-                "Microsoft Office (Excel, PowerPoint, Power BI, SharePoint, Word, etc.)", "Network structure and security", "PHP",
-                "PM tools (JIRA, Trello, Monday.com, etc.)", "Perl", "Photoshop, Illustrator, Adobe CS, and InDesign",
-                "Product lifecycle management", "Project management and planning", "Prototyping", "Python", "R", "Risk management",
-                "Ruby", "SQL", "Salesforce", "Scrum and Agile", "Search Engine Optimization (SEO)", "Shipping and transportation: Logistics management software",
-                "Social marketing", "Statistics and probability", "Swift", "System design", "Task management", "Technical writing and reporting",
-                "UI/UX", "Website design", "Zapier")
-replicate(100, sample(tech_skill, 10, replace = F))
-
-#generate ranking for each of the 10 technical skills for 100 job postings
-if (ed_level == "Bachelor's Degree") {
-  replicate(100, sample(1:5, 10, replace = T, c(0.10, 0.20, 0.50, 0.15, 0.05)))
-} if (ed_level == "Master's Degree") {
-  replicate(100, sample(1:5, 10, replace = T), c(0.10, 0.10, 0.15, 0.50, 0.15))
-} if (ed_level == "Docterate's Degree") {
-  replicate(100, sample(1:5, 10, replace = T), c(0.05, 0.10, 0.15, 0.20, 0.50))
+# Student table insert
+for (i in 1:n) {
+  tryCatch({
+    dbWriteTable(db_connection, name = "Student", value = simulated_student_info[i, 6:10], append = T, row.names = F)
+  },
+  warning = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  },
+  error = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  })
 }
 
-#generate 10 soft skills for 100 postings
-soft_skill <- c("Accountability", "Adaptability", "Collaborative", "Communication skills", 
-                "Conflict resolution", "Creativity", "Critical problem solving", "Decisiveness",
-                "Dependability", "Flexibility", "Honesty", "Innovation", "Integrity", "Logical reasoning",
-                "Leadership", "Organization", "Patience", "People management", "Perseverance", "Planning",
-                "Positive work ethic", "Public speaking/presentation skills", "Punctuality", "Reliability", 
-                "Responsibility", "Results-oriented", "Self-motivated", "Teamwork", "Time management skills", 
-                "Willingness to learn new things", "Work well under pressure")
-replicate(100, sample(soft_skill, 10, replace = F))
+dbCommit(db_connection)
+dbDisconnect(db_connection)
 
-
-#EMPLOYER DATA------------------------------------------------
-#generate random names for 100 employers
-library(randomNames)
-randomNames(100)
-
-
-#REVIEWS DATA-------------------------------------------------
-#generate rating for 50 company job reviews 
-ratings <- seq(0, 5, by = 0.5)
-sample(ratings, 50, replace = T)
-#round(rnorm(10, mean = 3.4), digits = 2)) *need an upper & lower bound
-
-#generate industry for 50 company job reviews 
-industry <- c("Business-Related Fields", "Chemicals, Petroleum, Plastics & Rubber", "Computer Systems - Design/Programming", 
-              "Consulting Services", "Consumer Goods", "Energy", "Engineering Services", "Environmental Services",
-              "Government", "Manufacturing & Industrial Systems", "Other", "Pharmaceuticals & Medicine", "Scientific Research & Development")
-sample(industry, 50, replace = T, c(0.061, 0.018, 0.079, 0.128, 0.226, 0.018, 0.189, 0.012, 0.012, 0.183, 0.037, 0.031, 0.610))
-
-#generate job type for 50 company job reviews 
-type <- c("Internship", "Co-op", "Full-time")
-sample(type, 50, replace = T)
-
-
-#EMPLOYER ANALYTICS---------------------------------------------
-
-
-#ADMIN ANALYTICS---------------------------------------------
-
-
-
+# # REVIEWS DATA-------------------------------------------------
+# # generate rating for n company job reviews
+# library(truncnorm)
+# library(timeDate)
+# review_rating <- data.frame(round(rtruncnorm(n = n, a = 0, b = 5, mean = 3.4, sd = 2.5), digits = 1))
+# colnames(review_rating) <- c("review_rating")
+# 
+# # generate industry for n company job reviews
+# ind <- c(
+#   "Business-Related Fields", "Chemicals, Petroleum, Plastics & Rubber", "Computer Systems - Design/Programming",
+#   "Consulting Services", "Consumer Goods", "Energy", "Engineering Services", "Environmental Services",
+#   "Government", "Manufacturing & Industrial Systems", "Other", "Pharmaceuticals & Medicine", "Scientific Research & Development"
+# )
+# industry <- data.frame(sample(ind, n, replace = T, c(0.061, 0.018, 0.079, 0.128, 0.226, 0.018, 0.189, 0.012, 0.012, 0.183, 0.037, 0.031, 0.610)))
+# colnames(industry) <- c("industry")
+# 
+# # generate job type for n company job reviews
+# type <- c("Internship", "Co-op", "Full-time")
+# job_type <- data.frame(sample(type, n, replace = T, c(0.4, 0.2, 0.4)))
+# colnames(job_type) <- c("job_type")
+# 
+# # Fill review requirements in Reviews table
+# Reviews <- cbind(review_rating, industry, job_type)
