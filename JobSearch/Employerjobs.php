@@ -8,6 +8,7 @@
     include '../account_class.php';
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
+    include '../get_profile_pic.php';
   ?>
 
     <meta charset="utf-8">
@@ -135,14 +136,14 @@
                               echo '<div class="col-md-6">';
                               echo '<div class="trainer-item">';
                               echo '<div class="image-thumb">';
-                              echo '<img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">';
+                              echo '<img src="' . getProfilePic($applicant['user_id']) . '" alt="" style="width:300px;height:300px;">';
                               echo '</div>';
                               echo '<div class="down-content">';
                               echo '<h4>' . $applicant['fir_name'] . ' ' . $applicant['las_name'] . '</h4>';
                               echo '<h6>' . $applicant['university'] . ' | ' . $applicant['major'] . '</h6>';
                               echo '<p>' . $applicant['bio'] . '</p>';
                               echo '<ul class="social-icons">';
-                              echo '<li><a href="Views.php">Go to Student Profile</a></li>';
+                              echo '<li><form action="Views.php" method="post"><input type="submit" class="btn btn-primary" value="View Student Profile"><input type="hidden" name="hidden_student_id_label" value="' . $applicant['user_id'] . '"></form></li>';
                               echo '</ul>';
                               echo '</div>';
                               echo '</div>';

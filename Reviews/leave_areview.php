@@ -2,6 +2,7 @@
 <html lang="en-US">
 
 <head>
+<!-- Begins session and loads in necessary css, boostrap, and php files to ensure page is dynamic and visually appealing -->
 
  <?php
     session_start();
@@ -29,6 +30,8 @@
 
 
 </head>
+<!-- Begins Html, php, and css that loads in our front end of the review page -->
+
 <style>
 * {
   box-sizing: border-box;
@@ -174,7 +177,7 @@ input[type=submit]:hover {
           </div>
         </div>
       </div>
-
+<!-- Review Form for submission -->
       <div class="section" id="leave_review">
         <div class="h4 text-center  mb-4 title">Leave a Review</div>
             <div class="row">
@@ -298,6 +301,7 @@ input[type=submit]:hover {
           </div>
         </div>
       </footer>
+<!-- Includes javascript that animates the review page -->
 
         <script src="js/core/jquery.3.2.1.min.js"></script>
         <script src="js/core/popper.min.js"></script>

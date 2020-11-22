@@ -6,10 +6,10 @@ function getProfilePic($id)
 
     if (file_exists($pic_loc))
     {
-        echo $pic_url;
+        return $pic_url;
     }
     else
     {
-        echo "https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png";
+        return "https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png";
     }
 }

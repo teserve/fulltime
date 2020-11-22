@@ -11,7 +11,8 @@
     include '../account_class.php';
 
     $account = new Account();
-    $student_id = 372;
+    $student_id = $_POST["hidden_student_id_label"];
+
 
     $account->getInfo($student_id);
     $account->getInfoStudent($student_id);
@@ -87,7 +88,7 @@
             </div>
             <div class="container">
               <div class="content-center">
-                <div class="cc-profile-image"><img src=<?php getProfilePic($account->id); ?> alt="Image" /></div>
+                <div class="cc-profile-image"><img src=<?php echo getProfilePic($account->id); ?> alt="Image" /></div>
                 <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
                 <p class="category text-white"><?php echo $account->university?>, <?php echo $account->major?>
                 <p class="small text-white"><?php echo $account->bio?></p>

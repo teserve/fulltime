@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+ <!-- Begins Session and connects necessary css and php files to set up Employer Profile Page -->
   <?php
   session_start();
 
   if (!isset($_SESSION['account_id'])) header('location: ../index.html');
 
   include '../account_class.php';
+  include '../get_profile_pic.php';
   $account = new Account();
 
   $account->getInfo($_SESSION['account_id']);
@@ -17,32 +18,21 @@
   <link rel="stylesheet" href="stylesheet.css">
   <link rel="stylesheet" href="../css/templatemo-style.css">
 </head>
-
+<!-- Begins html and php that creates front end display of our Employer Profile Page -->
+<!-- In line php tags are used to load in data dynamically as user logs in from previously saved inputs -->
 <body>
   <div class="main-content">
     <!-- Top navbar -->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-        <!-- Form -->
-        <!--
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
-        -->
+
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="images/blankprofile.jpg">
+                  <img alt="Image placeholder" src=<?php echo getProfilePic($account->id); ?>>
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
                   <span class="mb-0 text-sm  font-weight-bold"><?php echo $account->first_name?> <?php echo $account->last_name?></span>
@@ -103,7 +93,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src="images/blankprofile.jpg" class="rounded-circle">
+                    <img src=<?php echo getProfilePic($account->id); ?> class="rounded-circle">
                   </a>
                 </div>
               </div>
@@ -114,20 +104,7 @@
               <div class="row">
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-<!--
-                    <div>
-                      <span class="heading">22</span>
-                      <span class="description">Matches</span>
-                    </div>
-                    <div>
-                      <span class="heading">10</span>
-                      <span class="description">Applications</span>
-                    </div>
-                    <div>
-                      <span class="heading">89</span>
-                      <span class="description">Skills</span>
-                    </div>
-                  -->
+
                   </div>
                 </div>
               </div>
@@ -270,19 +247,6 @@
                   </div>
                 </div>
                 <hr class="my-4">
-
-
-
-<!--
-                <h6 class="heading-small text-muted mb-4">Job Description</h6>
-                <div class="pl-lg-4">
-                  <div class="form-group focused">
-                    <label>Job Description</label>
-                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ..."></textarea>
-                  </div>
-                </div>
--->
-
               </form>
             </div>
           </div>

@@ -1,7 +1,8 @@
 library(RMySQL)
 mydb <- dbConnect(MySQL(), user='g1116887', password='12Blueapples', dbname='g1116887', host='mydb.itap.purdue.edu')
-on.exit(dbDisconnect(mydb))
+#on.exit(dbDisconnect(mydb))
 
+mydb <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
 #Creates data frames of Student, Student skills, Job posting and Job posting skills data from the SQL tables
 Student <- data.frame(dbReadTable(mydb, "Student"))
 Student[is.na(Student)] <- 0 
@@ -26,6 +27,8 @@ for (q in 12:21) { #makes job tech skill ratings a single number
 }
 Job_skills[is.na(Job_skills)] <- -1 #made -1 instead of 0, so it doesn't match with empty Student_skill cells
 Job_skills[Job_skills ==""] <- -1
+
+dbDisconnect(mydb)
 
 #match score function
 match <- function(stu_techskill, stu_techrate, stu_softskill, job_techskill, job_techrate, job_softskill, stu_gpa, job_gpa, stu_reg, job_reg, stu_ind, job_ind, stu_type, job_type, stu_edlevel, job_edlevel) {
@@ -127,8 +130,32 @@ for (a in 1:length(Student)) {
           Job_posting[b,5], 
           Student[a,11], 
           Job_posting[b,6])
+    
+    score <- 13
+    # Match score insert
+      tryCatch({
+        dbWriteTable(mydb, name = "Matches", value = score, append = T, row.names = F)
+      },
+      warning = function(cond) {
+        dbRollback(db_connection)
+        dbDisconnect(db_connection)
+      },
+      error = function(cond) {
+        dbRollback(mydb)
+        dbDisconnect(mydb)
+      })
+    
+    dbCommit(mydb)
+    dbDisconnect(mydb)
 
     #appends the student's score for the respective job posting to the Matches table in SQL
-    dbAppendTable(mydb, "Matches", score)
+    #dbAppendTable(mydb, "Matches", score)
+    
+    #dbWriteTable(mydb, name = "Matches", value = score, append = T, row.names = F)
+    
+    #library(RMySQL)
+    #mydb <- dbConnect(MySQL(), user='g1116887', password='12Blueapples', dbname='g1116887', host='mydb.itap.purdue.edu')
+    #dbSendQuery(mydb, paste0("INSERT INTO Matches(score) VALUES(score)"))
+    #on.exit(dbDisconnect(mydb))
   }
 }

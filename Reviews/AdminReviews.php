@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<!-- Begins session and loads in necessary css, boostrap, and php files to ensure page is dynamic and visually appealing -->
 
  <?php
     session_start();
@@ -28,6 +29,7 @@
      <link rel="stylesheet" href="assets/css/templatemo-style.css">
 
 </head>
+<!-- Begins Html, php, and css that loads in our front end of the review page -->
 
 <body>
 
@@ -99,147 +101,6 @@
                <br>
 
                <div class="row">
-                 <!--Filter options start-->
-                 <!--
-                    <div class="col-lg-4">
-
-                         <h3 style="margin-bottom: 15px">Filter by...</h5>
-
-                              <h5 style="margin-bottom: 15px">Rating Score</h5>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>High to Low</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Low to High</span>
-                                   </label>
-                              </div>
-
-                              <br>
-
-                              <h5 style="margin-bottom: 15px">Industry</h5>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Business-Related Fields</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Chemicals, Petroleum, Plastics & Rubber</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Computer Systems - Design/Programmin</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Consulting Services</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Consumer Goods</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Energy</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Engineering Services</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Environmental Services</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Government</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Manufacturing & Industrial Systems</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Other</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Pharmaceuticals & Medicine</span>
-                                   </label>
-                              </div>
-
-                              <div>
-                                   <label>
-                                        <input type="checkbox">
-
-                                        <span>Scientific Research & Development</span>
-                                   </label>
-                              </div>
-
-                              <br>
-                              </form>
-
-                            </br>
-
-
-                    </div>
-                  -->
-                    <!--Filter options end -->
 
                     <div class="col-lg-12">
                          <div class="row">
@@ -379,27 +240,7 @@
 
 
                <br>
-               <!--
-            <nav>
-              <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          -->
+
           </div>
      </section>
 
@@ -423,27 +264,6 @@
                               <p>Copyright &copy; 2020 FullTime</p>
                          </div>
                     </div>
-
-                    <!-- <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Company</h2>
-                           <ul class="footer-link">
-                                <li><a href="#about">About Us</a></li>
-                                <li><a href="#blog">Read Testimonials</a></li>
-                           </ul>
-                      </div>
-                 </div>
-
-                 <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Services</h2>
-                           <ul class="footer-link">
-                                <li><a href="#">Job Placement</a></li>
-                                <li><a href="#">Applicant Discovery</a></li>
-                                <li><a href="#">Company Analytics</a></li>
-                           </ul>
-                      </div>
-                 </div> -->
 
                     <div class="col-md-3 col-sm-4">
                          <div class="footer-thumb">

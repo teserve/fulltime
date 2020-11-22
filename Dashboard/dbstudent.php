@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-
+<!-- Begins session and loads in necessary php,css, and bootstrap files for visual display and functionality -->
   <?php
     session_start();
 
@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
 
 </head>
-
+<!-- Begins html and in line php that allows for visual display of base template and saved user inputs -->
 <body id="top">
 
   <section class="preloader">
@@ -91,7 +91,7 @@
             </div>
             <div class="container">
               <div class="content-center">
-                <div class="cc-profile-image"><img src=<?php getProfilePic($account->id); ?> alt="Image" /></div>
+                <div class="cc-profile-image"><img src=<?php echo getProfilePic($account->id); ?> alt="Image" /></div>
                 <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
                 <p class="category text-white"><?php echo $account->university?>, <?php echo $account->major?>
                 <p class="small text-white"><?php echo $account->bio?></p><a
@@ -144,7 +144,7 @@
           </div>
         </div>
       </div>
-
+<!-- Tech skill section -->
       <div class="section" id="techskill">
         <div class="container">
           <div class="h4 text-center mb-4 title">Technical Skills and Proficiency Level</div>
@@ -400,7 +400,7 @@
           </div>
         </div>
       </div>
-
+<!-- Soft Skill Section -->
       <div class="section" id="softskill">
         <div class="container cc-experience">
           <div class="h4 text-center mb-4 title">Soft Skills</div>
@@ -523,7 +523,7 @@
         </div>
 
 
-
+<!-- Experience Section  -->
       <div class="section" id="experience">
         <div class="container cc-experience">
           <div class="h4 text-center mb-4 title">Projects</div>
@@ -629,7 +629,7 @@
           </div>
         </div>
       </footer>
-
+<!-- Javascript that animates page -->
       <script src="js/core/jquery.3.2.1.min.js"></script>
       <script src="js/core/popper.min.js"></script>
       <script src="js/core/bootstrap.min.js"></script>

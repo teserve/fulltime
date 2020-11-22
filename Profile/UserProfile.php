@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ <!-- Begins Session and connects necessary css and php files to set up Employer Profile Page -->
 <head>
   <link rel="stylesheet" href="stylesheet.css">
   <link rel="stylesheet" href="../css/templatemo-style.css">
@@ -19,6 +19,7 @@
     $account->getInfoStuSkills($_SESSION['account_id']);
     $account->getInfoStuCourses($_SESSION['account_id']);
 
+    // Assigns our variables to their respective inputs 
     $student_has_tech_skill_names = array(
       $account->tech_skill1,
       $account->tech_skill2,
@@ -53,6 +54,7 @@
       $account->course5,
     );
 
+    // Dyanamic functions that allow for our page to query the database and present various inputs that a user can select (skills, courses, etc.)
     function showTechRatingInput($n)
     {
       echo '<option value="">Rate Technical Skill &num;' . $n . '</option>';
@@ -62,7 +64,7 @@
       echo '<option value="2: Basic">2: Basic </option>';
       echo '<option value="1: Beginner">1: Beginner </option>';
     }
-
+    //function that queries for tech skills list from database 
     function getTechSkillList($n)
     {
       global $pdo;
@@ -96,7 +98,7 @@
         echo $output;
       }
     }
-
+    //function that queries for soft skills list from database
     function getSoftSkillList($n)
     {
       global $pdo;
@@ -130,7 +132,7 @@
         echo $output;
       }
     }
-
+    //function that queries for course list from database
     function getCourseList($n)
     {
       global $pdo;
@@ -167,11 +169,9 @@
 
   ?>
 
-<!-- EXAMPLE FOR LOOP ABOVE
-  <option value="3.80-3.99"<php if($account->gpa === "3.80-3.99") echo 'selected="selected"';?>>  3.80-3.99 </option>
--->
 </head>
-
+<!-- Begins html and php that creates front end display of our Student Profile Page -->
+<!-- In line php tags are used to load in data dynamically as user logs in from previously saved inputs -->
 <body>
   <div class="main-content">
     <!-- Top navbar -->
@@ -185,7 +185,7 @@
               aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Profile picture" src=<?php getProfilePic($account->id); ?>>
+                  <img alt="Profile picture" src=<?php echo getProfilePic($account->id); ?>>
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
                   <span class="mb-0 text-sm  font-weight-bold"><?php echo $account->first_name; ?> <?php echo $account->last_name?></span>
@@ -248,35 +248,21 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img alt="Profile picture" src=<?php getProfilePic($account->id); ?> class="rounded-circle">
+                    <img alt="Profile picture" src=<?php echo getProfilePic($account->id); ?> class="rounded-circle">
                   </a>
                 </div>
               </div>
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-               <!-- <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right">Message</a>  -->
+
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
               <div class="row">
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                    <!--
-                    <div>
-                      <span class="heading">22</span>
-                      <span class="description">Matches</span>
-                    </div>
-                    <div>
-                      <span class="heading">10</span>
-                      <span class="description">Applications</span>
-                    </div>
-                    <div>
-                      <span class="heading">89</span>
-                      <span class="description">Skills</span>
-                    </div>
-                  -->
+
                   </div>
                 </div>
               </div>
@@ -542,16 +528,7 @@
                           <option value="2: Basic"<?php if($account->tech_rate1 === "2: Basic") echo 'selected="selected"';?>>2: Basic </option>
                           <option value="1: Beginner"<?php if($account->tech_rate1 === "1: Beginner") echo 'selected="selected"';?>>1: Beginner </option>
                         </select>
-                        <!--
-                        <select id="input-tech1-rating" name="tech_rate_perc1" class="form-control form-control-alternative" value="<?php echo $account->tech_rate_perc1?>">
-                          <option value="">Rate Technical Skill #1</option>
-                          <option value="100%">5: Expert </option>
-                          <option value="80%">4: Advanced </option>
-                          <option value="60%">3: Intermediate </option>
-                          <option value="40%">2: Basic </option>
-                          <option value="20%">1: Beginner </option>
-                        </select>
-                      -->
+
                         <br>
                           <select id="input-tech2" name="tech_skill2" class="form-control form-control-alternative" value="<?php echo $account->tech_skill2?>">
                           <option value="">Enter Technical Skill #2</option>

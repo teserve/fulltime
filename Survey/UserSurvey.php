@@ -9,7 +9,62 @@
   if (!isset($_SESSION['account_id'])) header('location: ../index.html');
 
   include '../account_class.php';
+
   $account = new Account();
+  $account->getInfo($_SESSION['account_id']);
+
+  $survey_id = intval($_GET['survey_id']);
+
+  if ($survey_id !== 0)
+  {
+    try
+    {
+      $survey_query = $pdo->prepare('SELECT * FROM Survey_questions WHERE survey_id = :survey_id');
+      $survey_query->execute(array(':survey_id' => $survey_id));
+    }
+    catch (PDOException $e)
+    {
+      echo $e->getMessage();
+    }
+
+    $survey_info = $survey_query->fetch(PDO::FETCH_ASSOC);
+
+    if (is_array($survey_info))
+    {
+      $questions = array(
+        $survey_info['question1'],
+        $survey_info['question2'],
+        $survey_info['question3'],
+        $survey_info['question4'],
+        $survey_info['question5'],
+        $survey_info['question6'],
+        $survey_info['question7'],
+        $survey_info['question8'],
+        $survey_info['question9'],
+        $survey_info['question10']
+      );
+    }
+  }
+
+  function showSurveyQuestions($qs)
+  {
+    for ($i = 0; $i < count($qs); $i++)
+    {
+      if ($qs[$i] == TRUE)
+      {
+        echo '<h6 class="heading-small text-muted mb-4">Question ' . ($i+1) . '</h6>';
+        echo '<div class="row">';
+        echo '<div class="col-lg-9">';
+        echo '<div class="form-group focused">';
+        echo '<p>' . $qs[$i] . '</p>';
+        echo '<input type="text" class="form-control form-control-alternative" name="answer' . ($i+1) . '" placeholder="Enter Answer">';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+      }
+    }
+  }
+
   ?>
 
 
@@ -45,100 +100,11 @@
               </div>
             </div>
             <div class="card-body">
-              <form action="../survey_edit.php" method="POST" enctype="multipart/form-data" onsubmit='alert("Survey respond submitted successfully");'>
+              <form action="survey_answer.php" method="POST" enctype="multipart/form-data" onsubmit='alert("Survey respond submitted successfully");'>
                 <div class="col-6 text-right">
                   <input type="submit" class="btn btn-sm btn-primary" value="Submit">
                 </div>
-                <h6 class="heading-small text-muted mb-4">Question 1</h6>
-                <div class="row">
-                  <div class="col-lg-9">
-                    <div class="form-group focused">
-                      <p><?php echo $account->question1?>></p>
-                      <input type="text" class="form-control form-control-alternative" name = "answer1" placeholder="Enter Answer" value = <?php echo $account->answer1?>>
-                    </div>
-                  </div>
-                </div>
-                <h6 class="heading-small text-muted mb-4">Question 2</h6>
-                <div class="row">
-                  <div class="col-lg-9">
-                    <div class="form-group focused">
-                      <p><?= $account->question2?>></p>
-                      <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer2?>>
-                    </div>
-                  </div>
-                </div>
-                <h6 class="heading-small text-muted mb-4">Question 3</h6>
-                <div class="row">
-                  <div class="col-lg-9">
-                    <div class="form-group focused">
-                      <p><?= $account->question3?>></p>
-                      <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer3?>>
-                      </div>
-                    </div>
-                  </div>
-                  <h6 class="heading-small text-muted mb-4">Question 4</h6>
-                  <div class="row">
-                    <div class="col-lg-9">
-                      <div class="form-group focused">
-                        <p><?= $account->question4?>></p>
-                        <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer4?>>
-                      </div>
-                    </div>
-                </div>
-                <h6 class="heading-small text-muted mb-4">Question 5</h6>
-                <div class="row">
-                  <div class="col-lg-9">
-                    <div class="form-group focused">
-                      <p><?= $account->question5?>></p>
-                      <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer5?>>
-                    </div>
-                  </div>
-                </div>
-                <h6 class="heading-small text-muted mb-4">Question 6</h6>
-                <div class="row">
-                  <div class="col-lg-9">
-                    <div class="form-group focused">
-                      <p><?= $account->question6?>></p>
-                      <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer6?>>
-                    </div>
-                  </div>
-                </div>
-                <h6 class="heading-small text-muted mb-4">Question 7</h6>
-                <div class="row">
-                  <div class="col-lg-9">
-                    <div class="form-group focused">
-                      <p><?= $account->question7?>></p>
-                      <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer7?>>
-                    </div>
-                  </div>
-                </div>
-              <h6 class="heading-small text-muted mb-4">Question 8</h6>
-              <div class="row">
-                <div class="col-lg-9">
-                  <div class="form-group focused">
-                    <p><?= $account->question8?>></p>
-                    <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer8?>>
-                  </div>
-                </div>
-              </div>
-              <h6 class="heading-small text-muted mb-4">Question 9</h6>
-              <div class="row">
-                <div class="col-lg-9">
-                  <div class="form-group focused">
-                    <p><?= $account->question9?>></p>
-                    <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer9?>>
-                  </div>
-                </div>
-              </div>
-              <h6 class="heading-small text-muted mb-4">Question 10</h6>
-              <div class="row">
-                <div class="col-lg-9">
-                  <div class="form-group focused">
-                    <p><?= $account->question8?>></p>
-                    <input type="text" class="form-control form-control-alternative" placeholder="Enter Answer" value = <?php echo $account->answer10?>>
-                  </div>
-                </div>
-              </div>
+                <?php showSurveyQuestions($questions); ?>
             </form>
           </div>
         </div>

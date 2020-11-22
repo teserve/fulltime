@@ -6,10 +6,16 @@ require '../password.php';
 include '../db_connection.php';
 include '../get_profile_pic.php';
 
-getProfilePic($_SESSION['account_id']);
+$param = $_GET['asdf'];
+echo $param;
+echo '<br>';
+echo gettype($param);
+echo '<br>';
+echo intval($param);
+echo '<br>';
+if (string(0) == TRUE)
+{
+    $testing = 1;
+}
 
-
-// foreach ($_SERVER as $key => $val)
-// {
-//     echo $key . ': ' . $val . '<br>';
-// }
+echo $testing;

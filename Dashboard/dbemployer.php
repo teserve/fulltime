@@ -2,6 +2,7 @@
 <html lang="en-US">
 
 <head>
+<!-- Begins session and loads in necessary php,css, and bootstrap files for visual display and functionality -->
 
 <?php
     session_start();
@@ -9,6 +10,7 @@
     if (!isset($_SESSION['account_id'])) header('location: ../index.html');
 
     include '../account_class.php';
+    include '../get_profile_pic.php';
     $account = new Account();
 
     $account->getInfo($_SESSION['account_id']);
@@ -34,6 +36,7 @@
 
 
 </head>
+<!-- Begins html and in line php that allows for visual display of base template and saved user inputs -->
 
 <body id="top">
 
@@ -75,6 +78,7 @@
       </div>
 
     </div>
+    <!-- Profile Information -->
   </section>
   <div class="page-content">
       <div class="profile-page">
@@ -84,7 +88,7 @@
             </div>
             <div class="container">
               <div class="content-center">
-                <div class="cc-profile-image"><img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="Image"/></div>
+                <div class="cc-profile-image"><img src=<?php echo getProfilePic($account->id); ?> alt="Image"/></div>
                 <div class="h2 title"><?php echo $account->first_name?> <?php echo $account->last_name?></div>
                 <p class="category text-white"><?php echo $account->company?> - <?php echo $account->position_type?></p>
                 <p class="category text-white"><?php echo $account->industry?></p>
@@ -98,78 +102,7 @@
         </div>
       </div>
     </div>
-            <!--
-            <div class="section">
-              <div class="container">
-                <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.facebook.com/"
-                    rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://twitter.com/?lang=en" rel="tooltip"
-                    title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://myaccount.google.com/" rel="tooltip"
-                    title="Follow me on Google+"><i class="fa fa-google-plus"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://www.instagram.com/" rel="tooltip"
-                    title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
-              </div>
-            </div>
-          </div>
-        -->
-      <!--
-      <div class="section" id="about">
-        <div class="h4 text-center mb-4 title">Basic Profile</div>
-        <div class="container">
-          <div class="card" data-aos="fade-up" data-aos-offset="10" style="background-color: #e0e0e0;">
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="card-body">
-                  <div class="row mt-3">
-                    <div class="col-sm-4"><strong class="text-uppercase">Email:</strong></div>
-                    <div class="col-sm-8"></div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-sm-4"><strong class="text-uppercase">Phone:</strong></div>
-                    <div class="col-sm-8"></div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
-                    <div class="col-sm-8">City, State, Country Postal Code</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
--->
-<!--
-      <div class="section" id="jobpost">
-        <div class="h4 text-center mb-4 title">Job Openings</div>
-        <div class="container">
-          <div class="card" data-aos="fade-up" data-aos-offset="10">
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-4"><strong class="text-uppercase">Intern:</strong></div>
-                    <div class="col-sm-8">5 person</div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-4"><strong class="text-uppercase">Requirement:</strong></div>
-                    <p>Python, CSS, HTML </p>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-sm-4"><strong class="text-uppercase">Full-Time:</strong></div>
-                    <div class="col-sm-8">4 person</div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-4"><strong class="text-uppercase">Requirement:</strong></div>
-                    <p>Python, CSS, HTML, MATLAB </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
--->
+
 
 <!-- FOOTER -->
       <footer data-stellar-background-ratio="0.5" style="background-color:black;">
@@ -199,7 +132,7 @@
           </div>
         </div>
       </footer>
-
+<!-- Javascript that animates page -->
         <script src="js/core/jquery.3.2.1.min.js"></script>
         <script src="js/core/popper.min.js"></script>
         <script src="js/core/bootstrap.min.js"></script>

@@ -2,7 +2,7 @@
 <html lang="en-US">
 
 <head>
-
+<!-- Begins session and loads in necessary css, boostrap, and php files to ensure page is dynamic and visually appealing -->
  <?php
     session_start();
     include '../account_class.php';
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/websitev2.css">
 
 
-
+<!-- Begins Html, php, and css that loads in our front end of the review submission -->
 </head>
 <style>
 * {
@@ -146,6 +146,7 @@ input[type=submit]:hover {
       </div>
 
     </div>
+    <!-- Response Confirmation -->
   </section>
   <div class="page-content">
     <div>
@@ -162,19 +163,7 @@ input[type=submit]:hover {
                   data-aos-anchor="data-aos-anchor">Dashboard</a>
               </div>
             </div>
-           <!-- <div class="section">
-              <div class="container">
-                <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.facebook.com/"
-                    rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://twitter.com/?lang=en" rel="tooltip"
-                    title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://myaccount.google.com/" rel="tooltip"
-                    title="Follow me on Google+"><i class="fa fa-google-plus"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://www.instagram.com/" rel="tooltip"
-                    title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
-              </div>
-            </div>
-          </div> -->
+
         </div>
       </div>
 
@@ -207,7 +196,7 @@ input[type=submit]:hover {
           </div>
         </div>
       </footer>
-
+<!-- Includes javascript that animates the review page -->
         <script src="js/core/jquery.3.2.1.min.js"></script>
         <script src="js/core/popper.min.js"></script>
         <script src="js/core/bootstrap.min.js"></script>

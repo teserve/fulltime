@@ -6,6 +6,7 @@
    <?php
     session_start();
     include '../account_class.php';
+    include '../get_profile_pic.php';
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
   ?>
@@ -99,7 +100,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                    <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
+                                    <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>98% Match</span>
@@ -117,7 +118,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
+                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>96% Match</span>
@@ -135,7 +136,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
+                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>89% Match</span>
@@ -154,7 +155,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
+                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>78% Match</span>
@@ -171,7 +172,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                  <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
+                                  <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>75% Match</span>
@@ -188,7 +189,7 @@
                         <div class="col-md-6">
                             <div class="trainer-item">
                                 <div class="image-thumb">
-                                      <img src="https://web.ics.purdue.edu/~g1116887/user_data/blankprofile.png" alt="" style="width:300px;height:300px;">
+                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
                                 </div>
                                 <div class="down-content">
                                 <span>71% Match</span>
