@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-
+<!-- Starts session, loads in css & bootstrap, and enables all necessary preloads to enable website to be dynamic -->
    <?php
     session_start();
     include '../account_class.php';
@@ -251,27 +251,6 @@
                            <p>Copyright &copy; 2020 FullTime</p>
                       </div>
                  </div>
-
-                <!-- <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Company</h2>
-                           <ul class="footer-link">
-                                <li><a href="#about">About Us</a></li>
-                                <li><a href="#blog">Read Testimonials</a></li>
-                           </ul>
-                      </div>
-                 </div>
-
-                 <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Services</h2>
-                           <ul class="footer-link">
-                                <li><a href="#">Job Placement</a></li>
-                                <li><a href="#">Applicant Discovery</a></li>
-                                <li><a href="#">Company Analytics</a></li>
-                           </ul>
-                      </div>
-                 </div> -->
 
                  <div class="col-md-3 col-sm-4">
                       <div class="footer-thumb">

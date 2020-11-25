@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<!-- Starts session, loads in css & bootstrap, and enables all necessary preloads to enable website to be dynamic -->
 
  <?php
     session_start();
@@ -95,154 +96,6 @@
     <!-- ***** Fleet Starts ***** -->
     <section class="section" id="trainers">
         <div class="container" position="center">
-
-          <!--  <div class="row">
-                <div class="col-lg-4"> -->
-                    <!-- Filter Options-->
-                    <!--
-                    <h3 style="margin-bottom: 15px">Filter by...</h5>
-
-                        <h5 style="margin-bottom: 15px">Job Type</h5>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Internship</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Co-op</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Full-time</span>
-                            </label>
-                        </div>
-
-                        <br>
-
-                        <h5 style="margin-bottom: 15px">Industry</h5>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Business-Related Fields</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Chemicals, Petroleum, Plastics & Rubber</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Computer Systems - Design/Programming</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Consulting Services</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Consumer Goods</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Energy</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Engineering Services</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Environmental Services</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Government</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Manufacturing & Industrial Systems</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Other</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Pharmaceuticals & Medicine</span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label>
-                                <input type="checkbox">
-
-                                <span>Scientific Research & Development</span>
-                            </label>
-                        </div>
-
-                        <br>
-                        </form>
-
-                        <br>
-                </div>
-              -->
-                <!--Filter options end -->
 
                 <div class="col-lg-12">
                     <div class="row">
@@ -387,26 +240,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Company</h2>
-                           <ul class="footer-link">
-                                <li><a href="#about">About Us</a></li>
-                                <li><a href="#blog">Read Testimonials</a></li>
-                           </ul>
-                      </div>
-                 </div>
-
-                 <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Services</h2>
-                           <ul class="footer-link">
-                                <li><a href="#">Job Placement</a></li>
-                                <li><a href="#">Applicant Discovery</a></li>
-                                <li><a href="#">Company Analytics</a></li>
-                           </ul>
-                      </div>
-                 </div> -->
 
                 <div class="col-md-3 col-sm-4">
                     <div class="footer-thumb">

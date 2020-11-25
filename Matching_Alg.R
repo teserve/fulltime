@@ -1,5 +1,6 @@
+library(DBI)
 library(RMySQL)
-mydb <- dbConnect(MySQL(), user='g1116887', password='12Blueapples', dbname='g1116887', host='mydb.itap.purdue.edu')
+#mydb <- dbConnect(MySQL(), user='g1116887', password='12Blueapples', dbname='g1116887', host='mydb.itap.purdue.edu')
 #on.exit(dbDisconnect(mydb))
 
 mydb <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
@@ -109,6 +110,9 @@ match <- function(stu_techskill, stu_techrate, stu_softskill, job_techskill, job
   return (score)
 }
 
+#initializes Matches data frame 
+Matches <- data.frame("user_id" = integer(), "job_id" = integer(), "score" = integer())
+
 #executes match score function for every job posting per student
 a <- 1
 b <- 1
@@ -131,31 +135,26 @@ for (a in 1:length(Student)) {
           Student[a,11], 
           Job_posting[b,6])
     
-    score <- 13
-    # Match score insert
-      tryCatch({
-        dbWriteTable(mydb, name = "Matches", value = score, append = T, row.names = F)
-      },
-      warning = function(cond) {
-        dbRollback(db_connection)
-        dbDisconnect(db_connection)
-      },
-      error = function(cond) {
-        dbRollback(mydb)
-        dbDisconnect(mydb)
-      })
-    
-    dbCommit(mydb)
-    dbDisconnect(mydb)
-
-    #appends the student's score for the respective job posting to the Matches table in SQL
-    #dbAppendTable(mydb, "Matches", score)
-    
-    #dbWriteTable(mydb, name = "Matches", value = score, append = T, row.names = F)
-    
-    #library(RMySQL)
-    #mydb <- dbConnect(MySQL(), user='g1116887', password='12Blueapples', dbname='g1116887', host='mydb.itap.purdue.edu')
-    #dbSendQuery(mydb, paste0("INSERT INTO Matches(score) VALUES(score)"))
-    #on.exit(dbDisconnect(mydb))
+    #Adds matching score to the corresponding user_id and job_id in the Matches data frame
+    Matches <- rbind(Matches, cbind(Student[a,1], Job_posting[b,2], score))
   }
 }
+
+#Match score insert
+mydb <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+dbBegin(mydb)
+
+tryCatch({
+  dbWriteTable(mydb, name = "Matches", value = Matches[,], append = T, row.names = F)
+  },
+  warning = function(cond) {
+    dbRollback(mydb)
+    dbDisconnect(mydb)
+  },
+  error = function(cond) {
+    dbRollback(mydb)
+    dbDisconnect(mydb)
+})
+    
+dbCommit(mydb)
+dbDisconnect(mydb)

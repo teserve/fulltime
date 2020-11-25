@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
      <head>
-
+<!-- Starts session, loads in css & bootsrap files, and prepares document for dynamic interaction -->
      <?php
       session_start();
 

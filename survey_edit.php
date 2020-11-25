@@ -81,4 +81,4 @@ catch (Exception $e)
     echo $e->getMessage();
 }
 
-header('location: ./Survey/UserSurvey.php');
+header('location: ./Survey/email.php');

@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-
+<!-- Starts session, loads in necessary css and bootsrap files, and prepares for dynamic page -->
    <?php
     session_start();
     include '../account_class.php';
@@ -106,7 +106,7 @@
         <div class="container">
             <br>
             <br>
-
+<!-- Select Statements & php that allow for pop up of applicants on employer job page  -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
@@ -159,27 +159,7 @@
 
 
             <br>
-          <!--
-            <nav>
-              <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          -->
+         
         </div>
     </section>
     <!-- ***** Fleet Ends ***** -->
@@ -201,26 +181,6 @@
                       </div>
                  </div>
 
-                <!-- <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Company</h2>
-                           <ul class="footer-link">
-                                <li><a href="#about">About Us</a></li>
-                                <li><a href="#blog">Read Testimonials</a></li>
-                           </ul>
-                      </div>
-                 </div>
-
-                 <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Services</h2>
-                           <ul class="footer-link">
-                                <li><a href="#">Job Placement</a></li>
-                                <li><a href="#">Applicant Discovery</a></li>
-                                <li><a href="#">Company Analytics</a></li>
-                           </ul>
-                      </div>
-                 </div> -->
 
                  <div class="col-md-3 col-sm-4">
                       <div class="footer-thumb">

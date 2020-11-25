@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
      <head>
+<!-- Starts session, loads in css & bootstrap, and enables all necessary preloads to enable website to be dynamic -->
 
      <?php
       session_start();

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
-
+<!-- Starts session, loads in css & bootstrap, and enables all necessary preloads to enable website to be dynamic -->
 <head>
   <?php
     session_start();
@@ -96,6 +96,7 @@
           </div>
         </div>
       </div>
+      <!-- About me profile details -->
       <div class="section" id="about">
         <div class="h4 text-center mb-4 title">Basic Profile</div>
         <div class="container">
@@ -138,7 +139,7 @@
           </div>
         </div>
       </div>
-
+<!-- Tech Skills profile detail -->
       <div class="section" id="techskill">
         <div class="container">
           <div class="h4 text-center mb-4 title">Technical Skills and Proficiency Level</div>
@@ -394,7 +395,7 @@
           </div>
         </div>
       </div>
-
+<!-- Soft Skills Profile Details -->
       <div class="section" id="softskill">
         <div class="container cc-experience">
           <div class="h4 text-center mb-4 title">Soft Skills</div>
@@ -517,7 +518,7 @@
         </div>
 
 
-
+<!-- Previous Experience Profile Details -->
       <div class="section" id="experience">
         <div class="container cc-experience">
           <div class="h4 text-center mb-4 title">Projects</div>
@@ -623,7 +624,7 @@
           </div>
         </div>
       </footer>
-
+<!-- Bootstap & JS load ins that enable dynamic interface -->
       <script src="js/core/jquery.3.2.1.min.js"></script>
       <script src="js/core/popper.min.js"></script>
       <script src="js/core/bootstrap.min.js"></script>

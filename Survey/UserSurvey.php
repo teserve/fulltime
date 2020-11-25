@@ -102,7 +102,7 @@
             <div class="card-body">
               <form action="survey_answer.php" method="POST" enctype="multipart/form-data" onsubmit='alert("Survey respond submitted successfully");'>
                 <div class="col-6 text-right">
-                  <input type="submit" class="btn btn-sm btn-primary" value="Submit">
+                  <input type="submit" class="btn btn-sm btn-primary" value="Submit"><input type="hidden" name="hidden_survey_id" value=<?php echo $survey_id; ?>>
                 </div>
                 <?php showSurveyQuestions($questions); ?>
             </form>
