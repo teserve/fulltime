@@ -1,7 +1,11 @@
+<!-- Template
+Author: templatemo
+Author URL: https://templatemo.com/tm-509-hydro
+-->
 <!DOCTYPE html>
 <html lang="en">
- <!-- Begins Session and connects necessary css and php files to set up Employer Profile Page -->
 <head>
+  <!-- Begins Session and connects necessary css and php files to set up User Profile Page -->
   <link rel="stylesheet" href="stylesheet.css">
   <link rel="stylesheet" href="../css/templatemo-style.css">
 
@@ -19,7 +23,8 @@
     $account->getInfoStuSkills($_SESSION['account_id']);
     $account->getInfoStuCourses($_SESSION['account_id']);
 
-    // Assigns our variables to their respective inputs 
+    // Assigns our variables to their respective inputs
+    //tech skills
     $student_has_tech_skill_names = array(
       $account->tech_skill1,
       $account->tech_skill2,
@@ -32,7 +37,7 @@
       $account->tech_skill9,
       $account->tech_skill10
     );
-
+    //soft skills
     $student_has_soft_skill_names = array(
       $account->soft_skill1,
       $account->soft_skill2,
@@ -45,7 +50,7 @@
       $account->soft_skill9,
       $account->soft_skill10
     );
-
+    //courses
     $student_has_course_names = array(
       $account->course1,
       $account->course2,
@@ -64,7 +69,7 @@
       echo '<option value="2: Basic">2: Basic </option>';
       echo '<option value="1: Beginner">1: Beginner </option>';
     }
-    //function that queries for tech skills list from database 
+    //function that queries for tech skills list from database
     function getTechSkillList($n)
     {
       global $pdo;
@@ -174,15 +179,12 @@
 <!-- In line php tags are used to load in data dynamically as user logs in from previously saved inputs -->
 <body>
   <div class="main-content">
-    <!-- Top navbar -->
+    <!-- Student Icon (Top Navbar)-->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-
-        <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" aria-haspopup="true"
-              aria-expanded="false">
+            <a class="nav-link pr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                   <img alt="Profile picture" src=<?php echo getProfilePic($account->id); ?>>
@@ -192,42 +194,15 @@
                 </div>
               </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-              <div class=" dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome!</h6>
-              </div>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
-                <span>Logout</span>
-              </a>
-            </div>
           </li>
         </ul>
       </div>
     </nav>
+
     <!-- Header -->
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
       style="min-height: 600px; background-image: url(fulltime.jpg); background-size: cover; background-position: center;">
-      <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
-      <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
@@ -239,7 +214,8 @@
         </div>
       </div>
     </div>
-    <!-- Page content -->
+
+    <!-- Student Info Summary Box-->
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -255,18 +231,15 @@
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
               <div class="row">
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-
                   </div>
                 </div>
               </div>
-
               <div class="text-center">
                 <h3>
                   <?php echo $account->first_name?> <?php echo $account->last_name?><span class="font-weight-light"></span>
@@ -284,6 +257,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Student Informations -->
         <div class="col-xl-8 order-xl-1">
           <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
@@ -298,6 +273,7 @@
                 <div class="col-6 text-right">
                   <input type="submit" class="btn btn-sm btn-primary" value="Save">
                 </div>
+                <!-- Student Basic Information -->
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="pl-lg-4">
                   <div class="row">
@@ -348,6 +324,7 @@
                   </div>
                 </div>
                 <hr class="my-4">
+
                 <!-- Address -->
                 <h6 class="heading-small text-muted mb-4">Location</h6>
                   <div class="row">
@@ -509,11 +486,11 @@
 
 
                 <!-- Skills -->
-
                 <h6 class="heading-small text-muted mb-4">Skills</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-6">
+                      <!--Tech Skill -->
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-tech">Enter up to 10 Technical Skills</label>
                         <select id="input-tech1" name="tech_skill1" class="form-control form-control-alternative" value="<?php echo $account->tech_skill1?>">
@@ -792,8 +769,7 @@
                     <hr class="my-4">
                     <!--end of Courses -->
 
-                <!-- Certifications and Awards -->
-
+                <!-- Projects -->
                 <h6 class="heading-small text-muted mb-4">Projects</h6>
                     <div class="pl-lg-6">
                       <div class="form-group focused">
@@ -824,6 +800,7 @@
                             name="project_descr2" placeholder="Describe your project duties..." value="<?php echo $account->project_descr2?>"><?php echo $account->project_descr2?></textarea>
                           </div>
                 <hr class="my-4">
+                <!-- end of Projects -->
 
                 <!-- Work Experience -->
                 <h6 class="heading-small text-muted mb-4">Work Experience</h6>

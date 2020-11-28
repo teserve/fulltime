@@ -1,3 +1,7 @@
+<!-- Template
+Author: templateflip
+Author URL:https://templateflip.com/demo/templates/creative-cv/
+-->
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -19,7 +23,7 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>profile</title>
+     <title> Dashboard </title>
      <meta name="description"
           content="Creative CV is a HTML resume template for professionals. Built with Bootstrap 4, Now UI Kit and FontAwesome, this modern and responsive design template is perfect to showcase your portfolio, skils and experience." />
      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
@@ -33,15 +37,10 @@
      <link rel="stylesheet" href="css/websitev2.css">
 
 </head>
+
 <!-- Begins html and in line php that allows for visual display of base template and saved user inputs -->
 
 <body id="top">
-     <section class="preloader">
-          <div class="spinner">
-               <span class="spinner-rotate"></span>
-          </div>
-     </section>
-
 
      <!-- PRE LOADER -->
      <section class="preloader">
@@ -75,6 +74,8 @@
 
           </div>
      </section>
+
+     <!-- Profile Information  -->
      <div class="page-content">
                <div class="profile-page">
                  <div class="wrapper">
@@ -90,7 +91,7 @@
                                   <p class="card-body text-white"><b>Location:</b> <?php echo $account->city?>, <?php echo $account->Nstate?>, <?php echo $account->country?>  <?php echo $account->post_code?> </p><a
                                              class="btn btn-primary smooth-scroll mr-2" href="../Profile/AdminProfile.php"
                                              data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Edit Profile</a>
-                                   </div>
+                                  </div>
                               </div>
                             </div>
                           </div>
@@ -112,7 +113,7 @@
               </div>
             </div>
 
-             <div class="col-md-3 col-sm-4">
+                  <div class="col-md-3 col-sm-4">
                       <div class="footer-thumb">
                            <h2>Find us</h2>
                            <p>1245 West State Street, <br> West Lafayettte, IN 47906</p>
@@ -126,13 +127,12 @@
       </footer>
 
 <!-- Javascript that animates page -->
+<script src="js/core/jquery.3.2.1.min.js"></script>
+<script src="js/core/popper.min.js"></script>
+<script src="js/core/bootstrap.min.js"></script>
+<script src="js/now-ui-kit.js?v=1.1.0"></script>
+<script src="js/aos.js"></script>
+<script src="scripts/main.js"></script>
 
-               <script src="js/core/jquery.3.2.1.min.js"></script>
-               <script src="js/core/popper.min.js"></script>
-               <script src="js/core/bootstrap.min.js"></script>
-               <script src="js/now-ui-kit.js?v=1.1.0"></script>
-               <script src="js/aos.js"></script>
-               <script src="scripts/main.js"></script>
 </body>
-
 </html>

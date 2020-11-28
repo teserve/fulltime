@@ -1,8 +1,12 @@
+<!-- Template
+Author: phpjabbers
+Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
+-->
 <!DOCTYPE html>
 <html lang="en">
 
   <head>
-
+<!-- Starts session, loads in necessary css and bootsrap files, and prepares for dynamic page -->
    <?php
     session_start();
     include '../account_class.php';
@@ -101,7 +105,7 @@
         <div class="container">
             <br>
             <br>
-
+<!-- Select Statements & php that allow for pop up of job openings on student job page  -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
@@ -124,10 +128,6 @@
                            echo '<br><h6>Application Due: ' . $post['date_closed'] . '</h6>';
                            echo '<ul class="social-icons">';
                            echo '<li><form action="perform_application.php" method="post"><input type="submit" class="btn btn-primary" value="Apply"><input type="hidden" name="hidden_job_id_label" value="' . $post['job_id'] . '"></form></li>';
-                              // insert into Application user_id and job_id and date
-                              // $_SESSION['app_done'] = 1;
-                              // header('location: Userjobs.php');
-                           //   echo '<li><a href="apply.php" class="btn btn-primary">Apply</a></li>';
                            echo '</ul>';
                            echo '</div>';
                            echo '</div>';
@@ -136,67 +136,16 @@
                        }
 
                        ?>
-<!--
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="down-content">
-                                    <span> Job Type &nbsp;|&nbsp; Region </span>
-
-                                    <h4>Company</h4>
-
-                                    <h6>Industry &nbsp;|&nbsp; Job Position </h6>
-
-                                    <p>Job Description</p>
-
-                                    <a> Requirements: </a><br>
-                                    <small style="color:#757575;">Education Level: ed_level </small><br>
-                                    <small style="color:#757575;">Minimum GPA: gpa </small><br>
-
-                                    <br><h6>Application Due: date_closed </h6>
-
-                                    <ul class="social-icons">
-                                        <li><a href="apply.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
--->
                     </div>
                 </div>
             </div>
-
-
-
             <br>
-          <!--
-            <nav>
-              <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          -->
         </div>
     </section>
     <!-- ***** Fleet Ends ***** -->
 
 
     <!-- ***** Footer Start ***** -->
-    <!-- FOOTER -->
-
   <footer data-stellar-background-ratio="0.5"  style="background-color:black;">
        <div class="container">
             <div class="row">
@@ -209,28 +158,6 @@
                            <p>Copyright &copy; 2020 FullTime</p>
                       </div>
                  </div>
-
-                <!-- <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Company</h2>
-                           <ul class="footer-link">
-                                <li><a href="#about">About Us</a></li>
-                                <li><a href="#blog">Read Testimonials</a></li>
-                           </ul>
-                      </div>
-                 </div>
-
-                 <div class="col-md-2 col-sm-4">
-                      <div class="footer-thumb">
-                           <h2>Services</h2>
-                           <ul class="footer-link">
-                                <li><a href="#">Job Placement</a></li>
-                                <li><a href="#">Applicant Discovery</a></li>
-                                <li><a href="#">Company Analytics</a></li>
-                           </ul>
-                      </div>
-                 </div> -->
-
                  <div class="col-md-3 col-sm-4">
                       <div class="footer-thumb">
                            <h2>Find us</h2>
@@ -244,6 +171,7 @@
             </div>
        </div>
   </footer>
+  <!-- ***** Footer End ***** -->
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>

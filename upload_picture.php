@@ -1,4 +1,5 @@
 <?php
+//start session
 session_start();
 
 function uploadProfilePicture($id)

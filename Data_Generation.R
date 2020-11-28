@@ -1,3 +1,5 @@
+install.packages("wakefield")
+install.packages("randomNames")
 library(RMySQL)
 # db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
 # on.exit(dbDisconnect(db_connection))
@@ -210,7 +212,56 @@ for (i in 1:n) {
 # Student table insert
 for (i in 1:n) {
   tryCatch({
+    db_connection <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")
+    dbBegin(db_connection)
     dbWriteTable(db_connection, name = "Student", value = simulated_student_info[i, 6:10], append = T, row.names = F)
+  },
+  warning = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  },
+  error = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  })
+  dbCommit(db_connection)
+  dbDisconnect(db_connection)
+}
+
+# Student_skills table insert
+for (i in 1:n) {
+  tryCatch({
+    dbWriteTable(db_connection, name = "Student_skills", value = simulated_student_skills[i, ], append = T, row.names = F)
+  },
+  warning = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  },
+  error = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  })
+}
+
+# Job_posting table insert
+for (i in 1:n) {
+  tryCatch({
+    dbWriteTable(db_connection, name = "Job_posting", value = simulated_job_posting[i, ], append = T, row.names = F)
+  },
+  warning = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  },
+  error = function(cond) {
+    dbRollback(db_connection)
+    dbDisconnect(db_connection)
+  })
+}
+
+# Job_skills table insert
+for (i in 1:n) {
+  tryCatch({
+    dbWriteTable(db_connection, name = "Job_skills", value = simulate_job_skills[i, ], append = T, row.names = F)
   },
   warning = function(cond) {
     dbRollback(db_connection)

@@ -1,3 +1,8 @@
+<!-- Template
+Author: templateflip
+Author URL:https://templateflip.com/demo/templates/creative-cv/
+-->
+
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -23,7 +28,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profile Page</title>
+  <title>Dashboard</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <link href="css/aos.css" rel="stylesheet">
@@ -36,13 +41,6 @@
 </head>
 <!-- Begins html and in line php that allows for visual display of base template and saved user inputs -->
 <body id="top">
-
-  <section class="preloader">
-    <div class="spinner">
-      <span class="spinner-rotate"></span>
-    </div>
-  </section>
-
 
   <!-- PRE LOADER -->
   <section class="preloader">
@@ -82,6 +80,7 @@
       </div>
 
   </section>
+<!-- Profile Header -->
   <div class="page-content">
     <div>
       <div class="profile-page">
@@ -102,6 +101,8 @@
           </div>
         </div>
       </div>
+<!-- Profile Informations -->
+      <!-- Basic Profile -->
       <div class="section" id="about">
         <div class="h4 text-center mb-4 title">Basic Profile</div>
         <div class="container">
@@ -558,9 +559,6 @@
         </div>
       </div>
 
-
-
-
       <!-- Work Experience -->
       <div class="section" id="experience">
         <div class="container cc-experience">
@@ -599,6 +597,7 @@
           </div>
         </div>
       </div>
+
       <!-- FOOTER -->
       <footer data-stellar-background-ratio="0.5" style="background-color:black;">
         <div class="container">
@@ -629,6 +628,7 @@
           </div>
         </div>
       </footer>
+
 <!-- Javascript that animates page -->
       <script src="js/core/jquery.3.2.1.min.js"></script>
       <script src="js/core/popper.min.js"></script>
@@ -636,6 +636,6 @@
       <script src="js/now-ui-kit.js?v=1.1.0"></script>
       <script src="js/aos.js"></script>
       <script src="scripts/main.js"></script>
-</body>
 
+</body>
 </html>

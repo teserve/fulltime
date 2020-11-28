@@ -3352,6 +3352,7 @@ input[type="button"].btn-block {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
@@ -3370,7 +3371,8 @@ input[type="button"].btn-block {
 
 .card-body {
   flex: 1 1 auto;
-  min-height: 1px;
+  position: relative;
+   min-height: 1px;
   padding: 1.25rem; }
 
 .card-title {
@@ -10980,7 +10982,9 @@ a.toggle-btn i {
   z-index: 1; }
 
 .sticky-header .main-content {
-  padding-top: 0px; }
+  padding-top: 0px;
+  padding-right: 50px;
+  padding-left: 50px;}
 
 .sticky-header .menu-right {
   margin-right: 0px; }
@@ -11753,6 +11757,8 @@ li.dropdown span.badge {
 
 .main-content {
   margin-left: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
   background: #A8A8A8; }
 
 @media (max-width: 0px) {
@@ -11803,7 +11809,9 @@ li.dropdown span.badge {
   .sidebar-menu {
     width: 0px; }
   .main-content {
-    margin-left: 0px; }
+    margin-left: 0px;
+    padding-left: 50px;
+    padding-right: 50px;}
   .sidebar-menu-collapsed .custom-nav li a {
     display: none; } }
 

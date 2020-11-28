@@ -1,3 +1,7 @@
+<!--Template
+Author: phpjabbers
+Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +34,6 @@
 
 </head>
 <!-- Begins Html, php, and css that loads in our front end of the review page -->
-
 <body>
 
      <!-- ***** Preloader Start ***** -->
@@ -93,8 +96,6 @@
                </div>
           </div>
      </section>
-
-
      <!-- ***** Call to Action End ***** -->
 
      <!-- ***** Fleet Starts ***** -->
@@ -104,7 +105,6 @@
                <br>
 <!-- Runs query on database to enable user to select from listed items from reviews table -->
                <div class="row">
-
                     <div class="col-lg-12">
                          <div class="row">
                            <?php include "../db_connection.php";
@@ -116,7 +116,7 @@
                                 echo '<div class="col-md-6">';
                                 echo '<div class="trainer-item">';
                                 echo '<div class="down-content">';
-                                echo '<span> &#9733 ' . $post['review_rating'] . ' Stars &#9733 </span>';
+                                echo '<span> &#9733 ' . $post['review_rating'] . ' Star(s) &#9733 </span>';
                                 echo '<h4>' . $post['company'] . ' | ' . $post['job_type'] . ' | ' . $post['industry'] . '</h4>';
                                 echo '<h6>' . $post['review_bio'] . '</h6>';
                                 echo '<small>' . $post['review_date'] . '</small>';
@@ -133,20 +133,12 @@
                          </div>
                     </div>
                </div>
-
-
-
                <br>
-
           </div>
      </section>
-
      <!-- ***** Fleet Ends ***** -->
 
-
      <!-- ***** Footer Start ***** -->
-     <!-- FOOTER -->
-
      <footer data-stellar-background-ratio="0.5" style="background-color:black;">
           <div class="container">
                <div class="row">
@@ -174,10 +166,10 @@
                                         class="fa fa-instagram"></a></p>
                          </div>
                     </div>
-
                </div>
           </div>
      </footer>
+ <!-- ***** Footer Ends ***** -->
 
      <!-- jQuery -->
      <script src="assets/js/jquery-2.1.0.min.js"></script>

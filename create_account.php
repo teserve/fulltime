@@ -1,4 +1,5 @@
 <?php
+//start session
 session_start();
 
 require 'db_connection.php';
@@ -6,12 +7,14 @@ require 'account_class.php';
 
 $account = new Account();
 
+//add new account into database upon sign up
 try
 {
     $newId = $account->addAccount($_POST['password'], $_POST['email'], $_POST['telephone'], $_POST['first_name'], $_POST['last_name'], $_POST['account_type']);
 
     $_SESSION['account_id'] = $newId;
 
+    //direct into its specific profile page based on account type
     if ($_POST['account_type'] == 'Student') {
         header('location: ./Profile/UserProfile.php');
     }

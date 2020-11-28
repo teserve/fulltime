@@ -1,18 +1,115 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
+<!-- Template
+Author: Templatemo
+Author URL: https://templatemo.com/tag/html5
 -->
 <!doctype html>
 <html lang="en">
-<!-- Starts session, loads in css & bootstrap, and enables all necessary preloads to enable website to be dynamic -->
-<head>
 
+<head>
+  <!-- Starts session, loads in css & bootstrap, and enables all necessary preloads to enable website to be dynamic -->
  <?php
     session_start();
     include '../account_class.php';
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
+
+# count & show total students for statistical data
+    function countS()
+    {
+         global $pdo;
+
+        $query = 'SELECT COUNT(*) AS num FROM g1116887.Student ';
+
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        $tot = $row['num'];
+
+        echo $tot ;
+    }
+#count & show total job postings for statistical data
+    function countJ()
+    {
+         global $pdo;
+
+        $query = 'SELECT COUNT(*) AS num FROM g1116887.Job_posting ';
+
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        $total = $row['num'];
+
+        echo $total ;
+    }
+
+#count & show total reviews submitted for statistical data
+    function countR()
+    {
+         global $pdo;
+
+        $query = 'SELECT COUNT(*) AS num FROM g1116887.Reviews ';
+
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        $total = $row['num'];
+
+        echo $total ;
+    }
+// count and show total employers
+    function countE()
+    {
+         global $pdo;
+
+        $query = 'SELECT COUNT(*) AS num FROM g1116887.Employee ';
+
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        $tot = $row['num'];
+
+        echo $tot ;
+    }
+
   ?>
+<!-- BAR CHART SCRIPT -->
+
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -26,9 +123,174 @@ Author URL: http://w3layouts.com
 
   <!-- google fonts -->
   <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Job Type", "% of Hires", { role: "style" } ],
+        ["Internship", 15, "#ffcc90"],
+        ["Full-Time", 20, "#indigo"],
+        ["Co-op", 15, "#ff964f"],
+
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "\Jobs filled by Job-Type",
+        width: 880,
+        height: 420,
+        bar: {groupWidth: "85%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+
+  <!-- Pie Chart JS -->
+<!-- ALL WEIGHTS ON PIE CHART ARE JUSTIFIED THROUGH PRIOR RESEARCH THAT IS STATED WITHIN OUR REPORT
+CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DATABASE  -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Industry Breakdown'],
+          ['Business Related Fields', 6.1],
+          ['Chemicals, Petroleum, Plastics & Rubber',  1.8],
+          ['Computer Systems - Design/Programming',  7.9],
+          ['Consulting Services', 12.8],
+          ['Consumer Goods',    22.6],
+          ['Energy',   1.8],
+          ['Engineering Services',    18.9],
+          ['Environmental Services',    1.2],
+          ['Government',    1.2],
+          ['Manufacturing & Industrial Systems',   18.3],
+          ['Other',   3.7],
+          ['Pharmaceuticals & Medicine',   3.1],
+          ['Scientific Research & Development',   61]
+
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+    <!-- Mapping Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['State', 'Users'],
+          // ['US-Northeast', 10],
+          // ['US-Southeast', 10],
+          // ['US-Midwest', 10],
+          // ['US-Southwest', 10],
+          // ['US-West', 30],
+
+          ['US-AL', 10],
+          ['US-AK', 0],
+          ['US-AR', 0],
+          ['US-AK', 0],
+          ['US-AZ', 0],
+          ['US-Colorado', 0],
+          ['US-CO', 0],
+          ['US-DE', 0],
+          ['US-FL', 20],
+          ['US-HI', 0],
+          ['US-KS', 0],
+          ['US-KY', 0],
+          ['US-MI', 0],
+          ['US-MO', 0],
+          ['US-MS', 0],
+          ['US-MT', 0],
+          ['US-NE', 0],
+          ['US-NJ', 0],
+          ['US-NM', 0],
+          ['US-NY', 0],
+          ['US-OR', 0],
+          ['US-PA', 0],
+          ['US-TX', 0],
+          ['US-UT', 0],
+          ['US-VA', 0],
+          ['US-WA', 0],
+          ['US-WV', 0],
+          ['US-WY', 0],
+          ['US-OK', 0],
+          ['US-CA', 0],
+          ['US-ID', 0],
+          ['US-NV', 0],
+          ['US-MA', 0],
+          ['US-GA', 0],
+          ['US-SC', 0],
+          ['US-TN', 0],
+          ['US-IN', 0],
+          ['US-IL', 0],
+          ['US-WI', 0],
+          ['US-WI', 0],
+          ['US-LA', 0],
+          ['US-SD', 0],
+          ['US-ND', 0],
+          ['US-IA', 0],
+          ['US-OH', 0],
+          ['US-NC', 0],
+          ['US-DC', 0],
+          ['US-CT', 0],
+          ['US-MN', 0],
+          ['US-Del', 0],
+          ['US-VT', 0],
+          ['US-NH', 0],
+          ['US-ME', 0],
+          ['US-MD', 0],
+
+        ]);
+
+        var options = {
+        region: 'US',
+        displayMode: 'regions',
+        resolution: 'provinces',
+        colorAxis: {colors: ['#ffcc90','indigo'] },
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+   
+
 </head>
 
   <!-- //header-ends -->
+  <!-- Begins html and in line php that allows for visual display of base template and saved user inputs -->
+  <!-- Menu -->
   <section class="navbar custom-navbar navbar-fixed-top" role="navigation" style="background-color:rgba(128, 128, 128, 0.3);">
        <div class="container">
 
@@ -38,7 +300,7 @@ Author URL: http://w3layouts.com
                  <a class="navbar-brand">FullTime</a>
             </div>
 
-            <!-- MENU LINKS -->
+            <!-- Menu Links-->
             <div class="navbar-right">
               <table border-spacing: 15px;>
                 <tr>
@@ -58,8 +320,6 @@ Author URL: http://w3layouts.com
 <div class="main-content" style="min-height: 600px; background-image: url(fulltime.jpg); background-size: cover; background-position: center;">
 
   <!-- content -->
-  <!--<div class="container-fluid content-top-gap">-->
-
     <div class="welcome-msg pt-3 pb-4">
       <h1><span class="text-primary"></h1>
     </div>
@@ -72,15 +332,15 @@ Author URL: http://w3layouts.com
             <div class="col-sm-6 pr-sm-2 statistics-grid">
               <div class="card card_border border-primary-top p-4">
                 <i class="lnr lnr-users"> </i>
-                <h3 class="text-primary number">200 k</h3>
+                <h3 class="text-primary number"><?php echo countS() ?></h3>
                 <p class="stat-text">Total Students</p>
               </div>
             </div>
             <div class="col-sm-6 pl-sm-2 statistics-grid">
               <div class="card card_border border-primary-top p-4">
                 <i class="lnr lnr-tablet"> </i>
-                <h3 class="text-secondary number">150k</h3>
-                <p class="stat-text">Internships Posted This Year</p>
+                <h3 class="text-secondary number"><?php echo countE() ?></h3>
+                <p class="stat-text">Total Employers</p>
               </div>
             </div>
           </div>
@@ -90,15 +350,15 @@ Author URL: http://w3layouts.com
             <div class="col-sm-6 pr-sm-2 statistics-grid">
               <div class="card card_border border-primary-top p-4">
                 <i class="lnr lnr-apartment"> </i>
-                <h3 class="text-success number">50k</h3>
-                <p class="stat-text">Total Surveys Sent</p>
+                <h3 class="text-success number"><?php echo countJ() ?></h3>
+                <p class="stat-text">Total Job Postings</p>
               </div>
             </div>
             <div class="col-sm-6 pl-sm-2 statistics-grid">
               <div class="card card_border border-primary-top p-4">
                 <i class="lnr lnr-pushpin"> </i>
-                <h3 class="text-danger number"></h3>
-                <p class="stat-text">Application Fill Rate</p>
+                <h3 class="text-danger number"><?php echo countR() ?></h3>
+                <p class="stat-text">Total Reviews Submitted</p>
               </div>
             </div>
           </div>
@@ -107,8 +367,7 @@ Author URL: http://w3layouts.com
     </div>
     <!-- //statistics data -->
 
-    <!-- charts -->
-
+    <!-- Survey -->
     <div class="chart">
       <div class="row">
         <div class="col-lg-6 pr-lg-2 chart-grid">
@@ -117,40 +376,76 @@ Author URL: http://w3layouts.com
               Send Survey
             </div>
             <div class="card-body">
-              <a href="../Survey/Survey.php" class="btn btn-primary">Questions</a>
+              <a href="../Survey/email.php" class="btn btn-primary">Questions</a>
             </div>
           </div>
         </div>
+    <!-- //survey -->
 
+    <!-- Job Type Breakdown Bar Chart -->
         <div class="col-lg-6 pl-lg-2 chart-grid">
           <div class="card text-center">
             <div class="card-header chart-grid__header">
               Job Posting Trends
             </div>
             <div class="card-body">
+              <!-- bar chart -->
+              <div id="container">
+                <div id="columnchart_values" style="width: 1000px; height: 400px;"></div>
+              </div>
+              <!-- bar chart -->
+            </div>
+            <div class="card-footer text-muted chart-grid__footer">
+              Job Type Breakdown
+            </div>
+          </div>
+        </div>
+      </div>
+   <!-- End Bar Chart -->
+
+          <!-- Survey -->
+    <div class="chart">
+      <div class="row">
+        <div class="col-lg-6 pr-lg-2 chart-grid">
+          <div class="card text-center ">
+            <div class="card-header chart-grid__header">
+              Skills Correlation to Industry
+            </div>
+              <div class="card-body">
+                <div id="regions_div" style="width: 850px; height: 525px;"></div>
+              </div>
+            <div class="card-footer text-muted chart-grid__footer">
+              2020 Industry Breakdown
+            </div>
+          </div>
+        </div>
+          <!-- //survey -->
+      
+      <!-- Machine Learning Graph -->
+      <div class="col-lg-6 pl-lg-2 chart-grid">
+          <div class="card text-center">
+            <div class="card-header chart-grid__header">
+              Posting By Job Position Type
+            </div>
+            <div class="card-body">
               <!-- line chart -->
               <div id="container">
-                <canvas id="linechart"></canvas>
+                <div id="piechart" style="width: 800px; height: 525px;"></div>
               </div>
               <!-- //line chart -->
             </div>
             <div class="card-footer text-muted chart-grid__footer">
-              Updated just now
+              2020 Industry Breakdown
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- //charts -->
+    </div>
+    <!-- End Machine Learning Graph -->
 
-    <!-- accordions -->
-  <div class="accordions">
-      <div class="row">
-  </div>
-</div>
-</section>
+
   <!-- FOOTER -->
-
   <footer data-stellar-background-ratio="0.5"  style="background-color:black;">
        <div class="container">
             <div class="row">
@@ -179,84 +474,7 @@ Author URL: http://w3layouts.com
   </footer>
 <!--footer section end-->
 
-<script>
-  // When the user scrolls down 20px from the top of the document, show the button
-  window.onscroll = function () {
-    scrollFunction()
-  };
-
-  function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      document.getElementById("movetop").style.display = "block";
-    } else {
-      document.getElementById("movetop").style.display = "none";
-    }
-  }
-
-  // When the user clicks on the button, scroll to the top of the document
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
-</script>
-<!-- /move top -->
-
-
-<script src="assets/js/jquery-3.3.1.min.js"></script>
-<script src="assets/js/jquery-1.10.2.min.js"></script>
-
-<!-- chart js -->
-<script src="assets/js/Chart.min.js"></script>
-<script src="assets/js/utils.js"></script>
-<!-- //chart js -->
-
-<!-- Different scripts of charts.  Ex.Barchart, Linechart -->
-<script src="assets/js/bar.js"></script>
-<script src="assets/js/linechart.js"></script>
-<!-- //Different scripts of charts.  Ex.Barchart, Linechart -->
-
-
-<script src="assets/js/jquery.nicescroll.js"></script>
-<script src="assets/js/scripts.js"></script>
-
-<!-- close script -->
-<script>
-  var closebtns = document.getElementsByClassName("close-grid");
-  var i;
-
-  for (i = 0; i < closebtns.length; i++) {
-    closebtns[i].addEventListener("click", function () {
-      this.parentElement.style.display = 'none';
-    });
-  }
-</script>
-<!-- //close script -->
-
-<!-- disable body scroll when navbar is in active -->
-<script>
-  $(function () {
-    $('.sidebar-menu-collapsed').click(function () {
-      $('body').toggleClass('noscroll');
-    })
-  });
-</script>
-<!-- disable body scroll when navbar is in active -->
-
- <!-- loading-gif Js -->
- <script src="assets/js/modernizr.js"></script>
- <script>
-     $(window).load(function () {
-         // Animate loader off screen
-         $(".se-pre-con").fadeOut("slow");;
-     });
- </script>
- <!--// loading-gif Js -->
-
-<!-- Bootstrap Core JavaScript -->
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="js/jquery.js"></script>
-<script src="js/custom.js"></script>
+<script src="js/mapgraph.js"></script>
 
 </body>
-
 </html>

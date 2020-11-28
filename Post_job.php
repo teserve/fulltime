@@ -1,4 +1,5 @@
 <?php
+//start session
 session_start();
 
 require 'db_connection.php';
@@ -7,7 +8,6 @@ require 'db_connection.php';
 $id = $_SESSION['account_id'];
 
 global $pdo;
-
 
 $industry = trim($_POST['industry']);
 $position = trim($_POST['position']);
@@ -54,11 +54,12 @@ $soft_skill8 = trim($_POST['soft_skill8']);
 $soft_skill9 = trim($_POST['soft_skill9']);
 $soft_skill10 = trim($_POST['soft_skill10']);
 
-
+// insert job position basic information
 $job_query = 'INSERT INTO g1116887.Job_posting (user_id, industry, position, job_type, ed_level, gpa, region, company, date_closed, date_post, job_descr) VALUES (:user_id, :industry, :position, :job_type, :ed_level, :gpa, :region, :company, :date_closed, CURDATE(), :job_descr)';
 
 $main_values = array(':user_id'=> $id, ':industry' => $industry, ':job_type' => $job_type,':position'=>$position, ':ed_level' => $ed_level, ':gpa' => $gpa, ':region' => $region, ':company' => $company, ':date_closed'=>$date_closed, ':job_descr' => $job_descr);
 
+//insert required skill for job opening
 $job_skills_query = 'INSERT INTO g1116887.Job_skills (
 job_id,
 user_id,
@@ -162,7 +163,7 @@ $job_skills_values = array(
 
 
 try{
-
+    //perform insert values to database
     $pdo->beginTransaction();
 
     $res1 = $pdo->prepare($job_query);
@@ -172,7 +173,7 @@ try{
     $res2->execute($job_skills_values);
 
     $pdo->commit();
-
+    //directs back to job page
     header('location: ./JobSearch/Postjobs.php');
 }
 

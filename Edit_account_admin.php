@@ -1,4 +1,5 @@
 <?php
+//start session
 session_start();
 
 require 'db_connection.php';
@@ -12,12 +13,13 @@ $post_code = trim($_POST['post_code']);
 $university = trim($_POST['university']);
 $position_type = $_POST['position_type'];
 
-$edit_admin_query = 'REPLACE INTO g1116887.Admin SET 
-user_id = :user_id, 
-city = :city, 
-Nstate = :Nstate, 
-country = :country, 
-post_code = :post_code, 
+//edit admin basic informations
+$edit_admin_query = 'REPLACE INTO g1116887.Admin SET
+user_id = :user_id,
+city = :city,
+Nstate = :Nstate,
+country = :country,
+post_code = :post_code,
 university = :university,
 position_type = :position_type';
 
@@ -33,7 +35,7 @@ $main_values = array(
 
 try{
     $pdo->beginTransaction();
-
+    //perform edit values & update values in database
     $res1 = $pdo->prepare($edit_admin_query);
     $res1->execute($main_values);
 
@@ -47,4 +49,3 @@ catch (Exception $e)
     echo $e->getMessage();
 	die();
 }
-

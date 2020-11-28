@@ -7,10 +7,10 @@ ini_set('display_errors', 'On');
 $host = "mydb.itap.purdue.edu";
 $schema = "g1116887";
 $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
-
 $user = "g1116887";
 $password = "12Blueapples";
 
+//connects to our database
 try
 {
    $pdo = new PDO($dsn, $user,  $password);

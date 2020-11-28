@@ -1,6 +1,11 @@
+<!--
+Author: templateflip
+Author URL:https://templateflip.com/demo/templates/creative-cv/
+-->
 <!DOCTYPE html>
 <html lang="en">
      <head>
+
 <!-- Starts session, loads in css & bootsrap files, and prepares document for dynamic interaction -->
      <?php
       session_start();
@@ -17,35 +22,22 @@
       </head>
 
 <body>
+<!-- Main Content -->
   <div class="main-content">
     <!-- Top navbar -->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-        <!-- Form -->
-        <!--
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
-      -->
-        <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <a href="Userjobs.php" class="btn btn-info">Back to Jobs</a>
         </ul>
       </div>
     </nav>
   </div>
-    <!-- Header -->
+    <!-- Background Image -->
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(fulltime.jpg); background-size: cover; background-position: center;">
-      <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
-      <!-- Header container -->
+
+      <!-- Resume upload -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row" style="padding-left:20px">
           <div class="col-lg-7 col-md-10">
@@ -68,7 +60,6 @@
   <footer data-stellar-background-ratio="0.5" style="background-color:black;">
     <div class="container">
       <div class="row" style="color:white;">
-
         <div class="col-md-5 col-sm-12">
           <div class="footer-thumb footer-info">
             <h2>FullTime</h2>
@@ -82,4 +73,6 @@
       </div>
     </div>
   </footer>
+
 </body>
+</html>

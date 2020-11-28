@@ -1,8 +1,13 @@
+<!-- Template
+Author: templatemo
+Author URL: https://templatemo.com/tm-509-hydro
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+<!-- Begins session and loads in necessary php, css, and bootstrap files for visual display and functionality -->
  <?php
     session_start();
 
@@ -13,6 +18,7 @@
     $account->getInfoPostJobs($_SESSION['account_id']);
     $account->getInfoJobsSkills($_SESSION['account_id']);
 
+  //function that queries for tech skills list from database
     function getTechSkillList($n)
     {
       global $pdo;
@@ -40,7 +46,7 @@
         echo $output;
       }
     }
-
+    //function that queries for soft skills list from database
     function getSoftSkillList($n)
     {
       global $pdo;
@@ -68,8 +74,6 @@
         echo $output;
       }
     }
-
-
   ?>
 
   <link rel="stylesheet" href="assets/css/stylesheet.css">
@@ -85,13 +89,12 @@
           <a href="Employerjobs.php" class="btn btn-info">Back to Jobs</a>
       </div>
     </nav>
-    <!-- Header -->
+    <!-- Background Image -->
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
       style="background-image: url(fulltime.jpg); background-size: cover; background-position: center;">
-      <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
-      <!-- Header container -->
     </div>
+
     <!--page content-->
     <div class="container-fluid mt--7">
       <div class="row">
@@ -102,7 +105,6 @@
                 <div class="col-8">
                   <h3 class="mb-0">Post Job Opening</h3>
                 </div>
-
               </div>
             </div>
             <div class="card-body">
@@ -110,43 +112,7 @@
                 <div class="col-6 text-right">
                     <input type="submit" class="btn btn-sm btn-primary" value="Post">
                 </div>
-                  <!--    <h6 class="heading-small text-muted mb-4">Contact information</h6>
-                <div class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-username">Phone Number</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative"
-                          placeholder="Phone Number">
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative"
-                          placeholder="email@example.com">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">First name</label>
-                        <input type="text" id="input-first-name" class="form-control form-control-alternative"
-                          placeholder="First name">
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">Last name</label>
-                        <input type="text" id="input-last-name" class="form-control form-control-alternative"
-                          placeholder="Last name">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr class="my-4"> -->
-                <!-- Address -->
+                <!-- Company Information -->
                 <h6 class="heading-small text-muted mb-4">Company Information</h6>
                 <div class="pl-lg-4">
                   <div class="row">
@@ -201,8 +167,8 @@
                   </div>
                 </div>
                 <hr class="my-4">
-                <!-- Academics -->
 
+          <!-- Job Requirements -->
                 <h6 class="heading-small text-muted mb-4">Requirements</h6>
                 <div class="pl-lg-4">
                   <div class="row">
@@ -258,8 +224,7 @@
                 <hr class="my-4">
 
 
-                <!-- Skills -->
-
+                <!-- Required Tech Skills -->
                 <h6 class="heading-small text-muted mb-4">Skills</h6>
                 <div class="pl-lg-4">
                   <div class="row">
@@ -396,7 +361,7 @@
                     </div>
                 <!-- End of tech skills -->
 
-                  <!--soft skills -->
+                  <!-- Required soft skills -->
                   <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-soft">Soft Skills</label>
@@ -455,8 +420,7 @@
                   </div>
                 </div>
 
-
-                <!-- Description -->
+                <!-- Job Description -->
                 <h6 class="heading-small text-muted mb-4">Description</h6>
                 <div class="pl-lg-4">
                   <div class="form-group focused">

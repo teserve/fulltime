@@ -1,4 +1,5 @@
 <?php
+//start session
 session_start();
 
 require 'db_connection.php';
@@ -6,8 +7,8 @@ require 'upload_picture.php';
 
 $id = $_SESSION['account_id'];
 
+//upload profile picture
 uploadProfilePicture($id);
-
 
 $cell = trim($_POST['input-phone']);
 $email = trim($_POST['input-email']);
@@ -84,6 +85,7 @@ $course_grade3 = trim($_POST['course_grade3']);
 $course_grade4 = trim($_POST['course_grade4']);
 $course_grade5 = trim($_POST['course_grade5']);
 
+//edit student basic information
 $user_query = 'UPDATE g1116887.User SET
 fir_name = :first_name,
 las_name = :last_name,
@@ -99,7 +101,7 @@ $user_values = array(
     ':first_name' => $first_name,
     ':last_name' => $last_name
 );
-
+//edit student address, academics, project, work experience values
 $edit_student_query = 'UPDATE g1116887.Student SET
 city = :city,
 Nstate = :Nstate,
@@ -158,6 +160,7 @@ $main_values = array(
     ':work_descr2' => $work_descr2
 );
 
+//edit student tech skills and soft skills
 $skills_query = 'REPLACE INTO g1116887.Student_skills SET
 user_id = :user_id,
 tech_skill1 = :tech_skill1,
@@ -225,6 +228,7 @@ $skills_values = array(
     ':soft_skill10' => $soft_skill10
 );
 
+//edit courses
 $course_query = 'REPLACE INTO g1116887.Student_courses SET
 user_id = :user_id,
 course1 = :course1,
@@ -254,6 +258,7 @@ $course_values = array(
 
 
 try{
+  //perform edit values & update values in database
     $pdo->beginTransaction();
 
     $res = $pdo->prepare($user_query);
@@ -269,7 +274,6 @@ try{
     $res3->execute($course_values);
 
     $pdo->commit();
-
     header('location: ./Profile/UserProfile.php');
 }
 catch (Exception $e)

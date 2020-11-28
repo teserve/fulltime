@@ -1,5 +1,5 @@
 <?php
-
+//start session
 require 'password.php';
 include 'db_connection.php';
 
@@ -11,7 +11,7 @@ class Account
     public $cell;
     public $first_name;
     public $last_name;
-
+	//construct account
 	public function __construct()
 	{
 		$this->id = NULL;
@@ -21,12 +21,7 @@ class Account
         $this->first_name = NULL;
         $this->last_name = NULL;
     }
-
-	public function __destruct()
-	{
-		// echo 'Account class (not the actual account) deleted';
-	}
-
+		//insert values to its specific variables
     public function addAccount($password, $email, $cell, $first_name, $last_name, $acc_type)
     {
         global $pdo;
@@ -91,7 +86,7 @@ class Account
 
         return $last_id;
     }
-
+		//define information for student account
     public function editAccountStud($id, $password, $email, $cell, $first_name, $last_name)
     {
         global $pdo;
@@ -121,7 +116,7 @@ class Account
             throw new Exception('Database query error');
         }
     }
-
+		//delete account or account creation failed if there is invalid values
     public function deleteAccount($id)
     {
         global $pdo;
@@ -159,7 +154,7 @@ class Account
             throw new Exception('Database query error');
         }
     }
-
+		//login function
     public function login($email, $password)
     {
         global $pdo;
@@ -212,7 +207,7 @@ class Account
         }
         return $acc_type;
     }
-
+		//define user informations
     public function getInfo($id)
     {
         global $pdo;
@@ -239,7 +234,7 @@ class Account
         $this->email = $row['email'];
         $this->cell = $row['cell'];
     }
-
+		//define student informations
     public function getInfoStudent($id)
     {
         global $pdo;
@@ -284,7 +279,7 @@ class Account
         $this->work_descr2 = $row['work_descr2'];
 
     }
-
+		//define student skills
     public function getInfoStuSkills($id)
     {
         global $pdo;
@@ -335,7 +330,7 @@ class Account
         $this->soft_skill9 = $row['soft_skill9'];
         $this->soft_skill10 = $row['soft_skill10'];
     }
-
+		//define courses
 		public function getInfoStuCourses($id)
 		{
 				global $pdo;
@@ -366,7 +361,7 @@ class Account
 				$this->course_grade4 = $row['course_grade4'];
 				$this->course_grade5 = $row['course_grade5'];
 		}
-
+		//define admin informations
     public function getInfoAdmin($id)
     {
 
@@ -394,7 +389,7 @@ class Account
         $this->university = $row['university'];
         $this->position_type = $row['position_type'];
     }
-
+		//define employer informations
     public function getInfoEmployer($id)
     {
 
@@ -423,7 +418,7 @@ class Account
         $this->industry = $row['industry'];
 
     }
-
+		//define job posting informations
     public function getInfoPostJobs($id)
     {
         global $pdo;
@@ -455,7 +450,7 @@ class Account
         $this->job_descr = $row['job_descr'];
 
     }
-
+		//define required skills
     public function getInfoJobsSkills($id)
     {
         global $pdo;
@@ -506,8 +501,32 @@ class Account
         $this->soft_skill9 = $row['soft_skill9'];
         $this->soft_skill10 = $row['soft_skill10'];
     }
+		//count total number of students
+    public function countS()
+    {
+         global $pdo;
+
+        $query = 'SELECT COUNT(*) AS num FROM g1116887.Student ';
 
 
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        $tot = $row['num'];
+
+        return $tot;
+
+    }
+		//account type validation (student)
     public function isStudent($id)
     {
         global $pdo;
@@ -531,7 +550,7 @@ class Account
         if (is_array($row)) return TRUE;
         else return FALSE;
     }
-
+		//account type validation (Employer)
     public function isEmployee($id)
     {
         global $pdo;
@@ -558,7 +577,7 @@ class Account
             else return FALSE;
         }
     }
-
+	//account type validation (Advisor)
     public function isAdministrator($id)
     {
         global $pdo;
@@ -586,33 +605,33 @@ class Account
         }
         else return FALSE;
     }
-
+		//name values validation
     public function isNameValid($name)
     {
         $valid = TRUE;
         return $valid;
     }
-
+		//password values validation
     public function isPasswordValid($password)
     {
         // Probably should be used on sign-in not account creation
         $valid = TRUE;
         return $valid;
     }
-
+		//ID values validation
     public function isIdValid($id)
     {
         // Not really a useful function...
         $valid = TRUE;
         return $valid;
     }
-
+		//email values validation
     public function isEmailValid($email)
     {
         if (preg_match('/.+@.+\..+/i', $email)) return TRUE;
         else return FALSE;
     }
-
+		//gets user id from user name 
     public function getIdFromName($name)
     {
         global $pdo;

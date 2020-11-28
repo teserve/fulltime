@@ -1,7 +1,11 @@
+<!-- Template
+Author: templatemo
+Author URL: https://templatemo.com/tm-509-hydro
+-->
 <!DOCTYPE html>
 <html lang="en">
      <head>
- <!-- Begins Session and connects necessary css and php files to set up Amministrative Profile Page -->
+ <!-- Begins Session and connects necessary css and php files to set up Administrative Profile Page -->
      <?php
       session_start();
 
@@ -23,14 +27,12 @@
 <!-- In line php tags are used to load in data dynamically as user logs in from previously saved inputs -->
 <body>
   <div class="main-content">
-    <!-- Top navbar -->
+    <!-- Advisor Icon (Top Navbar) -->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-
-        <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link pr-0"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                   <img alt="Image placeholder" src=<?php echo getProfilePic($account->id); ?>>
@@ -40,41 +42,14 @@
                 </div>
               </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-              <div class=" dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome!</h6>
-              </div>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
-              </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
-                <span>Logout</span>
-              </a>
-            </div>
           </li>
         </ul>
       </div>
     </nav>
+
     <!-- Header -->
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(fulltime.jpg); background-size: cover; background-position: center;">
-      <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
-      <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
@@ -85,7 +60,9 @@
         </div>
       </div>
     </div>
+
     <!-- Page content -->
+    <!-- Advisor Info Summary Box -->
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -109,7 +86,6 @@
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                   </div>
                 </div>
-
               </div>
               <div class="text-center">
                 <h3>
@@ -126,6 +102,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Advisor Profile -->
         <div class="col-xl-8 order-xl-1">
           <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
@@ -140,6 +118,7 @@
                 <div class="col-6 text-right">
                   <input type="submit" class="btn btn-sm btn-primary" value="Save">
                 </div>
+                <!-- Advisor Basic Informations -->
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="row">
                   <div class="col-lg-6">
@@ -163,7 +142,6 @@
                         value=<?= $account->email?>>
                       </div>
                     </div>
-
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-cell">Cell:</label>
@@ -172,6 +150,8 @@
                       </div>
                     </div>
                   </div>
+
+                  <!-- Upload profile picture -->
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
@@ -189,13 +169,13 @@
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-city">City</label>
-                        <input type="text" id="input-city" class="form-control form-control-alternative" name="city" placeholder="City" value=<?php echo $account->city?>>
+                        <input type="text" id="input-city" class="form-control form-control-alternative" name="city" placeholder="City" value="<?php echo $account->city?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-state">State</label>
-                        <input type="text" id="input-state" class="form-control form-control-alternative" name="Nstate" placeholder="State" value=<?php echo $account->Nstate?>>
+                        <input type="text" id="input-state" class="form-control form-control-alternative" name="Nstate" placeholder="State" value="<?php echo $account->Nstate?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
@@ -215,7 +195,6 @@
                 <hr class="my-4">
 
                 <!-- Advisor Info -->
-
                 <h6 class="heading-small text-muted mb-4">Advisor Information</h6>
                 <div class="pl-lg-4">
                   <div class="row">
@@ -228,7 +207,7 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-title">Position Title</label>
-                        <input type="text" id="input-title" class="form-control form-control-alternative" name="position_type" placeholder="Enter Position Title" value=<?php echo $account->position_type?>>
+                        <input type="text" id="input-title" class="form-control form-control-alternative" name="position_type" placeholder="Enter Position Title" value="<?php echo $account->position_type?>">
                       </div>
                     </div>
                   </div>

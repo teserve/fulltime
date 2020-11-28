@@ -1,3 +1,7 @@
+<!-- Template
+Author: templateflip
+Author URL:https://templateflip.com/demo/templates/creative-cv/
+-->
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -97,17 +101,9 @@ input[type=submit]:hover {
   clear: both;
 }
 
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 </style>
 
 <body id="top">
-
-  <section class="preloader">
-    <div class="spinner">
-      <span class="spinner-rotate"></span>
-    </div>
-  </section>
-
 
   <!-- PRE LOADER -->
   <section class="preloader">
@@ -120,7 +116,6 @@ input[type=submit]:hover {
   <!-- MENU -->
   <section class="navbar custom-navbar navbar-fixed-top" role="navigation" style="background-color:rgba(207, 207, 207, 1);">
     <div class="container">
-
       <div class="navbar-header">
         <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="icon icon-bar"></span>
@@ -144,9 +139,9 @@ input[type=submit]:hover {
                             </form>
         </ul>
       </div>
-
     </div>
-    <!-- Response Confirmation -->
+
+  <!-- Response Confirmation -->
   </section>
   <div class="page-content">
     <div>
@@ -196,6 +191,7 @@ input[type=submit]:hover {
           </div>
         </div>
       </footer>
+      
 <!-- Includes javascript that animates the review page -->
         <script src="js/core/jquery.3.2.1.min.js"></script>
         <script src="js/core/popper.min.js"></script>

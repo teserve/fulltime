@@ -1,9 +1,12 @@
+<!-- Template
+Author: templateflip
+Author URL:https://templateflip.com/demo/templates/creative-cv/
+-->
 <!DOCTYPE html>
 <html lang="en-US">
 
 <head>
 <!-- Begins session and loads in necessary css, boostrap, and php files to ensure page is dynamic and visually appealing -->
-
  <?php
     session_start();
     include '../account_class.php';
@@ -27,11 +30,8 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/websitev2.css">
 
-
-
 </head>
 <!-- Begins Html, php, and css that loads in our front end of the review page -->
-
 <style>
 * {
   box-sizing: border-box;
@@ -100,18 +100,9 @@ input[type=submit]:hover {
   clear: both;
 }
 
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 </style>
 
 <body id="top">
-
-  <section class="preloader">
-    <div class="spinner">
-      <span class="spinner-rotate"></span>
-    </div>
-  </section>
-
-
   <!-- PRE LOADER -->
   <section class="preloader">
     <div class="spinner">
@@ -146,7 +137,6 @@ input[type=submit]:hover {
                  </form></li>
         </ul>
       </div>
-
     </div>
   </section>
   <div class="page-content">
@@ -177,6 +167,7 @@ input[type=submit]:hover {
           </div>
         </div>
       </div>
+
 <!-- Review Form for submission -->
       <div class="section" id="leave_review">
         <div class="h4 text-center  mb-4 title">Leave a Review</div>
@@ -301,8 +292,8 @@ input[type=submit]:hover {
           </div>
         </div>
       </footer>
-<!-- Includes javascript that animates the review page -->
 
+<!-- Includes javascript that animates the review page -->
         <script src="js/core/jquery.3.2.1.min.js"></script>
         <script src="js/core/popper.min.js"></script>
         <script src="js/core/bootstrap.min.js"></script>

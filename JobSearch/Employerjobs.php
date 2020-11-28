@@ -1,3 +1,7 @@
+<!--Template
+Author: phpjabbers
+Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,6 +110,7 @@
         <div class="container">
             <br>
             <br>
+
 <!-- Select Statements & php that allow for pop up of applicants on employer job page  -->
             <div class="row">
                 <div class="col-lg-12">
@@ -115,7 +120,7 @@
 
                          try
                          {
-                              $res = $pdo->prepare('SELECT U.user_id, U.fir_name, U.las_name, S.university, S.major, S.bio
+                              $res = $pdo->prepare('SELECT U.user_id, U.fir_name, U.las_name, S.university, S.major, S.bio, J.position, J.job_type
                                    FROM g1116887.Job_posting J, g1116887.Applied A, g1116887.User U, g1116887.Student S
                                    WHERE (J.user_id = :employer_id) AND (A.job_id = J.job_id) AND (A.user_id = U.user_id) AND (U.user_id = S.user_id)');
                               $id = $account->id;
@@ -139,6 +144,7 @@
                               echo '<img src="' . getProfilePic($applicant['user_id']) . '" alt="" style="width:300px;height:300px;">';
                               echo '</div>';
                               echo '<div class="down-content">';
+                              echo '<h5>' . $applicant['job_type'] . ' | ' . $applicant['position'] . '</h5>';
                               echo '<h4>' . $applicant['fir_name'] . ' ' . $applicant['las_name'] . '</h4>';
                               echo '<h6>' . $applicant['university'] . ' | ' . $applicant['major'] . '</h6>';
                               echo '<p>' . $applicant['bio'] . '</p>';
@@ -150,24 +156,17 @@
                               echo '</div>';
                               }
                          }
-
                        ?>
                     </div>
                 </div>
             </div>
-
-
-
             <br>
-         
         </div>
     </section>
     <!-- ***** Fleet Ends ***** -->
 
 
     <!-- ***** Footer Start ***** -->
-    <!-- FOOTER -->
-
   <footer data-stellar-background-ratio="0.5"  style="background-color:black;">
        <div class="container">
             <div class="row">
@@ -195,6 +194,7 @@
             </div>
        </div>
   </footer>
+<!-- ***** Footer Ends ***** -->
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>

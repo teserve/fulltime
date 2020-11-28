@@ -1,3 +1,7 @@
+<!-- Template
+Author: templateflip
+Author URL:https://templateflip.com/demo/templates/creative-cv/
+-->
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -37,7 +41,6 @@
 
 </head>
 <!-- Begins html and in line php that allows for visual display of base template and saved user inputs -->
-
 <body id="top">
 
 
@@ -78,7 +81,7 @@
       </div>
 
     </div>
-    <!-- Profile Information -->
+<!-- Profile Information -->
   </section>
   <div class="page-content">
       <div class="profile-page">
@@ -108,7 +111,6 @@
       <footer data-stellar-background-ratio="0.5" style="background-color:black;">
         <div class="container">
           <div class="row" style="color:white;">
-
             <div class="col-md-9 col-sm-16">
               <div class="footer-thumb footer-info">
                 <h2>FullTime</h2>
@@ -132,6 +134,7 @@
           </div>
         </div>
       </footer>
+
 <!-- Javascript that animates page -->
         <script src="js/core/jquery.3.2.1.min.js"></script>
         <script src="js/core/popper.min.js"></script>
