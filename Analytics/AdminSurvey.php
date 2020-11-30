@@ -60,12 +60,12 @@ Author URL: https://templatemo.com/tag/html5
         echo $total ;
     }
 
-#count & show total reviews submitted for statistical data
-    function countR()
+#Average gpa of students in data base
+    function avgG()
     {
          global $pdo;
 
-        $query = 'SELECT COUNT(*) AS num FROM g1116887.Reviews ';
+        $query = 'SELECT ROUND(AVG(gpa),2) AS num FROM g1116887.Student ';
 
         try
         {
@@ -108,7 +108,7 @@ Author URL: https://templatemo.com/tag/html5
     }
 
   ?>
-<!-- BAR CHART SCRIPT -->
+
 
 
   <!-- Required meta tags -->
@@ -124,6 +124,92 @@ Author URL: https://templatemo.com/tag/html5
   <!-- google fonts -->
   <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
 
+<!-- BAR CHART SCRIPT -->
+<?php
+
+include '../db_connection.php';
+
+function Intern()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(job_type) AS num FROM g1116887.Student WHERE job_type = "Internship"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function Co_op()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(job_type) AS num FROM g1116887.Student WHERE job_type = "Co-op"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function full()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(job_type) AS num FROM g1116887.Student WHERE job_type = "Full-time"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+?>
+
+
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load("current", {packages:['corechart']});
@@ -131,9 +217,9 @@ Author URL: https://templatemo.com/tag/html5
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ["Job Type", "% of Hires", { role: "style" } ],
-        ["Internship", 15, "#ffcc90"],
-        ["Full-Time", 20, "#indigo"],
-        ["Co-op", 15, "#ff964f"],
+        ["Internship", <?php echo Intern()?>, "#ffcc90"],
+        ["Full-Time", <?php echo full()?>, "#indigo"],
+        ["Co-op", <?php echo Co_op()?>, "#ff964f"],
 
       ]);
 
@@ -146,11 +232,13 @@ Author URL: https://templatemo.com/tag/html5
                        2]);
 
       var options = {
-        title: "\Jobs filled by Job-Type",
+        title: "\Job Posting Segments",
         width: 880,
         height: 420,
         bar: {groupWidth: "85%"},
         legend: { position: "none" },
+        hAxis: {title: 'Job Description Type'},
+        vAxis: {title: '# of Jobs Posted'}
       };
       var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
       chart.draw(view, options);
@@ -160,6 +248,349 @@ Author URL: https://templatemo.com/tag/html5
   <!-- Pie Chart JS -->
 <!-- ALL WEIGHTS ON PIE CHART ARE JUSTIFIED THROUGH PRIOR RESEARCH THAT IS STATED WITHIN OUR REPORT
 CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DATABASE  -->
+
+<?php
+
+include '../db_connection.php';
+
+function I_Br()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Business-Related Fields"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Ch()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Chemicals, Petroleum, Plasitcs & Rubber"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Co()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Computer Systems-Design/Programming"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Con()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Consulting Services"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Consumer()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Consumer Goods"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Energy()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Energy"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    
+    function I_Eng()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Engineering Services"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Env()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Environmental Services"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+    }
+
+    function I_Gov()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Government"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Man()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Manufacturing & Industrial Systems"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Other()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Other"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Pharm()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Pharmaceuticals & Medicine"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+
+    function I_Sci()
+    {
+      global $pdo;
+
+
+      $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Scientific Research & Development"';
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetch(PDO::FETCH_ASSOC);
+
+      $tot = $row['num'];
+
+      echo $tot;
+      
+    }
+    ?>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -168,25 +599,26 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
       function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Industry Breakdown'],
-          ['Business Related Fields', 6.1],
-          ['Chemicals, Petroleum, Plastics & Rubber',  1.8],
-          ['Computer Systems - Design/Programming',  7.9],
-          ['Consulting Services', 12.8],
-          ['Consumer Goods',    22.6],
-          ['Energy',   1.8],
-          ['Engineering Services',    18.9],
-          ['Environmental Services',    1.2],
-          ['Government',    1.2],
-          ['Manufacturing & Industrial Systems',   18.3],
-          ['Other',   3.7],
-          ['Pharmaceuticals & Medicine',   3.1],
-          ['Scientific Research & Development',   61]
+          ['Industry', 'Student Interest'],
+          ['Business-Related Fields', <?php echo I_Br()?>],
+          ['Chemicals, Petroleum, Plasitcs & Rubber',<?php echo I_Ch()?>],
+          ['Computer Systems-Design/Programming',  <?php echo I_Co()?>],
+          ['Consulting Services', <?php echo I_Con()?>],
+          ['Consumer Goods', <?php echo I_Consumer()?>],
+          ['Energy', <?php echo I_Energy()?>],
+          ['Engineering Services', <?php echo I_Eng()?>],
+          ['Environmental Services', <?php echo I_Env()?>],
+          ['Government',  <?php echo I_Gov()?>],
+          ['Manufacturing & Industrial Systems', <?php echo I_Man()?>],
+          ['Other',  <?php echo I_Other()?>],
+          ['Pharmaceuticals & Medicine', <?php echo I_Pharm()?>],
+          ['Scientific Research & Development',  <?php echo I_Sci()?>]
 
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title: 'Industry Breakdown By % of Students Indicating Preference'
+
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -195,96 +627,174 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
       }
     </script>
 
-    <!-- Mapping Chart -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {
-        'packages':['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
+    
+    <!-- Job Posting Region Chart -->
 
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-          ['State', 'Users'],
-          // ['US-Northeast', 10],
-          // ['US-Southeast', 10],
-          // ['US-Midwest', 10],
-          // ['US-Southwest', 10],
-          // ['US-West', 30],
+    <?php 
 
-          ['US-AL', 10],
-          ['US-AK', 0],
-          ['US-AR', 0],
-          ['US-AK', 0],
-          ['US-AZ', 0],
-          ['US-Colorado', 0],
-          ['US-CO', 0],
-          ['US-DE', 0],
-          ['US-FL', 20],
-          ['US-HI', 0],
-          ['US-KS', 0],
-          ['US-KY', 0],
-          ['US-MI', 0],
-          ['US-MO', 0],
-          ['US-MS', 0],
-          ['US-MT', 0],
-          ['US-NE', 0],
-          ['US-NJ', 0],
-          ['US-NM', 0],
-          ['US-NY', 0],
-          ['US-OR', 0],
-          ['US-PA', 0],
-          ['US-TX', 0],
-          ['US-UT', 0],
-          ['US-VA', 0],
-          ['US-WA', 0],
-          ['US-WV', 0],
-          ['US-WY', 0],
-          ['US-OK', 0],
-          ['US-CA', 0],
-          ['US-ID', 0],
-          ['US-NV', 0],
-          ['US-MA', 0],
-          ['US-GA', 0],
-          ['US-SC', 0],
-          ['US-TN', 0],
-          ['US-IN', 0],
-          ['US-IL', 0],
-          ['US-WI', 0],
-          ['US-WI', 0],
-          ['US-LA', 0],
-          ['US-SD', 0],
-          ['US-ND', 0],
-          ['US-IA', 0],
-          ['US-OH', 0],
-          ['US-NC', 0],
-          ['US-DC', 0],
-          ['US-CT', 0],
-          ['US-MN', 0],
-          ['US-Del', 0],
-          ['US-VT', 0],
-          ['US-NH', 0],
-          ['US-ME', 0],
-          ['US-MD', 0],
+    include '../db_connection.php';
 
-        ]);
+    // Function that returns the top 5 Student Courses scores that have been indicated by users
 
-        var options = {
-        region: 'US',
-        displayMode: 'regions',
-        resolution: 'provinces',
-        colorAxis: {colors: ['#ffcc90','indigo'] },
-        };
+    function CountC($i)
+    {
+      global $pdo;
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
-        chart.draw(data, options);
+      $query = 'SELECT course_name, COUNT( * ) AS num
+      FROM (
+      (
+      
+      SELECT course1 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course2 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course3 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course4 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course5 AS tech
+      FROM Student_courses
+      )
+      )t, Courses
+      WHERE Courses.course_name = t.tech
+      GROUP BY tech
+      ORDER BY num DESC
+      LIMIT 5';
+
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
       }
-    </script>
-   
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetchAll(PDO::FETCH_ASSOC);
+      
+  
+      $s1 = $row[$i]['num'];
+     
+      echo $s1;
+      
+    }
+    
+    // Function that returns the top 10 student skill names that have been indicated by users
+    function CountCN($i)
+    {
+      global $pdo;
+
+
+      $query = 'SELECT course_name, COUNT( * ) AS num
+      FROM (
+      (
+      
+      SELECT course1 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course2 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course3 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course4 AS tech
+      FROM Student_courses
+      )
+      UNION ALL (
+      
+      SELECT course5 AS tech
+      FROM Student_courses
+      )
+      )t, Courses
+      WHERE Courses.course_name = t.tech
+      GROUP BY tech
+      ORDER BY num DESC
+      LIMIT 5';
+
+      $values = array();
+      
+      try
+      {
+          $res = $pdo->prepare($query);
+          $res->execute($values);
+      }
+      catch (PDOException $e)
+      {
+          throw new Exception('Database query error');
+      }
+
+      $row = $res->fetchAll(PDO::FETCH_ASSOC);
+      
+  
+      $s1 = $row[$i]['course_name'];
+     
+      echo $s1;
+      
+    }
+    
+
+    ?>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Course Name", "# of Students Listing Course", { role: "style" } ],
+        [" <?php echo CountCN(0)?>", <?php echo CountC(0)?>, "#ff6600"],
+        ["<?php echo CountCN(1)?>", <?php echo CountC(1)?>, "#ff781f"],
+        ["<?php echo CountCN(2)?>", <?php echo CountC(2)?>, "#ff8b3d"],
+        ["<?php echo CountCN(3)?>", <?php echo CountC(3)?>, "#ff9d5c"],
+        ["<?php echo CountCN(4)?>", <?php echo CountC(4)?>, "#ffaf7a"],
+
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Student Course Preference",
+        width: 880,
+        height: 500,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+        hAxis: {title: '# Of Students Listing Course On Profile'},
+        vAxis: {title: 'Course Titles'}
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+    
+  
 
 </head>
 
@@ -357,8 +867,8 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
             <div class="col-sm-6 pl-sm-2 statistics-grid">
               <div class="card card_border border-primary-top p-4">
                 <i class="lnr lnr-pushpin"> </i>
-                <h3 class="text-danger number"><?php echo countR() ?></h3>
-                <p class="stat-text">Total Reviews Submitted</p>
+                <h3 class="text-secondary number"><?php echo avgG() ?></h3>
+                <p class="stat-text">Average Student GPA</p>
               </div>
             </div>
           </div>
@@ -386,7 +896,7 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
         <div class="col-lg-6 pl-lg-2 chart-grid">
           <div class="card text-center">
             <div class="card-header chart-grid__header">
-              Job Posting Trends
+              Job Type Posting Trends
             </div>
             <div class="card-body">
               <!-- bar chart -->
@@ -396,7 +906,7 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
               <!-- bar chart -->
             </div>
             <div class="card-footer text-muted chart-grid__footer">
-              Job Type Breakdown
+              2020 Job Posting Type Breakdown
             </div>
           </div>
         </div>
@@ -409,13 +919,13 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
         <div class="col-lg-6 pr-lg-2 chart-grid">
           <div class="card text-center ">
             <div class="card-header chart-grid__header">
-              Skills Correlation to Industry
+              Student Course Related Trends
             </div>
               <div class="card-body">
-                <div id="regions_div" style="width: 850px; height: 525px;"></div>
+                <div id="barchart_values" style="width: 850px; height: 525px;"></div>
               </div>
             <div class="card-footer text-muted chart-grid__footer">
-              2020 Industry Breakdown
+              2020 Listed Relevant Courses
             </div>
           </div>
         </div>
@@ -425,7 +935,7 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
       <div class="col-lg-6 pl-lg-2 chart-grid">
           <div class="card text-center">
             <div class="card-header chart-grid__header">
-              Posting By Job Position Type
+              Industry Preference Trends
             </div>
             <div class="card-body">
               <!-- line chart -->
@@ -435,7 +945,7 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
               <!-- //line chart -->
             </div>
             <div class="card-footer text-muted chart-grid__footer">
-              2020 Industry Breakdown
+              2020 Student Listed Industry Preferance
             </div>
           </div>
         </div>

@@ -315,12 +315,6 @@ Author URL: https://templatemo.com/tm-509-hydro
                         <input type="file" name="profile_pic" id="profile_pic">
                       </div>
                     </div>
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        Upload your resume!
-                        <input type="file" name="resume" id="resume">
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <hr class="my-4">
@@ -696,7 +690,7 @@ Author URL: https://templatemo.com/tm-509-hydro
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-tech">Enter up to 5 Courses</label>
+                        <label class="form-control-label" for="input-tech">Enter Your 5 Most Applicable Courses</label>
                         <select id="input-tech1" name="course1" class="form-control form-control-alternative" value="<?php echo $account->course1?>">
                           <option value="">Enter Course #1</option>
                           <?php getCourseList(1); ?>

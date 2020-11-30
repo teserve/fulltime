@@ -53,6 +53,16 @@ if(isset($_POST['submit'])){
 <!-- HTML header -->
 <head>
 <title>Admin Survey</title>
+<style>
+body {
+  background-image: url('../fulltime.jpg');
+  background-color: rgba(255, 255, 255, 0.486);
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+</style>
 </head>
 <!-- Main Content -->
 <body>
@@ -64,16 +74,16 @@ if(isset($_POST['submit'])){
   <p>Email: <input type="text" name="email" placeholder="Enter Recipient's Email" size="50"></p>
   <p>Account type : <input type="text" placeholder="Student/Employer" size="20"></p>
   <p>Survey Frequency: <input type="text" placeholder="Enter Desired Survey Frequency" size="50"></p>
-  <p>Question 1 : <input type="text" name="q1" placeholder="Enter Question" size="200"></p>
-  <p>Question 2 : <input type="text" name="q2" placeholder="Enter Question" size="200"></p>
-  <p>Question 3 : <input type="text" name="q3" placeholder="Enter Question" size="200"></p>
-  <p>Question 4 : <input type="text" name="q4" placeholder="Enter Question" size="200"></p>
-  <p>Question 5 : <input type="text" name="q5" placeholder="Enter Question" size="200"></p>
-  <p>Question 6 : <input type="text" name="q6" placeholder="Enter Question" size="200"></p>
-  <p>Question 7 : <input type="text" name="q7" placeholder="Enter Question" size="200"></p>
-  <p>Question 8 : <input type="text" name="q8" placeholder="Enter Question" size="200"></p>
-  <p>Question 9 : <input type="text" name="q9" placeholder="Enter Question" size="200"></p>
-  <p>Question 10 : <input type="text" name="q10" placeholder="Enter Question" size="200"></p>
+  <p>Question 1 :<br> <textarea rows="5" name="q1" cols="100"></textarea></p>
+  <p>Question 2 :<br> <textarea rows="5" name="q2" cols="100"></textarea></p>
+  <p>Question 3 :<br> <textarea rows="5" name="q3" cols="100"></textarea></p>
+  <p>Question 4 :<br> <textarea rows="5" name="q4" cols="100"></textarea></p>
+  <p>Question 5 :<br> <textarea rows="5" name="q5" cols="100"></textarea></p>
+  <p>Question 6 :<br> <textarea rows="5" name="q6" cols="100"></textarea></p>
+  <p>Question 7 :<br> <textarea rows="5" name="q7" cols="100"></textarea></p>
+  <p>Question 8 :<br> <textarea rows="5" name="q8" cols="100"></textarea></p>
+  <p>Question 9 :<br> <textarea rows="5" name="q9" cols="100"></textarea></p>
+  <p>Question 10 :<br> <textarea rows="5" name="q10" cols="100"></textarea></p>
   <input type="submit" name="submit" value="Submit" onsubmit="alert('Email sent successfully.');">
 </form>
 </body>

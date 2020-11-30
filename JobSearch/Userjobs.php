@@ -92,7 +92,7 @@ Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
                     <div class="cta-content">
                         <br>
                         <br>
-                        <h2>Search <em>Jobs</em></h2>
+                        <h2>View <em>Jobs</em></h2>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@ Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
                 <div class="col-lg-12">
                     <div class="row">
                       <?php include "../db_connection.php";
-                       $res1 = $pdo->query('SELECT * FROM Job_posting');
+                       $res1 = $pdo->query('SELECT * FROM Job_posting ORDER BY company');
                        if (count($res1) === 0) {
                          echo "No Jobs Posted";
                        } else {
@@ -118,13 +118,14 @@ Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
                            echo '<div class="col-md-6">';
                            echo '<div class="trainer-item">';
                            echo '<div class="down-content">';
-                           echo '<span> ' . $post['job_type'] . '&nbsp;|&nbsp;' . $post['region'] . '</span>';
+                           echo '<span> ' . $post['job_type'] . '  &nbsp;|&nbsp;  ' . $post['position'] . '</span>';
                            echo '<h4>' . $post['company'] . '</h4>';
-                           echo '<h6>' . $post['industry'] . '&nbsp;|&nbsp;' . $post['position'] . '</h6>';
-                           echo '<p>' . $post['job_descr'] . '</p>';
-                           echo '<a> Requirements: </a><br>';
+                           echo '<a> <b>Industry:</b> ' . $post['industry'] . '<br> <b>Region Location: </b>' . $post['region'] . '</a>';
+                           echo '<br><br><a> <b>Requirements: </b></a><br>';
                            echo '<small style="color:#757575;">Education Level: ' . $post['ed_level'] . '</small><br>';
                            echo '<small style="color:#757575;">Minimum GPA: ' . $post['gpa'] . '</small><br>';
+                           echo '<br><a> <b>Job Description: </b></a><br>';
+                           echo '<p>' . $post['job_descr'] . '</p>';
                            echo '<br><h6>Application Due: ' . $post['date_closed'] . '</h6>';
                            echo '<ul class="social-icons">';
                            echo '<li><form action="perform_application.php" method="post"><input type="submit" class="btn btn-primary" value="Apply"><input type="hidden" name="hidden_job_id_label" value="' . $post['job_id'] . '"></form></li>';

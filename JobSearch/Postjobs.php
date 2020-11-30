@@ -249,8 +249,12 @@ Author URL: https://templatemo.com/tm-509-hydro
                           <?php getTechSkillList(); ?>
                         </select>
                           <select id="input-tech2" name="tech_rate2" class="form-control form-control-alternative">
-                            <option value="">Rate Technical Skill #2</option>
-                            <?php getTechSkillList(); ?>
+                             <option value="">Rate Technical Skill #1</option>
+                          <option value="5">5: Expert </option>
+                          <option value="4">4: Advanced </option>
+                          <option value="3">3: Intermediate </option>
+                          <option value="2">2: Basic </option>
+                          <option value="1">1: Beginner </option>
                         </select>
 
                         <br>

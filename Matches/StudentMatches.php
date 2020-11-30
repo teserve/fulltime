@@ -1,3 +1,7 @@
+<!-- Template
+Author: phpjabbers
+Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,7 +89,7 @@
                     <div class="cta-content">
                         <br>
                         <br>
-                        <h2>Search <em>Matches</em></h2>
+                        <h2>View <em>Matches</em></h2>
                     </div>
                 </div>
             </div>
@@ -93,138 +97,71 @@
     </section>
     <!-- ***** Call to Action End ***** -->
 
-    <!-- ***** Fleet Starts ***** -->
+    <!-- ***** Fleet Starts for Matches and places them in descending order ***** -->
     <section class="section" id="trainers">
         <div class="container" position="center">
 
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="trainer-item center">
-                                <div class="right-content">
-                                    <span>92% Match</span>
+                      <!--php command to show all the companies that matched with the student -->
+                      <?php include "../db_connection.php";
 
-                                    <h4>Industry - Job Title Job Position</h4>
+                      try
+                      {
+                           $res1 = $pdo->prepare('SELECT M.score, U.user_id, J.job_type, J.region, J.company, J.industry, J.position, J.ed_level, J.job_descr, J.gpa, J.date_closed, J.job_id
+                                FROM g1116887.Job_posting J, g1116887.Matches M, g1116887.User U, g1116887.Student S
+                                WHERE (S.user_id = :student_id) AND (U.user_id = S.user_id) AND (M.job_id = J.job_id) AND (M.user_id = S.user_id)
+                                ORDER BY M.score + 0 DESC
+                                LIMIT 14');
 
-                                    <p>Company</p>
+                           $id = $account->id;
+                           $res1->execute(array(':student_id' => $id));
+                      }
+                      catch (PDOException $e)
+                      {
+                           throw("Database query error");
+                           echo $e->getMessage();
+                      }
 
-                                    <ul class="social-icons">
-                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                              <!--
-                                <div class="image-thumb">
-                                    <img src="assets/images/product-2-720x480.jpg" alt="">
-                                </div>
-                              -->
-                                <div class="down-content">
-                                    <span>89% Match</span>
+                      $res1;
 
-                                    <h4>Business-Related Fields Co-op/Internship</h4>
 
-                                    <p>PepsiCo</p>
+                       if (count($res1) === 0) {
+                         echo "No Job Matches Posted";
+                       } else {
+                         $num = 1;
+                         foreach ($res1 as $post){
+                           echo '<div class="col-md-6">';
+                           echo '<div class="trainer-item">';
+                           echo '<div class="down-content">';
+                           echo '<span>#' . $num . ' Match </span>';
+                           echo '<h6> ' . $post['job_type'] . '&nbsp;|&nbsp;' . $post['region'] . '</h6>';
+                           echo '<h4>' . $post['company'] . '</h4>';
+                           echo '<h6>' . $post['industry'] . '&nbsp;|&nbsp;' . $post['position'] . '</h6>';
+                           echo '<p>' . $post['job_descr'] . '</p>';
+                           echo '<a> Requirements: </a><br>';
+                           echo '<small style="color:#757575;">Education Level: ' . $post['ed_level'] . '</small><br>';
+                           echo '<small style="color:#757575;">Minimum GPA: ' . $post['gpa'] . '</small><br>';
+                           echo '<br><h6>Application Due: ' . $post['date_closed'] . '</h6>';
+                           echo '<ul class="social-icons">';
+                           echo '<li><form action="perform_application.php" method="post"><input type="submit" class="btn btn-primary" value="Apply"><input type="hidden" name="hidden_job_id_label" value="' . $post['job_id'] . '"></form></li>';
+                           echo '</ul>';
+                           echo '</div>';
+                           echo '</div>';
+                           echo '</div>';
+                           $num++;
+                         }
+                       }
 
-                                    <ul class="social-icons">
-                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="down-content">
-                                    <span>87% Match</span>
+                       ?>
 
-                                    <h4>Manufacturing & Industrial Systems Internship</h4>
-
-                                    <p>Ford</p>
-
-                                    <ul class="social-icons">
-                                      <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="down-content">
-                                    <span>87% Match</span>
-
-                                    <h4>Manufacturing & Industrial Systems Internship</h4>
-
-                                    <p>FCA</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="down-content">
-                                    <span>68% Match</span>
-
-                                    <h4>Consulting Services Internship</h4>
-
-                                    <p>Deloitte</p>
-
-                                    <ul class="social-icons">
-                                      <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="down-content">
-                                    <span>64% Match</span>
-
-                                    <h4>Energy Co-op/Internship</h4>
-
-                                    <p>Ecolab</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="applymatches.php" class="btn btn-primary">Apply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-            <!--
-            <nav>
-              <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          -->
         </div>
     </section>
     <!-- ***** Fleet Ends ***** -->
 
     <!-- ***** Footer Start ***** -->
-    <!-- FOOTER -->
-
     <footer data-stellar-background-ratio="0.5" style="background-color:black;">
         <div class="container">
             <div class="row">
@@ -256,7 +193,7 @@
             </div>
         </div>
     </footer>
-
+    <!-- ***** Footer End ***** -->
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
 

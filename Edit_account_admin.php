@@ -3,8 +3,11 @@
 session_start();
 
 require 'db_connection.php';
+require 'upload_picture.php';
 
 $id = $_SESSION['account_id'];
+
+uploadProfilePicture($id);
 
 $city = trim($_POST['city']);
 $Nstate = trim($_POST['Nstate']);

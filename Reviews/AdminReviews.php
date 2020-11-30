@@ -86,7 +86,7 @@ Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
                          <div class="cta-content">
                               <br>
                               <br>
-                              <h2>Search <em>Student Reviews</em></h2>
+                              <h2>View <em>Student Reviews</em></h2>
                               </h2>
                          </div>
                     </div>
@@ -173,7 +173,7 @@ Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
           </div>
      </footer>
      <!-- ***** Footer Ends ***** -->
-     
+
      <!-- jQuery -->
      <script src="assets/js/jquery-2.1.0.min.js"></script>
 

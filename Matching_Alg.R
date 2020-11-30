@@ -129,12 +129,12 @@ match <- function(stu_techskill, stu_techrate, stu_softskill, job_techskill, job
   maxscore <- 0
 
   #Max tech skill scaling
-  for (z in 1:10) {
-    maxscore = maxscore + (5 - job_techrate[z] + 1)
+  for (i in 1:10) {
+    maxscore = maxscore + (5 - job_techrate[i] + 1)
   }
 
   #Max soft skill scaling
-  maxscore = maxscore + length(stu_softskill)
+  maxscore = maxscore + 10
 
   #Max GPA, Region, Industry, Job Type & Education scaling
   maxscore = maxscore + (stu_gpa - job_gpa) + 3
@@ -146,33 +146,38 @@ match <- function(stu_techskill, stu_techrate, stu_softskill, job_techskill, job
 }
 
 #initializes Matches data frame 
-#Matches <- data.frame("user_id" = integer(), "job_id" = integer(), "score" = integer())
+Matches <- data.frame("user_id" = integer(), "job_id" = integer(), "score" = integer())
+
+a <- 1
+b <- 1
+o <- 0
 
 #executes match score function for every job posting per student
-for (a in 1:nrow(Student)) {
-  for (b in 1:nrow(Job_posting)) {
+for (a in 1:52) {
+  for (b in 1:52) {
+    o = o + 1
     
     #Adds matching score to the corresponding user_id and job_id in the Matches data frame
-    Matches <- rbind(Matches, cbind(Student[a,1], Job_posting[b,2], match(data.frame(Student_skills[a,2:11]), 
-                                                                          data.frame(Student_skills[a, 12:21]), 
-                                                                          data.frame(Student_skills[a, 22:31]), 
-                                                                          data.frame(Job_skills[b,2:11]), 
-                                                                          data.frame(Job_skills[b, 12:21]), 
-                                                                          data.frame(Job_skills[b, 22:31]), 
-                                                                          Student[a,9], 
-                                                                          Job_posting[b,7], 
-                                                                          Student[a,13], 
-                                                                          Job_posting[b,8], 
-                                                                          Student[a,15], 
-                                                                          Job_posting[b,3], 
-                                                                          Student[a,14], 
-                                                                          Job_posting[b,5], 
-                                                                          Student[a,11], 
-                                                                          Job_posting[b,6])))
+    Matches[o, 1] <- Student[a,1]
+    Matches[o, 2] <- Job_posting[b,2]
+    Matches[o, 3] <- match(data.frame(Student_skills[a,2:11]), 
+                           data.frame(Student_skills[a, 12:21]), 
+                           data.frame(Student_skills[a, 22:31]), 
+                           data.frame(Job_skills[b,2:11]), 
+                           data.frame(Job_skills[b, 12:21]), 
+                           data.frame(Job_skills[b, 22:31]), 
+                           Student[a,9], 
+                           Job_posting[b,7], 
+                           Student[a,13], 
+                           Job_posting[b,8], 
+                           Student[a,15], 
+                           Job_posting[b,3], 
+                           Student[a,14], 
+                           Job_posting[b,5], 
+                           Student[a,11], 
+                           Job_posting[b,6])
   }
 }
-
-Matches <- `colnames<-`(Matches, c("user_id", "job_id", "score"))
 
 #Match score insert
 mydb <- dbConnect(MySQL(), user = "g1116887", password = "12Blueapples", dbname = "g1116887", host = "mydb.itap.purdue.edu")

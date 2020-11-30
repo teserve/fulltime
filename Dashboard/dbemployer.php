@@ -79,10 +79,10 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
           </form>
         </ul>
       </div>
-
     </div>
-<!-- Profile Information -->
   </section>
+
+  <!-- Profile Information -->
   <div class="page-content">
       <div class="profile-page">
         <div class="wrapper">
@@ -130,7 +130,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
                            <p>Call us <span>(765) Get-Jobs</span></p>
                            <p style="color:white;"><a href="https://www.facebook.com/" class="fa fa-facebook-square" attr="facebook icon"></a>     <a href="https://twitter.com/?lang=en" class="fa fa-twitter"></a>     <a href="https://www.instagram.com/" class="fa fa-instagram"></a></p>
                       </div>
-                 </div>
+            </div>
           </div>
         </div>
       </footer>

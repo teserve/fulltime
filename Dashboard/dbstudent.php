@@ -82,7 +82,6 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
   </section>
 <!-- Profile Header -->
   <div class="page-content">
-    <div>
       <div class="profile-page">
         <div class="wrapper">
           <div class="page-header page-header-small">
@@ -98,9 +97,11 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
                   data-aos-anchor="data-aos-anchor">Edit Profile</a>
               </div>
           </div>
-          </div>
         </div>
       </div>
+    </div>
+  </div>
+
 <!-- Profile Informations -->
       <!-- Basic Profile -->
       <div class="section" id="about">
@@ -461,7 +462,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
             </div>
           </div>
         </div>
-      </div>
+
 
       <div class="section" id="softskill">
         <div class="container cc-experience">

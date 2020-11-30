@@ -34,7 +34,7 @@ Author URL: https://templatemo.com/tm-509-hydro
             <a class="nav-link pr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src=<?php echo getProfilePic($account->id); ?>>
+                  <img alt="Profile picture" src=<?php echo getProfilePic($account->id); ?>>
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
                   <span class="mb-0 text-sm  font-weight-bold"><?php echo $account->first_name?> <?php echo $account->last_name?></span>
@@ -69,7 +69,7 @@ Author URL: https://templatemo.com/tm-509-hydro
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src=<?php echo getProfilePic($account->id); ?> class="rounded-circle">
+                    <img alt="Profile picture" src=<?php echo getProfilePic($account->id); ?> class="rounded-circle">
                   </a>
                 </div>
               </div>

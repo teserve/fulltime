@@ -59,9 +59,9 @@ Author URL: https://templatemo.com/tm-509-hydro
                          <li><a href="#contact" class="smoothScroll">Help</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                         <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                         <li><a href="https://www.facebook.com/" class="fa fa-facebook-square"></a></li>
+                         <li><a href="https://twitter.com/?lang=en" class="fa fa-twitter"></a></li>
+                         <li><a href="https://www.instagram.com/" class="fa fa-instagram"></a></li>
                          <li class="section-btn"><a href="#" data-toggle="modal" data-target="#modal-form">Sign in /
                                    Sign up</a></li>
                     </ul>
@@ -239,38 +239,28 @@ Author URL: https://templatemo.com/tm-509-hydro
 
                     <div class="container">
                          <div class="row">
-
-                         <!-- CONTACT FORM HERE -->
-                         <form id="contact-form" role="form" action="../Reviews/submitted.php" method="post">
+                           <!--gets input from html page to be pasted to email-->
+                         <!-- CONTACT FORM -->
+                         <form method="POST" action="contact.php" id="contact-form">
                               <div class="col-md-6 col-sm-6">
-                                   <input type="text" class="form-control" placeholder="Full Name" id="cf-name"
-                                        name="cf-name" required="">
+                                   <input type="text" class="form-control" placeholder="Full Name" name="name">
                               </div>
-
                               <div class="col-md-6 col-sm-6">
-                                   <input type="email" class="form-control" placeholder="Email" id="cf-email"
-                                        name="cf-email" required="">
+                                   <input type="text" class="form-control" placeholder="Email" name="email">
                               </div>
-
                               <div class="col-md-6 col-sm-6">
-                                   <input type="tel" class="form-control" placeholder="Phone" id="cf-number"
-                                        name="cf-number" required="">
+                                   <input type="text" class="form-control" placeholder="Phone" name="number">
                               </div>
-
                               <div class="col-md-12 col-sm-12">
                                    <textarea class="form-control" rows="6" placeholder="Question" id="cf-message"
-                                        name="cf-message" required=""></textarea>
+                                        name="message"></textarea>
                               </div>
-
                               <div class="col-md-4 col-sm-12" >
-                                   <a href = "SendMessage.html" class="btn btn-primary" style ="background-color: #ffcc90;">Send message</a>
+                                  <input type="submit" class = "section-btn" value="Send Message">
                               </div>
                            </form>
                     </div>
-
-
                     </div>
-
                </div>
           </div>
      </section>

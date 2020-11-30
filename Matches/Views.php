@@ -2,10 +2,12 @@
 Author: templateflip
 Author URL:https://templateflip.com/demo/templates/creative-cv/
 -->
+
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
-  <!-- Starts session, loads in css & bootstrap, and enables all necessary preloads to enable website to be dynamic -->
+<!-- Begins session and loads in necessary php,css, and bootstrap files for visual display and functionality -->
   <?php
     session_start();
 
@@ -15,12 +17,13 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
     include '../account_class.php';
 
     $account = new Account();
-    $student_id = 74;
+    $student_id = $_POST["hidden_student_id_label"];
+
 
     $account->getInfo($student_id);
     $account->getInfoStudent($student_id);
     $account->getInfoStuSkills($student_id);
-    $account->getInfoStuCourses($_student_id);
+    $account->getInfoStuCourses($student_id);
 
   ?>
 
@@ -28,7 +31,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profile Page</title>
+  <title>View Profile</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <link href="css/aos.css" rel="stylesheet">
@@ -40,14 +43,8 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
 
 </head>
 
+<!-- Begins html and in line php that allows for visual display of base template and saved user inputs -->
 <body id="top">
-
-  <section class="preloader">
-    <div class="spinner">
-      <span class="spinner-rotate"></span>
-    </div>
-  </section>
-
 
   <!-- PRE LOADER -->
   <section class="preloader">
@@ -82,6 +79,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
       </div>
 
   </section>
+  <!-- Profile Header -->
   <div class="page-content">
     <div>
       <div class="profile-page">
@@ -100,8 +98,8 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
           </div>
         </div>
       </div>
-
-      <!-- About me profile details -->
+<!-- Profile Informations -->
+      <!-- Basic Profile -->
       <div class="section" id="about">
         <div class="h4 text-center mb-4 title">Basic Profile</div>
         <div class="container">
@@ -144,7 +142,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
           </div>
         </div>
       </div>
-<!-- Tech Skills profile detail -->
+<!-- Tech skill section -->
       <div class="section" id="techskill">
         <div class="container">
           <div class="h4 text-center mb-4 title">Technical Skills and Proficiency Level</div>
@@ -400,7 +398,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
           </div>
         </div>
       </div>
-<!-- Soft Skills Profile Details -->
+<!-- Soft Skill Section -->
       <div class="section" id="softskill">
         <div class="container cc-experience">
           <div class="h4 text-center mb-4 title">Soft Skills</div>
@@ -523,7 +521,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
         </div>
 
 
-<!-- Previous Experience Profile Details -->
+<!-- Experience Section  -->
       <div class="section" id="experience">
         <div class="container cc-experience">
           <div class="h4 text-center mb-4 title">Projects</div>
@@ -596,6 +594,7 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
           </div>
         </div>
       </div>
+
       <!-- FOOTER -->
       <footer data-stellar-background-ratio="0.5" style="background-color:black;">
         <div class="container">
@@ -626,13 +625,14 @@ Author URL:https://templateflip.com/demo/templates/creative-cv/
           </div>
         </div>
       </footer>
-<!-- Bootstap & JS load ins that enable dynamic interface -->
+
+<!-- Javascript that animates page -->
       <script src="js/core/jquery.3.2.1.min.js"></script>
       <script src="js/core/popper.min.js"></script>
       <script src="js/core/bootstrap.min.js"></script>
       <script src="js/now-ui-kit.js?v=1.1.0"></script>
       <script src="js/aos.js"></script>
       <script src="scripts/main.js"></script>
-</body>
 
+</body>
 </html>

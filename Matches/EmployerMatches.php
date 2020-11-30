@@ -1,3 +1,7 @@
+<!-- Template
+Author: phpjabbers
+Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,7 +87,7 @@
                     <div class="cta-content">
                         <br>
                         <br>
-                        <h2>Search <em>Matches</em></h2>
+                        <h2>View <em>Matches</em></h2>
                     </div>
                 </div>
             </div>
@@ -91,118 +95,57 @@
     </section>
     <!-- ***** Call to Action End ***** -->
 
-    <!-- ***** Fleet Starts ***** -->
+    <!-- ***** Fleet Starts for Matches and places them in descending order ***** -->
     <section class="section" id="trainers">
         <div class="container">
 
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                    <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-                                <span>98% Match</span>
+                      <!--php command to show all the students that matched with the employers -->
+                      <?php
+                         include "../db_connection.php";
 
-                                    <h4>Haley Clark </h4>
+                         try
+                         {
+                              $res = $pdo->prepare('SELECT U.user_id, U.fir_name, U.las_name, S.university, S.major, S.bio, J.position, J.job_type, M.score
+                                   FROM g1116887.Job_posting J, g1116887.User U, g1116887.Student S, g1116887.Matches M
+                                   WHERE (J.user_id = :employer_id) AND (U.user_id = S.user_id) AND (M.job_id = J.job_id) AND (M.user_id = S.user_id)
+                                   ORDER BY M.score + 0 DESC
+                                   LIMIT 14');
+                              $id = $account->id;
+                              $res->execute(array(':employer_id' => $id));
+                         }
+                         catch (PDOException $e)
+                         {
+                              throw("Database query error");
+                              echo $e->getMessage();
+                         }
 
-                                    <p>Full Time</p>
+                         $res;
 
-                                    <ul class="social-icons">
-                                        <li><a href="ViewProfile.php">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-                                <span>96% Match</span>
-
-                                    <h4>Courtney Halak </h4>
-
-                                    <p>Full Time</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="ViewProfile.php">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-                                <span>89% Match</span>
-
-                                    <h4>Christopher Bower</h4>
-
-                                    <p>Full Time</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="ViewProfile.php">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-                                <span>78% Match</span>
-                                    <h4>Douglas McWherter</h4>
-
-                                    <p>Full Time</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="ViewProfile.php">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                  <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-                                <span>75% Match</span>
-                                    <h4>Daniel Bolinaga</h4>
-
-                                    <p>Contract</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="ViewProfile.php">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trainer-item">
-                                <div class="image-thumb">
-                                      <img src=<?php echo getProfilePic($account->id); ?> alt="" style="width:300px;height:300px;">
-                                </div>
-                                <div class="down-content">
-                                <span>71% Match</span>
-                                    <h4>Claire Standhart</h4>
-
-                                    <p>Contract</p>
-
-                                    <ul class="social-icons">
-                                        <li><a href="ViewProfile.php">+ View More</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                         if (count($res) === 0) {
+                              echo "No Applicant Matches";
+                         } else {
+                              $num = 1;
+                              foreach ($res as $app_match){
+                              echo '<div class="col-md-6">';
+                              echo '<div class="trainer-item">';
+                              echo '<div class="down-content">';
+                              echo '<span>#' . $num . ' Match </span>';
+                              echo '<h5>' . $app_match['job_type'] . ' | ' . $app_match['position'] . '</h5>';
+                              echo '<h4>' . $app_match['fir_name'] . ' ' . $app_match['las_name'] . '</h4>';
+                              echo '<h6>' . $app_match['university'] . ' | ' . $app_match['major'] . '</h6>';
+                              echo '<p>' . $app_match['bio'] . '</p>';
+                              echo '<ul class="social-icons">';
+                              echo '<li><form action="Views.php" method="post"><input type="submit" class="btn btn-primary" value="View Student Profile"><input type="hidden" name="hidden_student_id_label" value="' . $app_match['user_id'] . '"></form></li>';
+                              echo '</ul>';
+                              echo '</div>';
+                              echo '</div>';
+                              echo '</div>';
+                              $num++;
+                            }
+                         }
+                       ?>
                     </div>
                 </div>
             </div>
@@ -210,33 +153,10 @@
 
 
             <br>
-          <!--
-            <nav>
-              <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          -->
         </div>
     </section>
     <!-- ***** Fleet Ends ***** -->
 
-
-    <!-- ***** Footer Start ***** -->
     <!-- FOOTER -->
 
   <footer data-stellar-background-ratio="0.5"  style="background-color:black;">

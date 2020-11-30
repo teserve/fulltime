@@ -86,7 +86,7 @@ Author URL: https://www.phpjabbers.com/free-job-portal-web-template-133.php
                <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                          <div class="cta-content">
-                              <h2>Search <em>Reviews</em></h2>
+                              <h2>View <em>Reviews</em></h2>
                               </h2>
                               <br>
                               <a class="btn btn-primary smooth-scroll mr-2" href="../Reviews/leave_areview.php" data-aos="zoom-in"

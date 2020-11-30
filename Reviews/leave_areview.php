@@ -152,19 +152,6 @@ input[type=submit]:hover {
                 <span class="heading">Scroll to give your Feedback!</span>
               </div>
             </div>
-            <div class="section">
-              <div class="container">
-                <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon" href="https://www.facebook.com/"
-                    rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://twitter.com/?lang=en" rel="tooltip"
-                    title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://myaccount.google.com/" rel="tooltip"
-                    title="Follow me on Google+"><i class="fa fa-google-plus"></i></a><a
-                    class="btn btn-default btn-round btn-lg btn-icon" href="https://www.instagram.com/" rel="tooltip"
-                    title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
