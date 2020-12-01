@@ -12,9 +12,10 @@ function uploadProfilePicture($id)
     $invalid_image = exif_imagetype($_FILES["profile_pic"]["tmp_name"]) === FALSE;
     if($invalid_image) $upload = 0;
 
-    // Check file size
-    $file_size_exceeded = $_FILES["profile_pic"]["size"] > 500000;
-    if ($file_size_exceeded) $upload = 0;
+    // Check file size - removed for now but the option is there in case
+    //      you don't want someone uploading a 50 TB file
+    // $file_size_exceeded = $_FILES["profile_pic"]["size"] > 1000000000;
+    // if ($file_size_exceeded) $upload = 0;
 
     // Perform upload
     if ($upload)

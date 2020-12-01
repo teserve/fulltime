@@ -7,7 +7,7 @@ function getProfilePic($id)
     //if the user has uploaded their profile pic, return the picture file
     if (file_exists($pic_loc))
     {
-        return $pic_url;
+        return $pic_url . '?' . filemtime($pic_loc);
     }
     //if the user hasn't uploaded their profile pic, return the blank profile picture
     else

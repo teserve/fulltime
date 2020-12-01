@@ -194,6 +194,6 @@ tryCatch({
     dbRollback(mydb)
     dbDisconnect(mydb)
 })
-    
+
 dbCommit(mydb)
 dbDisconnect(mydb)

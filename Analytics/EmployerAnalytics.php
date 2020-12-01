@@ -14,16 +14,16 @@ Author URL: https://templatemo.com/tag/html5
     $account = new Account();
     $account->getInfo($_SESSION['account_id']);
 
-    // Counts the number of applied students to jobs posted by the employer logged in 
+    // Counts the number of applied students to jobs posted by the employer logged in
     function countApp($id)
     {
-      global $pdo; 
+      global $pdo;
 
 
       $query = 'SELECT COUNT(*) AS num
-      FROM (SELECT * FROM g1116887.Job_posting WHERE user_id = :id) J, g1116887.Applied A 
+      FROM (SELECT * FROM g1116887.Job_posting WHERE user_id = :id) J, g1116887.Applied A
       WHERE A.job_id = J.job_id ';
-      
+
       $values = array(':id'=>$id);
 
         try
@@ -36,15 +36,15 @@ Author URL: https://templatemo.com/tag/html5
              throw("Database query error");
              echo $e->getMessage();
         }
-       
+
         $row = $res->fetch(PDO::FETCH_ASSOC);
 
         $tot = $row['num'];
 
-         echo $tot;  
+         echo $tot;
     }
 
-    // counts the number of jobs posted by the employer logged in 
+    // counts the number of jobs posted by the employer logged in
     function countJob($id)
     {
       global $pdo;
@@ -52,7 +52,7 @@ Author URL: https://templatemo.com/tag/html5
 
       $query = 'SELECT COUNT(*) AS num FROM g1116887.Job_posting WHERE (user_id = :id)';
       $values = array(':id'=>$id);
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -68,15 +68,15 @@ Author URL: https://templatemo.com/tag/html5
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 
-        // counts the number of jobs posted by the employer logged in 
+        // counts the number of jobs posted by the employer logged in
         function avgGPA($id)
         {
           global $pdo;
-    
-    
+
+
           $query = 'SELECT AVG( S.gpa ) as num
           FROM `Student` S
           JOIN Applied A ON S.user_id = A.user_id
@@ -85,9 +85,9 @@ Author URL: https://templatemo.com/tag/html5
           SELECT J.job_id
           FROM Job_posting
           WHERE J.user_id = :id)';
-          
+
           $values = array(':id'=>$id);
-          
+
           try
           {
               $res = $pdo->prepare($query);
@@ -97,13 +97,13 @@ Author URL: https://templatemo.com/tag/html5
           {
               throw new Exception('Database query error');
           }
-    
+
           $row = $res->fetch(PDO::FETCH_ASSOC);
-    
+
           $tot = $row['num'];
-    
+
           echo $tot;
-          
+
         }
 
     // Function that returns the top 10 student skill scores that have been indicated by users
@@ -131,7 +131,7 @@ Author URL: https://templatemo.com/tag/html5
       LIMIT 10';
 
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -143,14 +143,14 @@ Author URL: https://templatemo.com/tag/html5
       }
 
       $row = $res->fetchAll(PDO::FETCH_ASSOC);
-      
-  
+
+
       $s1 = $row[$i]['num'];
-     
+
       echo $s1;
-      
+
     }
-    
+
     // Function that returns the top 10 student skill names that have been indicated by users
     function CountSN($i)
     {
@@ -175,7 +175,7 @@ Author URL: https://templatemo.com/tag/html5
       LIMIT 10';
 
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -187,14 +187,14 @@ Author URL: https://templatemo.com/tag/html5
       }
 
       $row = $res->fetchAll(PDO::FETCH_ASSOC);
-      
-  
+
+
       $s1 = $row[$i]['skill_name'];
-     
+
       echo $s1;
-      
+
     }
-   
+
 
   ?>
 
@@ -244,7 +244,7 @@ CURRENT RESULTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
                        2]);
 
       var options = {
-      
+
         title: "\Trending Student Skills",
         width: 875,
         height: 535,
@@ -253,7 +253,7 @@ CURRENT RESULTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
              title: 'Number of Students Indicating Skill Proficiency',
             minValue: 0,
             ticks: [0, 10, 20, 30]
-            
+
           },
         legend: { position: "none" },
       };
@@ -270,9 +270,9 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
 
 include '../db_connection.php';
 
-// BEGINS FUNCTIONS USED TO QUERY INDIVIDUAL INDUSTRY NAMES AND INDICATIONS FROM STUDENT PROFILES 
+// BEGINS FUNCTIONS USED TO QUERY INDIVIDUAL INDUSTRY NAMES AND INDICATIONS FROM STUDENT PROFILES
 
-//FUNCTION TO QUERY BUSINESS RELATED OCCURANCES IN DATABASE 
+//FUNCTION TO QUERY BUSINESS RELATED OCCURANCES IN DATABASE
 function I_Br()
     {
       global $pdo;
@@ -280,7 +280,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Business-Related Fields"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -296,7 +296,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 
     //FUNCTION TO QUERY CHEM, PET, Plas results from database
@@ -307,7 +307,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Chemicals, Petroleum, Plasitcs & Rubber"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -323,7 +323,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 
     //FUNCTION TO QUERY Comp Sys results from database
@@ -334,7 +334,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Computer Systems-Design/Programming"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -350,7 +350,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY Consulting results from database
     function I_Con()
@@ -360,7 +360,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Consulting Services"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -376,7 +376,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY Consumer results from database
     function I_Consumer()
@@ -386,7 +386,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Consumer Goods"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -402,7 +402,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY Energy results from database
     function I_Energy()
@@ -412,7 +412,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Energy"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -428,7 +428,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 
     //FUNCTION TO QUERY Engineering results from database
@@ -439,7 +439,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Engineering Services"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -455,7 +455,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY Environmental results from database
     function I_Env()
@@ -465,7 +465,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Environmental Services"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -490,7 +490,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Government"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -506,7 +506,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY Manufacturing results from database
     function I_Man()
@@ -516,7 +516,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Manufacturing & Industrial Systems"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -532,7 +532,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY "other" results from database
     function I_Other()
@@ -542,7 +542,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Other"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -558,7 +558,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY pharmacy results from database
     function I_Pharm()
@@ -568,7 +568,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Pharmaceuticals & Medicine"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -584,7 +584,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
 //FUNCTION TO QUERY Scientific results from database
     function I_Sci()
@@ -594,7 +594,7 @@ function I_Br()
 
       $query = 'SELECT COUNT(industry) AS num FROM g1116887.Student WHERE industry = "Scientific Research & Development"';
       $values = array();
-      
+
       try
       {
           $res = $pdo->prepare($query);
@@ -610,7 +610,7 @@ function I_Br()
       $tot = $row['num'];
 
       echo $tot;
-      
+
     }
     ?>
 
@@ -622,7 +622,7 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script type="text/javascript">
-  
+
       google.charts.load("current", {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -645,7 +645,7 @@ CURRENT WEIGHTS ARE BASED ON OUR GENERATION RESULTS AND RESRESENT OUR CURRENT DA
           ['Scientific Research & Development',  <?php echo I_Sci()?>]
 
         ]);
-    
+
 
         var options = {
           title: 'Industry Breakdown By % of Students Indicating Interest',
